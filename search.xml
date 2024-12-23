@@ -1,77 +1,785 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>JavaScript</title>
-      <link href="/2024/10/15/JavaScript/"/>
-      <url>/2024/10/15/JavaScript/</url>
-      
-        <content type="html"><![CDATA[<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>HTML 中的 Javascript 脚本代码必须位于 <strong><script></strong> 与 <strong></script></strong> 标签间</p><p>Javascript 脚本代码可被放置在 HTML 页面的 <strong><body></strong> 和 <strong><head></strong> 中</p><h2 id="JavaScript-输出"><a href="#JavaScript-输出" class="headerlink" title="JavaScript 输出"></a>JavaScript 输出</h2><p>JavaScript 没有任何打印或者输出的函数</p><h3 id="使用-window-alert-弹出警告框来显示数据"><a href="#使用-window-alert-弹出警告框来显示数据" class="headerlink" title="使用 window.alert() 弹出警告框来显示数据"></a>使用 <strong>window.alert()</strong> 弹出警告框来显示数据</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 105906.png)</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 105856.png)</p><h3 id="使用-innerHTML-写入到-HTML-元素"><a href="#使用-innerHTML-写入到-HTML-元素" class="headerlink" title="使用 innerHTML 写入到 HTML 元素"></a>使用 <strong>innerHTML</strong> 写入到 HTML 元素</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110449.png)</p><p><strong>document.getElementById(“demo”)</strong> 用 id 属性(标识 HTML 元素)来查找 HTML 元素的 JS 代码 </p><p>**innerHTML &#x3D; “段落已修改。”**用于修改元素的 HTML 内容(innerHTML)的JS 代码</p><h3 id="使用-document-write-方法将内容写到-HTML-文档中"><a href="#使用-document-write-方法将内容写到-HTML-文档中" class="headerlink" title="使用 document.write() 方法将内容写到 HTML 文档中"></a>使用 <strong>document.write()</strong> 方法将内容写到 HTML 文档中</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110740.png)</p><p>用 document.write() 可以向文档写入内容。</p><p>如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110855.png)</p><p>![屏幕截图 2024-10-05 110900](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110900.png)</p><h3 id="使用-console-log-写入到浏览器的控制台"><a href="#使用-console-log-写入到浏览器的控制台" class="headerlink" title="使用 console.log() 写入到浏览器的控制台"></a>使用 <strong>console.log()</strong> 写入到浏览器的控制台</h3><p>使用 <strong>console.log()</strong> 方法在浏览器中( F12 来启用调试模式， 在调试窗口中点击 “Console” 菜单)显示 JavaScript 值</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 111043.png)</p><h2 id="JavaScript-语法"><a href="#JavaScript-语法" class="headerlink" title="JavaScript 语法"></a>JavaScript 语法</h2><h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p><strong>数字（Number）字面量</strong> 可以是整数或者是小数，或者是科学计数(e)【123e5&#x3D;12300000】</p><p><strong>字符串（String）字面量</strong> 可以使用单引号或双引号</p><p><strong>表达式字面量</strong> 用于计算</p><p><strong>数组（Array）字面量</strong> 定义一个数组 [40, 100, 1, 5, 25, 10]</p><p><strong>对象（Object）字面量</strong> 定义一个对象 {firstName:”John”, lastName:”Doe”, age:50, eyeColor:”blue”}</p><p><strong>函数（Function）字面量</strong> 定义一个函数  function myFunction(a, b) { return a * b;}</p><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量用于存储数据值，使用关键字 <strong>var</strong> 来定义变量， 使用等号来为变量赋值</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 112250.png)</p><h3 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h3><p>用于向浏览器发出命令（详见下节）</p><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>数字，字符串，数组，对象等</p><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h2 id="JavaScript-语句"><a href="#JavaScript-语句" class="headerlink" title="JavaScript 语句"></a>JavaScript 语句</h2><p>JavaScript 语句是发给浏览器的命令，告诉浏览器要做的事情</p><h3 id="分号"><a href="#分号" class="headerlink" title="分号 ;"></a>分号 ;</h3><p>在每条可执行的语句结尾添加分号或在一行中编写多条语句</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 154455.png)</p><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>是 JavaScript 语句的序列。浏览器按照编写顺序依次执行每条语句。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementById(&quot;demo&quot;).innerHTML=&quot;你好 Dolly&quot;; document.getElementById(&quot;myDIV&quot;).innerHTML=&quot;你最近怎么样?&quot;;</span><br></pre></td></tr></table></figure><h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>代码块的作用是一并地执行语句序列，左花括号开始，以右花括号结束</p><p>![屏幕截图 2024-10-05 155144](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 155144.png)</p><h3 id="语句标识符"><a href="#语句标识符" class="headerlink" title="语句标识符"></a>语句标识符</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 155544.png)</p><h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><p>JavaScript 会忽略多余的空格</p><h3 id="折行"><a href="#折行" class="headerlink" title="折行"></a>折行</h3><p>使用反斜杠对代码行进行换行</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 160240.png)</p><h2 id="JavaScript-变量"><a href="#JavaScript-变量" class="headerlink" title="JavaScript 变量"></a>JavaScript 变量</h2><h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><p>用 var 关键词来声明变量，变量可以先使用再声明</p><h4 id="多变量"><a href="#多变量" class="headerlink" title="多变量"></a>多变量</h4><p>在一条语句中声明很多变量：该语句以 var 开头，并使用逗号分隔变量</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var lastname=&quot;Doe&quot;, age=30, job=&quot;carpenter&quot;;</span><br></pre></td></tr></table></figure><p>横跨多行</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var lastname=&quot;Doe&quot;,</span><br><span class="line">age=30,</span><br><span class="line">job=&quot;carpenter&quot;;</span><br></pre></td></tr></table></figure><p>一条语句中声明的多个变量不可以同时赋同一个值</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x,y,z=1;</span><br></pre></td></tr></table></figure><p>x,y 为 undefined， z 为 1。</p><h4 id="重新声明变量"><a href="#重新声明变量" class="headerlink" title="重新声明变量"></a>重新声明变量</h4><p>重新声明 JavaScript 变量，该变量的值不会丢失</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var carname=&quot;Volvo&quot;;</span><br><span class="line">var carname;</span><br></pre></td></tr></table></figure><p>两条语句执行后，变量 carname 的值依然是 “Volvo”</p><h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><p>JavaScript 变量可用于存放值（ x&#x3D;5），表达式（z&#x3D;x+y）和文本值 (name&#x3D;”Bill Gates”  用双引号或单引号包围这个值)，一般倡导以字母开头</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 161056.png)</p><h2 id="JavaScript-数据类型"><a href="#JavaScript-数据类型" class="headerlink" title="JavaScript 数据类型"></a>JavaScript 数据类型</h2><p>**值类型(基本类型)**：字符串（String）、数字(Number)、布尔(Boolean)、空（Null）、未定义（Undefined）、Symbol</p><p><strong>引用数据类型（对象类型）</strong>：对象(Object)、数组(Array)、函数(Function)，还有两个特殊的对象：正则（RegExp）和日期（Date）</p><p>变量的数据类型可以使用 <strong>typeof</strong> 操作符来查看</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 162748.png)</p><h3 id="JavaScript-数组"><a href="#JavaScript-数组" class="headerlink" title="JavaScript 数组"></a>JavaScript 数组</h3><p>JavaScript 不支持使用名字来索引数组，只允许使用数字索引</p><p>如果你使用名字作为索引，当访问数组时，JavaScript 会把数组重新定义为标准对象。</p><p>执行这样操作后，数组的方法及属性将不能再使用，否则会产生错误（person.length输出为0）</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var cars=new Array();</span><br><span class="line">cars[0]=&quot;Saab&quot;;</span><br><span class="line">cars[1]=&quot;Volvo&quot;;</span><br><span class="line">cars[2]=&quot;BMW&quot;;</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var cars=new Array(&quot;Saab&quot;,&quot;Volvo&quot;,&quot;BMW&quot;);</span><br></pre></td></tr></table></figure><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 163220.png)</p><h2 id="JavaScript-对象"><a href="#JavaScript-对象" class="headerlink" title="JavaScript 对象"></a>JavaScript 对象</h2><p>对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义</p><h3 id="对象属性两种访问方式"><a href="#对象属性两种访问方式" class="headerlink" title="对象属性两种访问方式"></a>对象属性两种访问方式</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 234215.png)</p><h3 id="对象方法"><a href="#对象方法" class="headerlink" title="对象方法"></a>对象方法</h3><p>对象的方法定义了一个函数，并作为对象的属性存储。对象方法通过添加 () 调用 (作为一个函数)。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 234705.png)</p><h3 id="typeof，Undefined-和-Null"><a href="#typeof，Undefined-和-Null" class="headerlink" title="typeof，Undefined 和 Null"></a>typeof，Undefined 和 Null</h3><p>typeof 操作符来检测变量的数据类型</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof &quot;John&quot;         // 返回 string</span><br><span class="line">typeof 3.14          // 返回 number</span><br><span class="line">typeof NaN           // 返回 number</span><br><span class="line">typeof false         // 返回 boolean</span><br><span class="line">typeof [1,2,3,4]       // 返回 object</span><br><span class="line">typeof &#123;name:&#x27;John&#x27;, age:34&#125; // 返回 object</span><br><span class="line">typeof new Date()       // 返回 object</span><br><span class="line">typeof function () &#123;&#125;     // 返回 function</span><br><span class="line">typeof myCar         // 返回 undefined (如果 myCar 没有声明)</span><br><span class="line">typeof null          // 返回 object</span><br></pre></td></tr></table></figure><p>Undefined 这个值表示变量不含有值。任何变量都可以通过设置值为 <strong>undefined</strong> 来清空</p><p>null 表示 “什么都没有”，但类型为<strong>对象</strong>，是一个<strong>只有一个值的特殊类型</strong>。表示一个空对象引用。可以设置为 null 来清空变量。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 191943.png)</p><p>在常规的比较&#x3D;&#x3D;中，数据类型是被忽略的</p><p>在严格的比较运算中，&#x3D;&#x3D;&#x3D; 为恒等计算符，同时检查表达式的值与类型</p><h2 id="JavaScript-函数"><a href="#JavaScript-函数" class="headerlink" title="JavaScript 函数"></a>JavaScript 函数</h2><h3 id="调用带参数的函数"><a href="#调用带参数的函数" class="headerlink" title="调用带参数的函数"></a>调用带参数的函数</h3><p>变量和参数必须以一致的顺序出现（第一个变量就是第一个被传递的参数的给定的值）</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 090227.png)</p><h3 id="带有返回值的函数"><a href="#带有返回值的函数" class="headerlink" title="带有返回值的函数"></a>带有返回值的函数</h3><p>使用 return 语句时，函数会停止执行，并返回指定的值</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 090512.png)</p><h2 id="JavaScript-作用域"><a href="#JavaScript-作用域" class="headerlink" title="JavaScript 作用域"></a>JavaScript 作用域</h2><p><strong>作用域为可访问变量，对象，函数的集合</strong></p><h3 id="JavaScript-局部作用域"><a href="#JavaScript-局部作用域" class="headerlink" title="JavaScript 局部作用域"></a>JavaScript 局部作用域</h3><p>局部变量：只能在函数内部访问，局部变量在函数开始执行时创建，函数执行完后局部变量会自动销毁，不同的函数可以使用相同名称的变量</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092938.png)</p><h3 id="JavaScript-全局变量"><a href="#JavaScript-全局变量" class="headerlink" title="JavaScript 全局变量"></a>JavaScript 全局变量</h3><p>全局变量有 <strong>全局作用域</strong>: 网页中所有脚本和函数均可使用</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092248.png)</p><p>如果变量在函数内没有声明（没有使用 var 关键字），该变量为全局变量</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092443.png)</p><h2 id="JavaScript-字符串"><a href="#JavaScript-字符串" class="headerlink" title="JavaScript 字符串"></a>JavaScript 字符串</h2><p>JavaScript 字符串用于存储和处理文本</p><p>字符串的索引从 0 开始，这意味着第一个字符索引值为 **[0]**，第二个为 **[1]**，以此类推</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 111334.png)</p><h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><p>反斜杠是一个<strong>转义字符</strong>。 转义字符将特殊字符转换为字符串字符</p><p>例如：可以在字符串中使用引号，字符串中的引号不要与字符串的引号相同（但可以在字符串添加转义字符来使用引号）</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 111829.png)</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 112524.png)</p><h3 id="字符串长度"><a href="#字符串长度" class="headerlink" title="字符串长度"></a>字符串长度</h3><p>使用内置属性 <strong>length</strong> 来计算字符串的长度</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 112130.png)</p><h3 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h3><p>模板字符串中可以同时使用单引号和双引号</p><p>模板字符串还支持多行文本，而无需使用特殊的转义字符：</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 115412.png)</p><p>模板字面量还可以包含占位符——一种由美元符号和大括号分隔的嵌入式表达式：**${expression}**</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 115719.png)</p><h2 id="JavaScript-运算符"><a href="#JavaScript-运算符" class="headerlink" title="JavaScript 运算符"></a>JavaScript 运算符</h2><h3 id="用于字符串的-运算符"><a href="#用于字符串的-运算符" class="headerlink" title="用于字符串的 + 运算符"></a>用于字符串的 + 运算符</h3><p>+ 运算符用于把文本值或字符串变量加起来（连接起来）</p><p>如需把两个或多个字符串变量连接起来，请使用 <strong>+</strong> 运算符</p><p>要想在两个字符串之间增加空格，需要把空格插入一个字符串之中或者把空格插入表达式中(txt3&#x3D;txt1+” “+txt2)</p><p>**规则:**如果把数字与字符串相加，结果将成为字符串！</p><h3 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h3><p><em>variablename</em>&#x3D;(<em>condition</em>)?<em>value1</em>:<em>value2</em> </p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 155430.png)</p><p><strong>加法</strong>是两个<strong>数字</strong>相加。</p><p><strong>连接</strong>是两个<strong>字符串</strong>连接。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x = 10 + 5;     // x 的结果为 15</span><br><span class="line">var x = 10 + &quot;5&quot;;    // x 的结果为 &quot;105&quot;</span><br></pre></td></tr></table></figure><h2 id="JavaScript循环"><a href="#JavaScript循环" class="headerlink" title="JavaScript循环"></a>JavaScript循环</h2><h3 id="C-Users-ASUS-Pictures-Screenshots-屏幕截图-2024-10-06-162257-png"><a href="#C-Users-ASUS-Pictures-Screenshots-屏幕截图-2024-10-06-162257-png" class="headerlink" title="![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 162257.png)"></a>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 162257.png)</h3><p>在 switch 语句中，用恒等计算符(&#x3D;&#x3D;&#x3D;)进行比较</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x = 10;</span><br><span class="line">switch(x) &#123;</span><br><span class="line">  case 10: alert(&quot;Hello&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上例会出现弹窗</p><h2 id="JavaScript-类型转换"><a href="#JavaScript-类型转换" class="headerlink" title="JavaScript 类型转换"></a>JavaScript 类型转换</h2><h3 id="constructor-属性"><a href="#constructor-属性" class="headerlink" title="constructor 属性"></a>constructor 属性</h3><p><strong>constructor</strong> 属性返回所有 JavaScript 变量的构造函数</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;John&quot;.constructor         // 返回函数 String() &#123; [native code] &#125;</span><br><span class="line">(3.14).constructor         // 返回函数 Number() &#123; [native code] &#125;</span><br><span class="line">false.constructor         // 返回函数 Boolean() &#123; [native code] &#125;</span><br><span class="line">[1,2,3,4].constructor       // 返回函数 Array()  &#123; [native code] &#125;</span><br><span class="line">&#123;name:&#x27;John&#x27;, age:34&#125;.constructor // 返回函数 Object() &#123; [native code] &#125;</span><br><span class="line">new Date().constructor       // 返回函数 Date()  &#123; [native code] &#125;</span><br><span class="line">function () &#123;&#125;.constructor     // 返回函数 Function()&#123; [native code] &#125;</span><br></pre></td></tr></table></figure><h3 id="JavaScript-类型转换-1"><a href="#JavaScript-类型转换-1" class="headerlink" title="JavaScript 类型转换"></a>JavaScript 类型转换</h3><p>JavaScript 变量可以转换为新变量或其他数据类型</p><h4 id="将数字转换为字符串"><a href="#将数字转换为字符串" class="headerlink" title="将数字转换为字符串"></a>将数字转换为字符串</h4><p>全局方法 <strong>String()</strong> 可以将数字，字母，变量，表达式转换为字符串</p><p>String(x)  String(123) </p><p>Number 方法 <strong>toString()</strong> 也是</p><p>x.toString()   (123).toString()</p><table><thead><tr><th align="left">方法</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">toExponential()</td><td align="left">把对象的值转换为指数计数法。</td></tr><tr><td align="left">toFixed()</td><td align="left">把数字转换为字符串，结果的小数点后有指定位数的数字。</td></tr><tr><td align="left">toPrecision()</td><td align="left">把数字格式化为指定的长度。</td></tr></tbody></table><h4 id="将布尔值转换为字符串"><a href="#将布尔值转换为字符串" class="headerlink" title="将布尔值转换为字符串"></a>将布尔值转换为字符串</h4><p>全局方法 <strong>String()</strong> </p><p>Boolean 方法 <strong>toString()</strong> </p><h4 id="将日期转换为字符串"><a href="#将日期转换为字符串" class="headerlink" title="将日期转换为字符串"></a>将日期转换为字符串</h4><p>Date() 返回字符串。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Date()  </span><br></pre></td></tr></table></figure><p>全局方法 String() 可以将日期对象转换为字符串。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String(new Date())  </span><br></pre></td></tr></table></figure><p>Date 方法 <strong>toString()</strong> 也有相同的效果。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">obj = new Date()</span><br><span class="line">obj.toString() </span><br></pre></td></tr></table></figure><table><thead><tr><th align="left">方法</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">getDate()</td><td align="left">从 Date 对象返回一个月中的某一天 (1 ~ 31)。</td></tr><tr><td align="left">getDay()</td><td align="left">从 Date 对象返回一周中的某一天 (0 ~ 6)。</td></tr><tr><td align="left">getFullYear()</td><td align="left">从 Date 对象以四位数字返回年份。</td></tr><tr><td align="left">getHours()</td><td align="left">返回 Date 对象的小时 (0 ~ 23)。</td></tr><tr><td align="left">getMilliseconds()</td><td align="left">返回 Date 对象的毫秒(0 ~ 999)。</td></tr><tr><td align="left">getMinutes()</td><td align="left">返回 Date 对象的分钟 (0 ~ 59)。</td></tr><tr><td align="left">getMonth()</td><td align="left">从 Date 对象返回月份 (0 ~ 11)。</td></tr><tr><td align="left">getSeconds()</td><td align="left">返回 Date 对象的秒数 (0 ~ 59)。</td></tr><tr><td align="left">getTime()</td><td align="left">返回 1970 年 1 月 1 日至今的毫秒数。</td></tr></tbody></table><h4 id="将字符串转换为数字"><a href="#将字符串转换为数字" class="headerlink" title="将字符串转换为数字"></a>将字符串转换为数字</h4><p>全局方法 <strong>Number()</strong> </p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Number(&quot;3.14&quot;)  // 返回 3.14</span><br><span class="line">Number(&quot; &quot;)    // 返回 0</span><br><span class="line">Number(&quot;&quot;)    // 返回 0</span><br><span class="line">Number(&quot;99 88&quot;)  // 返回 NaN</span><br></pre></td></tr></table></figure><table><thead><tr><th align="left">方法</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">parseFloat()</td><td align="left">解析一个字符串，并返回一个浮点数。</td></tr><tr><td align="left">parseInt()</td><td align="left">解析一个字符串，并返回一个整数。</td></tr></tbody></table><h4 id="将布尔值转换为数字"><a href="#将布尔值转换为数字" class="headerlink" title="将布尔值转换为数字"></a>将布尔值转换为数字</h4><p>全局方法 <strong>Number()</strong> </p><h4 id="将日期转换为数字"><a href="#将日期转换为数字" class="headerlink" title="将日期转换为数字"></a>将日期转换为数字</h4><p>全局方法 <strong>Number()</strong></p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">d = new Date();</span><br><span class="line">Number(d)</span><br></pre></td></tr></table></figure><p>日期方法 <strong>getTime()</strong> </p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">d = new Date();</span><br><span class="line">d.getTime()  </span><br></pre></td></tr></table></figure><h4 id="自动转换为字符串"><a href="#自动转换为字符串" class="headerlink" title="自动转换为字符串"></a>自动转换为字符串</h4><p>当你尝试输出一个对象或一个变量时 JavaScript 会自动调用变量的 toString() 方法：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = myVar;</span><br><span class="line"></span><br><span class="line">myVar = &#123;name:&quot;Fjohn&quot;&#125; // toString 转换为 &quot;[object Object]&quot;</span><br><span class="line">myVar = [1,2,3,4]    // toString 转换为 &quot;1,2,3,4&quot;</span><br><span class="line">myVar = new Date()   // toString 转换为 &quot;Fri Jul 18 2014 09:08:55 GMT+0200&quot;</span><br></pre></td></tr></table></figure><p>数字和布尔值也经常相互转换：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myVar = 123       // toString 转换为 &quot;123&quot;</span><br><span class="line">myVar = true       // toString 转换为 &quot;true&quot;</span><br><span class="line">myVar = false      // toString 转换为 &quot;false&quot;</span><br></pre></td></tr></table></figure><h2 id="JavaScript-正则表达式"><a href="#JavaScript-正则表达式" class="headerlink" title="JavaScript 正则表达式"></a>JavaScript 正则表达式</h2><p>使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式</p><p>正则表达式可用于所有文本搜索和文本替换的操作</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/正则表达式主体/修饰符(可选)</span><br></pre></td></tr></table></figure><p>var patt &#x3D; &#x2F;runoob&#x2F;i</p><p><strong>&#x2F;runoob&#x2F;i</strong> 是一个正则表达式。<strong>runoob</strong> 是一个<strong>正则表达式主体</strong> (用于检索)。<strong>i</strong> 是一个<strong>修饰符</strong> (搜索不区分大小写)</p><h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><p><strong>search()</strong> 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。</p><p><strong>replace()</strong> 方法用于在字符串中用一些字符串替换另一些字符串，或替换一个与正则表达式匹配的子串。</p><h3 id="RegExp-对象"><a href="#RegExp-对象" class="headerlink" title="RegExp 对象"></a>RegExp 对象</h3><h3 id="test-使用"><a href="#test-使用" class="headerlink" title="test()使用"></a>test()使用</h3><p>test() 方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true</p><p>搜索字符串中的字符 “e”：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var patt = /e/;</span><br><span class="line">patt.test(&quot;The best things in life are free!&quot;);</span><br></pre></td></tr></table></figure><p>或：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/e/.test(&quot;The best things in life are free!&quot;)</span><br></pre></td></tr></table></figure><h3 id="exec-使用"><a href="#exec-使用" class="headerlink" title="exec()使用"></a>exec()使用</h3><p>exec() 方法用于检索字符串中的正则表达式的匹配。该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var patt1=new RegExp(&quot;e&quot;);</span><br><span class="line">document.write(patt1.exec(&quot;The best things in life are free&quot;));</span><br></pre></td></tr></table></figure><p>输出为e</p><h2 id="JavaScript-错误"><a href="#JavaScript-错误" class="headerlink" title="JavaScript 错误"></a>JavaScript 错误</h2><h3 id="throw语句创建自定义错误"><a href="#throw语句创建自定义错误" class="headerlink" title="throw语句创建自定义错误"></a>throw语句创建自定义错误</h3><h3 id="try-语句测试代码块的错误"><a href="#try-语句测试代码块的错误" class="headerlink" title="try 语句测试代码块的错误"></a><strong>try</strong> 语句测试代码块的错误</h3><h3 id="catch-语句处理错误"><a href="#catch-语句处理错误" class="headerlink" title="catch 语句处理错误"></a><strong>catch</strong> 语句处理错误</h3><h3 id="finally-语句"><a href="#finally-语句" class="headerlink" title="finally 语句"></a>finally 语句</h3><p>finally 语句不论之前的 try 和 catch 中是否产生异常都会执行该代码块</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 221211.png)</p><h2 id="JavaScript-表单"><a href="#JavaScript-表单" class="headerlink" title="JavaScript 表单"></a>JavaScript 表单</h2><h3 id="JavaScript-表单验证"><a href="#JavaScript-表单验证" class="headerlink" title="JavaScript 表单验证"></a>JavaScript 表单验证</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 101906.png)</p><h3 id="JavaScript-验证输入的数字"><a href="#JavaScript-验证输入的数字" class="headerlink" title="JavaScript 验证输入的数字"></a>JavaScript 验证输入的数字</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 102407.png)</p><h2 id="JavaScript关键字"><a href="#JavaScript关键字" class="headerlink" title="JavaScript关键字"></a>JavaScript关键字</h2><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h4 id="方法中的-this"><a href="#方法中的-this" class="headerlink" title="方法中的 this"></a>方法中的 this</h4><p>this 指向调用它所在方法的对象</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 103918.png)</p><h4 id="单独使用-this"><a href="#单独使用-this" class="headerlink" title="单独使用 this"></a>单独使用 this</h4><p>单独使用 this，则它指向全局(Global)对象</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104149.png)</p><h4 id="函数中使用-this"><a href="#函数中使用-this" class="headerlink" title="函数中使用 this"></a>函数中使用 this</h4><p>在函数中，函数的所属者默认绑定到 this 上</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104247.png)</p><p>严格模式下，<strong>this</strong> 为 <strong>undefined</strong>，因为严格模式下不允许默认绑定</p><h4 id="事件中的-this"><a href="#事件中的-this" class="headerlink" title="事件中的 this"></a>事件中的 this</h4><p>this 指向了接收事件的 HTML 元素</p><h4 id="对象方法中绑定"><a href="#对象方法中绑定" class="headerlink" title="对象方法中绑定"></a>对象方法中绑定</h4><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104558.png)</p><p>this 是 person 对象，person 对象是函数的所有者</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104640.png)</p><p><strong>this.firstName</strong> 表示 <strong>this</strong> (person) 对象的 <strong>firstName</strong> 属性</p><h4 id="显式函数绑定"><a href="#显式函数绑定" class="headerlink" title="显式函数绑定"></a>显式函数绑定</h4><p>函数也是对象，对象则有方法，apply 和 call 就是函数对象的方法，他们允许切换函数执行的上下文环境（context），即 this 绑定的对象</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 105100.png)</p><h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p>let 声明的变量只在 let 命令所在的代码块 <strong>{}</strong> 内有效，在 <strong>{}</strong> 之外不能访问</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 114257.png)</p><p>在相同的作用域或块级作用域中，不能使用 <strong>let</strong> 关键字来重置 <strong>let</strong> 关键字声明的变量</p><h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>const 用于声明一个或多个常量，声明时<strong>必须进行初始化</strong>，定义常量的值不能通过再赋值修改，也不能再次声明</p><p>const 定义的变量并非常量，并非不可变，它定义了一个常量引用一个值。使用 const 定义的对象或者数组，其实是可变的</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 创建常量对象</span><br><span class="line">const car = &#123;type:&quot;Fiat&quot;, model:&quot;500&quot;, color:&quot;white&quot;&#125;;</span><br><span class="line"></span><br><span class="line">// 修改属性:</span><br><span class="line">car.color = &quot;red&quot;;</span><br><span class="line"></span><br><span class="line">// 添加属性</span><br><span class="line">car.owner = &quot;Johnson&quot;;</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 创建常量数组</span><br><span class="line">const cars = [&quot;Saab&quot;, &quot;Volvo&quot;, &quot;BMW&quot;];</span><br><span class="line"></span><br><span class="line">// 修改元素</span><br><span class="line">cars[0] = &quot;Toyota&quot;;</span><br><span class="line"></span><br><span class="line">// 添加元素</span><br><span class="line">cars.push(&quot;Audi&quot;);</span><br></pre></td></tr></table></figure><h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><p>指定要计算一个表达式但是不返回值</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 125443.png)</p><p>href&#x3D;”#”与href&#x3D;”javascript:void(0)”的区别</p><p><strong>#</strong> 包含了一个位置信息，默认的锚是**#top** 也就是网页的上端。而javascript:void(0), 仅仅表示一个死链接。在页面很长的时候会使用 <strong>#</strong> 来定位页面的具体位置，格式为：**# + id**</p><h2 id="JavaScript-JSON"><a href="#JavaScript-JSON" class="headerlink" title="JavaScript JSON"></a>JavaScript JSON</h2><p>JSON 是用于存储和传输数据的格式， 通常用于服务端向网页传递数据 </p><h3 id="JSON-数组"><a href="#JSON-数组" class="headerlink" title="JSON 数组"></a>JSON 数组</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;sites&quot;:[</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Runoob&quot;, &quot;url&quot;:&quot;www.runoob.com&quot;&#125;, </span><br><span class="line">    &#123;&quot;name&quot;:&quot;Google&quot;, &quot;url&quot;:&quot;www.google.com&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Taobao&quot;, &quot;url&quot;:&quot;www.taobao.com&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure><h3 id="JSON-字符串转换为-JavaScript-对象"><a href="#JSON-字符串转换为-JavaScript-对象" class="headerlink" title="JSON 字符串转换为 JavaScript 对象"></a>JSON 字符串转换为 JavaScript 对象</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var text = &#x27;&#123; &quot;sites&quot; : [&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Runoob&quot; , &quot;url&quot;:&quot;www.runoob.com&quot; &#125;,&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Google&quot; , &quot;url&quot;:&quot;www.google.com&quot; &#125;,&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Taobao&quot; , &quot;url&quot;:&quot;www.taobao.com&quot; &#125; ]&#125;&#x27;;</span><br><span class="line">    </span><br><span class="line">obj = JSON.parse(text);</span><br><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = obj.sites[1].name + &quot; &quot; + obj.sites[1].url;</span><br></pre></td></tr></table></figure><table><thead><tr><th align="left">函数</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left"><a href="https://www.runoob.com/js/javascript-json-parse.html">JSON.parse()</a></td><td align="left">用于将一个 JSON 字符串转换为 JavaScript 对象。</td></tr><tr><td align="left"><a href="https://www.runoob.com/js/javascript-json-stringify.html">JSON.stringify()</a></td><td align="left">用于将 JavaScript 值转换为 JSON 字符串。</td></tr></tbody></table>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>HTTP</title>
+    <url>/2024/10/15/HTTP/</url>
+    <content><![CDATA[<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><h2 id="HTTP概述"><a href="#HTTP概述" class="headerlink" title="HTTP概述"></a>HTTP概述</h2><p><strong>HTTP</strong> 是一种用作获取诸如 HTML 文档这类资源的协议（TTP 是一种应用层的协议，通过 TCP 或 TLS（一种加密过的 TCP 连接）来发送）。它是 Web 上进行任何数据交换的基础，也是一种客户端—服务器（client-server）协议</p>
+<h2 id="HTTP请求包的结构"><a href="#HTTP请求包的结构" class="headerlink" title="HTTP请求包的结构"></a>HTTP请求包的结构</h2><h3 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h3><h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>（统一资源定位符）是因特网中的唯一资源的地址。它是浏览器用于检索已发布资源（例如 HTML 页面、CSS 文档、图像等）的关键机制之一</p>
+<h5 id="URL基本内容"><a href="#URL基本内容" class="headerlink" title="URL基本内容"></a>URL基本内容</h5><img src="C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-19 131750.png" style="zoom:200%;" />
+
+<h6 id="协议（scheme）"><a href="#协议（scheme）" class="headerlink" title="协议（scheme）"></a>协议（scheme）</h6><p> HTTPS 、 HTTP、FTP</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 082841.png)</p>
+<h6 id="权威（authority）"><a href="#权威（authority）" class="headerlink" title="权威（authority）"></a>权威（authority）</h6><p>权威包括域名（例如 <code>www.example.com</code>）和端口（<code>80</code>），由冒号分隔</p>
+<p>注：邮件客户端（<code>mailto:foobar</code>）不使用权威（其包含方案）</p>
+<h6 id="路径（Path）"><a href="#路径（Path）" class="headerlink" title="路径（Path）"></a>路径（Path）</h6><p><code>/path/to/myfile.html</code> 、<code>/index.html</code>是 Web 服务器上资源的路径</p>
+<h6 id="参数（Parameters）"><a href="#参数（Parameters）" class="headerlink" title="参数（Parameters）"></a>参数（Parameters）</h6><p><code>?key1=value1&amp;key2=value2</code> 是提供给 Web 服务器的额外参数(参数是用 <code>&amp;</code> 符号分隔的键&#x2F;值对列表)</p>
+<h6 id="锚点（Anchor）"><a href="#锚点（Anchor）" class="headerlink" title="锚点（Anchor）"></a>锚点（Anchor）</h6><p><code>#SomewhereInTheDocument</code> 是资源本身的另一部分的锚点</p>
+<p>锚点表示资源中的一种“书签”，给浏览器显示位于该“加书签”位置的内容的方向</p>
+<p><strong>#</strong> 后面的部分（也称为<strong>片段标识符</strong>）不会随请求被发送到服务器</p>
+<h5 id="一些URL"><a href="#一些URL" class="headerlink" title="一些URL"></a>一些URL</h5><p>数据URL：以 <code>data:</code> 方案为前缀的 URL，允许内容创建者在文档中嵌入小文件</p>
+<p>注：URL 编码使用 “%” 其后跟随两位的十六进制数来替换非 ASCII 字符。</p>
+<p>URL 不能包含空格。URL 编码通常使用 + 来替换空格。</p>
+<h3 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h3><h4 id="请求方式："><a href="#请求方式：" class="headerlink" title="请求方式："></a>请求方式：</h4><p><img src="C:\Users\ASUS\Pictures\Screenshots\wetwtogu2w4a4_25e0fbd76b664a3fa91ab108a3db05ab.png"></p>
+<h4 id="GET和POST"><a href="#GET和POST" class="headerlink" title="GET和POST"></a>GET和POST</h4><h5 id="get-请求"><a href="#get-请求" class="headerlink" title="get 请求"></a>get 请求</h5><p>GET 请求<strong>主要用于从服务器获取数据</strong>，常用于获取静态资源（网页、图片、文件等）<img src="C:\Users\ASUS\Pictures\Screenshots\wetwtogu2w4a4_c21c9fc068484138a99364b55cdc8a27.png"></p>
+<p>get请求的参数传递方式</p>
+<p>在 HTTP 请求中，GET 请求可以通过 URL 参数或者请求体的方式传递参数。</p>
+<p>URL 参数：GET 请求可以通过 URL 中指定的 key-value 形式传递参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/search?q=test&amp;page=2</span><br></pre></td></tr></table></figure>
+
+<p>？后 key&#x3D; value</p>
+<h5 id="post请求"><a href="#post请求" class="headerlink" title="post请求"></a>post请求</h5><p>POST 请求<strong>主要用于向服务器提交数据，通常用于创建、更新或删除资源</strong>、上传文件、发送 JSON 数据</p>
+<p><img src="C:\Users\ASUS\Pictures\Screenshots\wetwtogu2w4a4_6bbf9571564341b99b0e3444afd8ce7a.png"></p>
+<p>post请求的参数传递方式：URL 参数和请求体。</p>
+<p>1.URL 参数：POST 请求可以通过 URL 中指定的 key-value 形式传递参数。例如，在访问如下 URL 时：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/search?q=test&amp;page=2</span><br></pre></td></tr></table></figure>
+
+<p>2.请求体（仅适用于 POST、PUT、PATCH 请求）：当 POST、PUT 或 PATCH 请求的 URL 中没有指定参数时，参数会被放置在请求体中。请求体中的数据可以是表单数据、JSON 数据等。例如，使用 POST 请求将 JSON 数据发送到如下 URL 时：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/users</span><br></pre></td></tr></table></figure>
+
+<p>请求体中的 JSON 数据如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> &quot;name&quot;: &quot;John Doe&quot;,</span><br><span class="line"> &quot;email&quot;: &quot;john.doe@example.com&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="get和post区别"><a href="#get和post区别" class="headerlink" title="get和post区别"></a>get和post区别</h5><p><img src="C:\Users\ASUS\Pictures\Screenshots\wetwtogu2w4a4_674121dd79b44430a181eb2042597bf2.png"></p>
+<h5 id="get-和-post-请求的使用场景"><a href="#get-和-post-请求的使用场景" class="headerlink" title="get 和 post 请求的使用场景"></a>get 和 post 请求的使用场景</h5><h6 id="get"><a href="#get" class="headerlink" title="get"></a>get</h6><ul>
+<li>获取数据：GET 请求适合用于从服务器获取数据，例如获取网页内容、查询数据库、获取资源文件等。由于 GET 请求的参数会显示在 URL 中，因此它适用于不需要保密的参数传递。</li>
+<li>缓存友好：GET 请求的响应可以被缓存，这对于一些静态资源的获取非常有益，可以提高性能和减少服务器负载。</li>
+<li>链接导航：GET 请求可以用于在浏览器中进行链接导航，通过在 URL 中传递参数来指定要导航到的页面或资源。</li>
+</ul>
+<h6 id="post"><a href="#post" class="headerlink" title="post"></a>post</h6><ul>
+<li><p>提交数据：POST 请求适合用于向服务器提交数据，例如提交表单、上传文件等。由于 POST 请求的参数不会显示在 URL 中，因此它适用于传递敏感数据或大量参数。</p>
+</li>
+<li><p>创建资源：POST 请求可以用于在服务器上创建新的资源，例如创建新的用户、发布新的文章等。</p>
+</li>
+<li><p>执行非幂等操作：POST 请求是非幂等的，意味着多次发送相同的 POST 请求可能会产生不同的结果。这适用于一些需要执行不可重复操作的场景，例如订单支付、密码修改等。</p>
+<p>加键值对时get在url中？a&#x3D;1   post在请求体中a&#x3D;11</p>
+</li>
+</ul>
+<h3 id="请求头及其内容"><a href="#请求头及其内容" class="headerlink" title="请求头及其内容"></a>请求头及其内容</h3><img src="C:\Users\ASUS\Pictures\Screenshots\http_request_headers3.png" />
+
+<h4 id="常见的请求头及作用"><a href="#常见的请求头及作用" class="headerlink" title="常见的请求头及作用"></a>常见的请求头及作用</h4><p>Host，Referer，User-Agent，Cookie，Content-Type，X-Forwarded-For</p>
+<p><em>注：POST 请求（包含 HTML 表单数据）需要主体</em></p>
+<p><em>主体大致可分为两类：</em></p>
+<p>*单一资源（Single-resource）主体，由一个单文件组成。该类型的主体由两个标头定义：Content-Type和Content-Length</p>
+<p><em>多资源（Multiple-resource）主体，由多部分主体组成，每一部分包含不同的信息位。通常是和 HTML 表单连系在一起。</em></p>
+<ol>
+<li><p><strong>Host</strong>：指定请求的服务器的域名和端口号。</p>
+</li>
+<li><p><strong>User-Agent</strong>：包含发出请求的用户代理（浏览器）的信息。</p>
+<p>一个典型的 <code>User-Agent</code> 字符串可能看起来像这样：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</span><br></pre></td></tr></table></figure>
+
+<p>这个字符串包含了以下信息：</p>
+<ul>
+<li><strong>浏览器</strong>：Mozilla&#x2F;5.0</li>
+<li><strong>操作系统</strong>：Windows NT 10.0</li>
+<li><strong>平台</strong>：Win64; x64</li>
+<li><strong>浏览器核心</strong>：AppleWebKit&#x2F;537.36</li>
+<li><strong>浏览器名称</strong>：Chrome</li>
+<li><strong>浏览器版本</strong>：58.0.3029.110</li>
+<li><strong>渲染引擎</strong>：Safari&#x2F;537.36</li>
+</ul>
+</li>
+<li><p><strong>Accept</strong>：指定客户端能够处理的媒体类型。</p>
+</li>
+<li><p><strong>Accept-Language</strong>：指定客户端偏好的语言。</p>
+</li>
+<li><p><strong>Accept-Encoding</strong>：指定客户端能够处理的压缩算法。</p>
+</li>
+<li><p><strong>Authorization</strong>：用于身份验证的凭证。</p>
+</li>
+<li><p><strong>Cookie</strong>：Cookie 是一种服务器发送到用户浏览器并保存在本地的数据。它用于跟踪和识别用户会话，存储用户的偏好设置。</p>
+<p>基本概念</p>
+<p>会话Cookie：只在浏览器会话期间有效，当用户关闭浏览器时，这些Cookie就会被删除。</p>
+<p>持久Cookie：具有过期时间，即使关闭浏览器也会保留，直到过期或被用户手动删除。</p>
+<p>示例</p>
+<p>假设服务器想要设置一个Cookie，其内容如下：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Set-Cookie: sessionId=abc123; Expires=Wed, 09 Jun 2024 10:18:14 GMT; Domain=example.com; Path=/; Secure; HttpOnly; SameSite=Lax</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中：</p>
+<p><code>sessionId=abc123</code> 是Cookie的名称-值对（存储在Cookie中的数据）</p>
+<p><code>Expires=Wed, 09 Jun 2024 10:18:14 GMT</code> 定义了Cookie的过期时间。<code>ax-Age</code>属性指定一个相对于创建时的时间长度（以秒为单位）</p>
+<p><code>Domain=example.com</code> 指定了Cookie的有效域名（哪些域名下的页面请求可以包含这个Cookie）如果未指定，默认为创建Cookie的服务器的域名</p>
+<p><code>Path=/</code> 指定了Cookie的有效路径。</p>
+<p><code>Secure</code> 属性表示Cookie仅通过HTTPS发送。</p>
+<p><code>HttpOnly</code> 属性表示Cookie不能被客户端脚本（如JavaScript）访问。</p>
+<p><code>SameSite=Lax</code> 属性表示在跨站请求时，Cookie不会随请求发送，除非请求是同站的。</p>
+</li>
+<li><p><strong>Content-Length</strong>：请求体的长度。</p>
+</li>
+<li><p><strong>Content-Type</strong>：指定资源的媒体类型（ MIME 类型），告诉接收方如何处理传输的数据</p>
+<p>以下是一些常见的 <code>Content-Type</code> 值及其对应的数据格式：</p>
+<ol>
+<li><strong>文本类型</strong><ul>
+<li><code>text/html</code>：HTML 文档。</li>
+<li><code>text/plain</code>：纯文本。</li>
+<li><code>text/css</code>：层叠样式表（CSS）。</li>
+<li><code>text/javascript</code>：JavaScript 代码（已废弃，应使用 <code>application/javascript</code>）。</li>
+</ul>
+</li>
+<li><strong>图像类型</strong><ul>
+<li><code>image/gif</code>：GIF 图像。</li>
+<li><code>image/jpeg</code>：JPEG 图像。</li>
+<li><code>image/png</code>：PNG 图像。</li>
+<li><code>image/svg+xml</code>：SVG 矢量图像。</li>
+<li><code>image/webp</code>: WebP格式的图像。</li>
+</ul>
+</li>
+<li><strong>音频和视频类型</strong><ul>
+<li><code>audio/mpeg</code>：MPEG 音频。</li>
+<li><code>video/mp4</code>：MP4 视频。</li>
+<li><code>audio/ogg</code>：Ogg 音频。</li>
+<li><code>video/ogg</code>：Ogg 视频。</li>
+<li><code>video/webm</code>: WebM格式的视频。</li>
+</ul>
+</li>
+<li><strong>应用程序类型</strong><ul>
+<li><code>application/json</code>：JSON 数据。</li>
+<li><code>application/xml</code>：XML 数据。</li>
+<li><code>application/pdf</code>：PDF 文档。</li>
+<li><code>application/zip</code>：ZIP 压缩文件。</li>
+<li><code>application/javascript</code>：JavaScript 代码（现代浏览器推荐使用）。</li>
+</ul>
+</li>
+<li><strong>多部分类型</strong><ul>
+<li><code>multipart/form-data</code>：用于表单数据的传输，允许在单个请求中发送多个文件和字段。这通常用于文件上传和多值数据传输。</li>
+<li><code>multipart/byteranges</code>：用于定义多个字节范围，通常用于视频流或大文件下载</li>
+</ul>
+</li>
+<li><strong>其他类型</strong><ul>
+<li><code>application/octet-stream</code>：用于二进制数据，如可执行文件或字节流。</li>
+<li><code>application/x-www-form-urlencoded</code>：用于表单数据的传输，通常用于 GET 和 POST 请求。</li>
+</ul>
+</li>
+<li><strong>字符编码</strong><ul>
+<li>许多 <code>Content-Type</code> 值可以包含字符编码信息，如 <code>text/html; charset=utf-8</code>，这指定了使用 UTF-8 编码的 HTML 文档。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>Referer</strong>：指示请求来源的页面URL（用户是从哪个页面点击链接到达当前请求的页面的），这个头部字段通常用于分析流量来源、防止CSRF（跨站请求伪造）攻击以及跟踪用户行为</p>
+<p>示例</p>
+<p>假设用户从页面 <code>https://www.example.com/page1.html</code> 点击一个链接，跳转到 <code>https://www.example.com/page2.html</code>，那么在请求 <code>page2.html</code> 时，HTTP请求的 <code>Referer</code> 头部可能如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /page2.html HTTP/1.1</span><br><span class="line">Host: www.example.com</span><br><span class="line">Referer: https://www.example.com/page1.html</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>11.<strong>X-Forwarded-For</strong>:用于在HTTP请求经过代理服务器或负载均衡器时保留原始客户端的IP地址信息</p>
+<p><code>X-Forwarded-For</code>头部字段的格式如下：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">X-Forwarded-For: &lt;client-IP&gt;, &lt;proxy1-IP&gt;, &lt;proxy2-IP&gt;, ...</span><br></pre></td></tr></table></figure>
+
+<p>其中，列表中的第一个IP地址（<code>&lt;client-IP&gt;</code>）是客户端的真实IP地址，随后的IP地址表示请求依次经过的代理服务器的IP地址。</p>
+<h2 id="HTTP响应包的结构"><a href="#HTTP响应包的结构" class="headerlink" title="HTTP响应包的结构"></a>HTTP响应包的结构</h2><p>响应行</p>
+<p>HTTP&#x2F;1.1 404 Not Found</p>
+<ol>
+<li><em>协议版本</em>，通常为 <code>HTTP/1.1</code>。</li>
+<li><em>状态码</em>（status code），表明请求是成功或失败。常见的状态码是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/200"><code>200</code></a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/404"><code>404</code></a> 或 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/302"><code>302</code></a>。</li>
+<li><em>状态文本</em>（status text）。一个简短的，纯粹的信息，通过状态码的文本描述，帮助人们理解该 HTTP 消息</li>
+</ol>
+<p>响应头</p>
+<p><img src="C:\Users\ASUS\Pictures\Screenshots\http_response_headers3.png"></p>
+<p>通用标头（General header），例如 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Via"><code>Via</code></a>，适用于整个消息。</p>
+<p>响应标头（Response header），例如 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Vary"><code>Vary</code></a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Accept-Ranges"><code>Accept-Ranges</code></a>，提供有关服务器的其他信息，这些信息不适合状态行。</p>
+<p>表示标头（Representation header），例如 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Type"><code>Content-Type</code></a> 描述了消息数据的原始格式和应用的任意编码（仅在消息有主体时才存在）</p>
+<ol>
+<li><strong>Content-Type</strong>：响应体的媒体类型。</li>
+<li><strong>Content-Length</strong>：响应体的长度。</li>
+<li><strong>Cache-Control</strong>：控制响应的缓存行为。</li>
+<li><strong>Expires</strong>：指定资源到期的时间。</li>
+<li><strong>Set-Cookie</strong>：设置客户端的Cookie。</li>
+<li><strong>Location</strong>：用于重定向的URL。</li>
+<li><strong>Server</strong>：包含服务器软件的信息。</li>
+<li><strong>WWW-Authenticate</strong>：用于HTTP认证的挑战。</li>
+<li><strong>Last-Modified</strong>：资源最后修改的时间。</li>
+<li><strong>ETag</strong>：资源的特定版本的标识符。</li>
+</ol>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
       <categories>
-          
-          <category> 前端 </category>
-          
+        <category>计算机网络</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>HTML</title>
-      <link href="/2024/10/15/HTML/"/>
-      <url>/2024/10/15/HTML/</url>
-      
-        <content type="html"><![CDATA[<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="前备知识"><a href="#前备知识" class="headerlink" title="前备知识"></a>前备知识</h2><img src="C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-24 234834.png" style="zoom: 80%;" /><p><strong><!DOCTYPE html></strong> 声明为 HTML5 文档</p><p>**<html>**元素是 HTML 页面的根元素</p><p><strong><head></strong> 元素包含了文档的元（meta）数据，如 <strong><meta charset="utf-8"></strong> 定义网页编码格式为 <strong>utf-8</strong>。</p><p><strong><title></strong> 元素描述了文档的标题</p><p><strong><body></strong> 元素包含了可见的页面内容</p><p><strong><h1></strong> 元素定义一个大标题</p><p><strong><p></strong> 元素定义一个段落</p><p>HTML 是用来描述网页的一种超文本标记语言</p><p>标记语言是一套<strong>标记标签</strong> (markup tag)</p><p>HTML 使用标记标签来<strong>描述</strong>网页   &lt;标签&gt;内容&lt;&#x2F;标签&gt;</p><p>HTML 文档包含了HTML <strong>标签</strong>及<strong>文本</strong>内容</p><p>HTML文档也叫做 <strong>web 页面</strong></p><h3 id="声明"><a href="#声明" class="headerlink" title="&lt;!DOCTYPE&gt; 声明"></a>&lt;!DOCTYPE&gt; 声明</h3><!DOCTYPE><p>声明（不区分大小写）有助于浏览器中正确显示网页。</p><h3 id="中文编码"><a href="#中文编码" class="headerlink" title="中文编码"></a>中文编码</h3><p>直接输出中文会出现中文乱码，要将头部将字符声明为 UTF-8 或 GBK。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 110435.png)</p><h3 id="HTML空元素"><a href="#HTML空元素" class="headerlink" title="HTML空元素"></a>HTML空元素</h3><p>不含任何内容的元素，没有结束标签（最好加&#x2F;），用于插入一些特殊的功能或信息，如</br>表换行</p><h2 id="HTML-基础"><a href="#HTML-基础" class="headerlink" title="HTML 基础"></a>HTML 基础</h2><h3 id="HTML-标题"><a href="#HTML-标题" class="headerlink" title="HTML 标题"></a>HTML 标题</h3><p>HTML 标题（Heading）是通过<h1> - <h6>（从大到小） 标签来定义的。</p><img src="C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 124237.png"  /><p><strong>注释:</strong> 浏览器会自动地在标题的前后添加空行。</p><h4 id="HTML-水平线"><a href="#HTML-水平线" class="headerlink" title="HTML 水平线"></a>HTML 水平线</h4><hr> 标签在 HTML 页面中创建水平线。<p>hr 元素可用于分隔内容。</p><p>这是一个段落。</p> <hr> <p>这是一个段落。</p><h4 id="HTML-注释"><a href="#HTML-注释" class="headerlink" title="HTML 注释"></a>HTML 注释</h4><p>可以将注释插入 HTML 代码中，这样可以提高其可读性，使代码更易被人理解。浏览器会忽略注释，也不会显示它们。</p><!-- 这是一个注释 --><h3 id="HTML-段落"><a href="#HTML-段落" class="headerlink" title="HTML 段落"></a>HTML 段落</h3><p>HTML 段落是通过标签 <p> 来定义的。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 124253.png)</p><p><strong>注意：</strong>浏览器会自动地在段落的前后添加空行。（</p> 是块级元素）</p><h4 id="HTML-折行"><a href="#HTML-折行" class="headerlink" title="HTML 折行"></a>HTML 折行</h4><p>如果您希望在不产生一个新段落的情况下进行换行（新行），请使用<br/> 元素是一个空的 HTML 元素。由于关闭标签没有任何意义，因此它没有结束标签。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 162144.png)</p><p>注意：无法通过在 HTML 代码中添加额外的空格或换行来改变输出的效果。当显示页面时，浏览器会移除源代码中多余的空格和空行。所有连续的空格或空行都会被算作一个空格。</p><h3 id="HTML-文本格式化"><a href="#HTML-文本格式化" class="headerlink" title="HTML 文本格式化"></a>HTML 文本格式化</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 172101.png)</p><p>注：如果有2个  <code>&lt;br&gt;</code> 第一个为换行，第二个为空行</p><p>预格式：用于在显示时保留原始的排版和空格<code>&lt;pre&gt;</code></p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 174319.png)</p><p>将文字倒序</p><p><bdo dir="rtl">该段落文字从右到左显示。</bdo></p><p>地址</p><p>Written by <a href="mailto:webmaster@example.com">Jon Doe</a>.<br></p><h3 id="HTML-链接"><a href="#HTML-链接" class="headerlink" title="HTML 链接"></a>HTML 链接</h3><p>HTML 链接是通过标签 <a> 来定义的。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 124306.png)</p><p>在 href 属性中指定链接的地址。</p><h4 id="链接语法"><a href="#链接语法" class="headerlink" title="链接语法"></a>链接语法</h4><p><code>href</code>：指定链接目标的URL，这是链接的最重要属性。可以是另一个网页的URL、文件的URL或其他资源的URL。</p><p><code>target</code>（可选）：指定链接如何在浏览器中打开。常见的值包括 <code>_blank</code>（在新标签或窗口中打开链接）和 <code>_self</code>（在当前标签或窗口中打开链接）。</p><p><code>title</code>（可选）：提供链接的额外信息，通常在鼠标悬停在链接上时显示为工具提示。</p><p><code>rel</code>（可选）：指定与链接目标的关系，如 nofollow、noopener 等。</p><p><strong>文本链接：</strong>最常见的链接类型是文本链接，它使用 <a> 元素将一段文本转化为可点击的链接，例如：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.example.com&quot;&gt;访问示例网站&lt;/a&gt;</span><br></pre></td></tr></table></figure><p>没有下划线的链接：</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 094018.png)</p><p><strong>图像链接：</strong>您还可以使用图像作为链接。在这种情况下，<a> 元素包围着 <img> 元素。例如：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.example.com&quot;&gt;</span><br><span class="line">  &lt;img src=&quot;example.jpg&quot; alt=&quot;示例图片&quot;&gt;</span><br><span class="line">&lt;/a&gt;</span><br></pre></td></tr></table></figure><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 140059.png)</p><p><strong>锚点链接：</strong>除了链接到其他网页外，您还可以在同一页面内创建内部链接，这称为锚点链接。要创建锚点链接，需要在目标位置使用 <a> 元素定义一个标记，并使用#符号引用该标记。例如：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;#section2&quot;&gt;跳转到第二部分&lt;/a&gt;</span><br><span class="line">&lt;!-- 在页面中的某个位置 --&gt;</span><br><span class="line">&lt;a name=&quot;section2&quot;&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure><p><strong>下载链接：</strong>如果您希望链接用于下载文件而不是导航到另一个网页，可以使用 download 属性。例如：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;document.pdf&quot; download&gt;下载文档&lt;/a&gt;</span><br></pre></td></tr></table></figure><h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><h5 id="target"><a href="#target" class="headerlink" title="target"></a>target</h5><p>使用 target 属性，你可以定义被链接的文档在何处显示。</p><p><em>在窗口上下文中，“top”指的是最顶层的窗口，而“self”是指当前的窗口或框架。使用<code>target=&quot;_top&quot;</code>会让链接在整个浏览器窗口中打开，而<code>target=&quot;_self&quot;</code>则在当前的窗口或框架中打开。</em></p><h6 id="在本窗口-当前框架-打开"><a href="#在本窗口-当前框架-打开" class="headerlink" title="在本窗口(当前框架)打开"></a>在本窗口(当前框架)打开</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.runoob.com/&quot; target=&quot;_self&quot;&gt;访问菜鸟教程!&lt;/a&gt;</span><br></pre></td></tr></table></figure><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 203930.png)</p><h6 id="在本窗口-窗口主框架-打开"><a href="#在本窗口-窗口主框架-打开" class="headerlink" title="在本窗口(窗口主框架)打开"></a>在本窗口(窗口主框架)打开</h6><p>![屏幕截图 2024-09-25 204332](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 204332.png)</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 203953.png)</p><h6 id="在新窗口打开"><a href="#在新窗口打开" class="headerlink" title="在新窗口打开"></a>在新窗口打开</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.runoob.com/&quot; target=&quot;_blank&quot;&gt;访问菜鸟教程!&lt;/a&gt;</span><br></pre></td></tr></table></figure><h6 id="邮箱链接（mailto链接）"><a href="#邮箱链接（mailto链接）" class="headerlink" title="邮箱链接（mailto链接）"></a>邮箱链接（mailto链接）</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;mailto:someone@example.com?subject=邮件主题&amp;body=邮件内容&quot;&gt;发送邮件&lt;/a&gt;</span><br></pre></td></tr></table></figure><p><code>mailto:someone@example.com</code> 是收件人的邮箱地址。</p><p><code>subject=邮件主题</code> 是邮件的主题。</p><p><code>body=邮件内容</code> 是邮件的正文内容。</p><h5 id="id"><a href="#id" class="headerlink" title="id"></a>id</h5><p>id 属性可用于创建一个 HTML 文档书签。</p><p><strong>提示:</strong> 书签不会以任何特殊方式显示，即在 HTML 页面中是不显示的，所以对于读者来说是隐藏的。</p><p>实例</p><h6 id="在本页面中创建一个链接到”有用的提示部分"><a href="#在本页面中创建一个链接到”有用的提示部分" class="headerlink" title="在本页面中创建一个链接到”有用的提示部分"></a>在本页面中创建一个链接到”有用的提示部分</h6><p>在HTML文档中插入ID</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;#tips&quot;&gt;访问有用的提示部分&lt;/a&gt;</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a id=&quot;tips&quot;&gt;有用的提示部分&lt;/a&gt;</span><br></pre></td></tr></table></figure><h6 id="在另一个页面创建一个链接到”有用的提示部分"><a href="#在另一个页面创建一个链接到”有用的提示部分" class="headerlink" title="在另一个页面创建一个链接到”有用的提示部分"></a>在另一个页面创建一个链接到”有用的提示部分</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.runoob.com/html/html-links.html#tips&quot;&gt;访问有用的提示部分&lt;/a&gt;</span><br></pre></td></tr></table></figure><h3 id="HTML-图像"><a href="#HTML-图像" class="headerlink" title="HTML 图像"></a>HTML 图像</h3><img src="pulpit.jpg" alt="Pulpit rock" width="304" height="228"><h4 id="图像标签（-）和源属性（Src）"><a href="#图像标签（-）和源属性（Src）" class="headerlink" title="图像标签（ ）和源属性（Src）"></a>图像标签（ <img>）和源属性（Src）</h4><p>在 HTML 中，图像由<img> 标签定义，<img> 是空标签，它只包含属性，没有闭合标签。</p><p>要在页面上显示图像，你需要使用源属性（src） “source”，其的值是图像的 URL 地址（URL 指存储图像的位置。如果名为 “pulpit.jpg” 的图像位于 <a href="http://www.runoob.com/">www.runoob.com</a> 的 images 目录中，那么其 URL 为 <a href="https://www.runoob.com/images/pulpit.jpg">http://www.runoob.com/images/pulpit.jpg</a>。）</p><h4 id="Alt属性"><a href="#Alt属性" class="headerlink" title="Alt属性"></a>Alt属性</h4><p>alt 属性用来为图像定义一串预备的可替换的文本。替换文本属性的值是用户定义的</p><h4 id="图像的高度与宽度"><a href="#图像的高度与宽度" class="headerlink" title="图像的高度与宽度"></a>图像的高度与宽度</h4><p>height（高度） 与 width（宽度）属性用于设置图像的高度与宽度</p><h4 id="创建图像映射"><a href="#创建图像映射" class="headerlink" title="创建图像映射"></a>创建图像映射</h4><p>带有可供点击区域的图像地图。其中的每个区域都是一个超级链接。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 141153.png)</p><p>解释：</p><p>1.map</p><p>每个 <code>area</code> 元素可以有以下属性：</p><p>**<code>shape</code>**：定义区域的形状，可以是 <code>rect</code>（矩形）、<code>circle</code>（圆形）、<code>poly</code>（多边形）或 <code>default</code>（默认区域）。</p><p>**<code>coords</code>**：定义区域的坐标，取决于区域的形状。</p><p>**<code>href</code>**：定义当用户点击这个区域时将导航到的 URL。</p><p>**<code>alt</code>**：提供区域的替代文本，有助于无障碍访问。</p><p>**<code>target</code>**：指定链接打开的目标窗口或框架。</p><p>2.<code>coords</code> 属性用于定义一个区域（通常是图像地图中的热点区域）的坐标。图像地图允许你将一个图像分割成多个可点击的区域，每个区域都链接到不同的 URL 或触发不同的动作。</p><p><code>coords</code> 属性的值是一个由数字组成的字符串，数字之间用逗号分隔。这些数字代表热点区域的坐标。对于不同的 <code>shape</code> 值，<code>coords</code> 属性的格式会有所不同：</p><p>**<code>rect</code>**：左上角的 x 和 y 坐标，右下角的 x 和 y 坐标。</p><p>**<code>circle</code>**：圆心的 x 和 y 坐标，然后是半径。</p><p>**<code>poly</code>**：多边形每个顶点的 x 和 y 坐标，顶点坐标依次排列。</p><h3 id="HTML头部"><a href="#HTML头部" class="headerlink" title="HTML头部"></a>HTML头部</h3><p>在 <head>元素中你可以插入脚本（scripts）, 样式文件（CSS），及各种meta信息。可以添加在头部区域的元素标签为: <title>, <style>, <meta>, <link>, <script>, <noscript> 和 <base></p><h4 id="元素-title"><a href="#元素-title" class="headerlink" title="****元素(title)"></a>**<title>**元素(title)</h4><p>标签定义了不同文档的标题,在 HTML/XHTML 文档中是必需的,</p><p>定义了浏览器工具栏的标题</p><p>显示在收藏夹中的标题</p><p>显示在搜索引擎结果页面的标题</p><h4 id="元素-base"><a href="#元素-base" class="headerlink" title="元素(base)"></a><base>元素(base)</h4><p>描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接:</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-26 201757.png)</p><h4 id="元素-link"><a href="#元素-link" class="headerlink" title=" 元素(link)"></a><link> 元素(link)</h4><p>标签定义了文档与外部资源之间的关系，通常用于链接到样式表</p><head> <link rel="stylesheet" type="text/css" href="mystyle.css"> </head><h4 id="元素-style"><a href="#元素-style" class="headerlink" title=" 元素(style)"></a><style> 元素(style)</h4><p>定义了HTML文档的样式文件引用地址，在<style> 元素中也可以直接添加样式来渲染 HTML 文档:</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-26 204010.png)</p><h4 id="元素-meta"><a href="#元素-meta" class="headerlink" title=" 元素(meta)"></a><meta> 元素(meta)</h4><p>META 元素（一般放在<head>）用于指定网页的描述，关键词，文件的最后修改时间，作者，和其他元数据（元数据也不显示在页面上，但会被浏览器解析）元数据可以使用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他Web服务</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-26 203154.png)</p><h4 id="元素-script"><a href="#元素-script" class="headerlink" title=" 元素(script)"></a><script> 元素(script)</h4><p>用于加载脚本文件，如： JavaScript</p><h3 id="HTML-CSS"><a href="#HTML-CSS" class="headerlink" title="HTML CSS"></a>HTML CSS</h3><p>CSS 可以通过以下方式添加到HTML中:</p><p>内联样式- 在HTML元素中使用"style" <strong>属性</strong></p><p>内部样式表 -在HTML文档头部 <head> 区域使用<style> <strong>元素</strong> 来包含CSS</p><p>外部引用 - 使用外部 CSS <strong>文件</strong></p><h4 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h4><p>background-color（背景色属性）定义一个元素的背景颜色</p><p>font-family（字体），color（颜色），和font-size（字体大小）属性定义字体的样式</p><p> text-align（文字对齐）属性指定文本的水平与垂直对齐方式</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 085514.png)</p><h4 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h4><p>当单个文件需要特别样式时，就可以使用内部样式表</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 091919.png)</p><h4 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h4><p>当样式需要被应用到很多页面的时候，使用外部样式表，可以通过更改一个文件来改变整个站点的外观。</p><p>![屏幕截图 2024-09-27 093933](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 093933.png)</p><h3 id="HTML表格"><a href="#HTML表格" class="headerlink" title="HTML表格"></a>HTML表格</h3><p>由 <strong><table></strong> 标签来定义。是一种用于展示结构化数据的标记语言元素。</p><p><strong>tr</strong>：tr 是 table row 的缩写，表示表格的一行。</p><p><strong>td</strong>：td 是 table data 的缩写，表示表格的数据单元格（每行被分割为若干单元格）</p><p><strong>th</strong>：th 是 table header的缩写，表示表格的表头单元格。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 200050.png)</p><p>如果不定义边框属性，表格将不显示边框<table border="0"></p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 195242.png)</p><tfoot > 可用于在表格的底部定义摘要、统计信息等内容。 <caption > 可用于为整个表格定义标题。<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 200343.png)跨行或跨列的表格单元格</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 200939.png)</p><p>cellspacing="10"==单元格间距="10"</p><p>cellpadding="10"==单元格边距=“10”</p><h3 id="HTML-列表"><a href="#HTML-列表" class="headerlink" title="HTML 列表"></a>HTML 列表</h3><h4 id="HTML无序列表"><a href="#HTML无序列表" class="headerlink" title="HTML无序列表"></a>HTML无序列表</h4><p>无序列表是一个项目的列表，此列项目使用粗体圆点（典型的小黑圆圈）进行标记。</p><p>无序列表使用 <ul> 标签</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 231235.png)</p><h4 id="HTML-有序列表"><a href="#HTML-有序列表" class="headerlink" title="HTML 有序列表"></a>HTML 有序列表</h4><p>列表项目使用数字进行标记。 有序列表始于 <ol> 标签。每个列表项始于 <li> 标签。</p><p>列表项使用数字来标记。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 231513.png)</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 232351.png)</p><h4 id="HTML-自定义列表"><a href="#HTML-自定义列表" class="headerlink" title="HTML 自定义列表"></a>HTML 自定义列表</h4><p>自定义列表不仅仅是一列项目，而是项目及其注释的组合。</p><p>自定义列表以 <dl> 标签开始。每个自定义列表项以 <dt> 开始。每个自定义列表项的定义以 <dd> 开始。</p><p>![屏幕截图 2024-09-27 232500](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 232500.png)</p><h3 id="HTML-布局"><a href="#HTML-布局" class="headerlink" title="HTML 布局"></a>HTML 布局</h3><h4 id="使用-元素"><a href="#使用-元素" class="headerlink" title="使用 元素"></a>使用<div> 元素</h4><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-28 131716.png)</p><h4 id="使用表格"><a href="#使用表格" class="headerlink" title="使用表格"></a>使用表格</h4><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-28 131912.png)</p><h3 id="HTML表单"><a href="#HTML表单" class="headerlink" title="HTML表单"></a>HTML表单</h3><p>HTML 表单用于收集用户的输入信息，如：文本域（textarea）、下拉列表（select）、单选框（radio-buttons）、复选框（checkbox） 等等。表示文档中的一个区域，此区域包含交互控件，将用户收集到的信息发送到 Web 服务器。通常包含各种输入字段、复选框、单选按钮、下拉列表等元素。</p><p><code>&lt;form&gt;</code> 元素用于创建表单</p><p><code>action</code> 属性定义了表单数据提交的目标 URL</p><p><code>method</code> 属性定义了提交数据的 HTTP 方法（这里使用的是 "post"）。</p><p><code>&lt;label&gt;</code> 元素用于为表单元素添加标签，提高可访问性。</p><p><code>&lt;input&gt;</code> 元素是最常用的表单元素之一，它可以创建文本输入框、密码框、单选按钮、复选框等。</p><p><code>type</code> 属性定义了输入框的类型，<code>id</code> 属性用于关联 <code>&lt;label&gt;</code> 元素，<code>name</code> 属性用于标识表单字段。</p><p><code>&lt;select&gt;</code> 元素用于创建下拉列表，而 <code>&lt;option&gt;</code> 元素用于定义下拉列表中的选项。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-28 150407.png)</p><h4 id="输入类型"><a href="#输入类型" class="headerlink" title="输入类型"></a>输入类型</h4><ol><li><p><strong>文本输入</strong> (<code>&lt;input type=&quot;text&quot;&gt;</code>): 允许用户输入文本。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter your username&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure><p>附：文本域（拉右下角可移动）：用户可在文本域中写入文本。可写入字符的字数不受限制。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 005459.png)</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 010529.png)</p></li><li><p><strong>密码输入</strong> (<code>&lt;input type=&quot;password&quot;&gt;</code>): 用于输入密码，输入内容会显示为点或星号。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter your password&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>电子邮件输入</strong> (<code>&lt;input type=&quot;email&quot;&gt;</code>): 用于输入电子邮件地址，会自动验证电子邮件格式。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter your email&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>数字输入</strong> (<code>&lt;input type=&quot;number&quot;&gt;</code>): 用于输入数字，可以包括小数点和负数。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Your age&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>搜索框</strong> (<code>&lt;input type=&quot;search&quot;&gt;</code>): 用于搜索，通常会显示为一个搜索框。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;search&quot;</span> <span class="attr">name</span>=<span class="string">&quot;search&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>单选按钮</strong> (<code>&lt;input type=&quot;radio&quot;&gt;</code>): 允许用户在一组选项中选择一个。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 004113.png)</p></li><li><p><strong>复选框</strong> (<code>&lt;input type=&quot;checkbox&quot;&gt;</code>): 允许用户选择多个选项。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 004337.png)</p></li><li><p><strong>下拉列表</strong>下拉列表框是一个可选列表。</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 004551.png)</p><p>如果预选a，则<option value="a" selected>a</option></p></li><li><p><strong>提交按钮</strong> (<code>&lt;input type=&quot;submit&quot;&gt;</code>): 提交表单数据。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>重置按钮</strong> (<code>&lt;input type=&quot;reset&quot;&gt;</code>): 重置表单输入字段为初始值。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Reset&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>隐藏输入</strong> (<code>&lt;input type=&quot;hidden&quot;&gt;</code>): 用于隐藏数据，用户不可见。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hiddenField&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hiddenValue&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>文件上传</strong> (<code>&lt;input type=&quot;file&quot;&gt;</code>): 允许用户上传文件。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fileUpload&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>按钮</strong> (<code>&lt;input type=&quot;button&quot;&gt;</code>): 创建一个可点击的按钮，但不会提交表单。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Click Me&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>颜色选择器</strong> (<code>&lt;input type=&quot;color&quot;&gt;</code>): 允许用户选择颜色。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;color&quot;</span> <span class="attr">name</span>=<span class="string">&quot;favcolor&quot;</span> <span class="attr">value</span>=<span class="string">&quot;#ff0000&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>日期选择器</strong> (<code>&lt;input type=&quot;date&quot;&gt;</code>): 允许用户选择日期。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;birthday&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>时间选择器</strong> (<code>&lt;input type=&quot;time&quot;&gt;</code>): 允许用户选择时间。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;time&quot;</span> <span class="attr">name</span>=<span class="string">&quot;time&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>日期和时间选择器</strong> (<code>&lt;input type=&quot;datetime-local&quot;&gt;</code>): 允许用户选择日期和时间。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;datetime-local&quot;</span> <span class="attr">name</span>=<span class="string">&quot;eventtime&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>月选择器</strong> (<code>&lt;input type=&quot;month&quot;&gt;</code>): 允许用户选择月份和年份。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;month&quot;</span> <span class="attr">name</span>=<span class="string">&quot;birthdate&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p><strong>周选择器</strong> (<code>&lt;input type=&quot;week&quot;&gt;</code>): 允许用户选择一周。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;week&quot;</span> <span class="attr">name</span>=<span class="string">&quot;week&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li></ol><p>这些输入元素可以包含在 <code>&lt;form&gt;</code> 元素中，并且可以通过 <code>&lt;form&gt;</code> 元素的 <code>action</code> 属性指定提交数据的 URL，通过 <code>method</code> 属性指定提交数据的方式（通常是 <code>GET</code> 或 <code>POST</code>）。</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/submit-form&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 输入元素放在这里 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter your username&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure><p>在这个例子中，当用户填写用户名并点击提交按钮时，表单数据将通过 POST 方法发送到 <code>/submit-form</code> URL。</p><h3 id="HTML框架"><a href="#HTML框架" class="headerlink" title="HTML框架"></a>HTML框架</h3><p>通过使用框架，可以在同一个浏览器窗口中显示不止一个页面。</p><h4 id="iframe语法"><a href="#iframe语法" class="headerlink" title="iframe语法"></a><strong>iframe语法</strong></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;iframe src=&quot;URL&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure><h4 id="iframe作用"><a href="#iframe作用" class="headerlink" title="iframe作用"></a>iframe作用</h4><h5 id="设置高度与宽度"><a href="#设置高度与宽度" class="headerlink" title="设置高度与宽度"></a>设置高度与宽度</h5><h5 id="移除边框"><a href="#移除边框" class="headerlink" title="移除边框"></a>移除边框</h5><p>frameborder 属性定义iframe表示是否显示边框。设置属性值为 "0" 移除iframe的边框</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 081823.png)</p><h5 id="显示目标链接页面"><a href="#显示目标链接页面" class="headerlink" title="显示目标链接页面"></a>显示目标链接页面</h5><p>iframe 可以显示一个目标链接的页面</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 081839.png)</p><h3 id="HTML-脚本（JavaScript）"><a href="#HTML-脚本（JavaScript）" class="headerlink" title="HTML 脚本（JavaScript）"></a>HTML 脚本（JavaScript）</h3><h3 id="HTML-速查列表"><a href="#HTML-速查列表" class="headerlink" title="HTML 速查列表"></a>HTML 速查列表</h3><p>[][HTML 速查列表 | 菜鸟教程 (runoob.com)]<a href="https://www.runoob.com/html/html-quicklist.html">https://www.runoob.com/html/html-quicklist.html</a></p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 134336.png)</p><p>![屏幕截图 2024-09-29 134354](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 134354.png)</p><p>![屏幕截图 2024-09-29 134404](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 134404.png)</p>]]></content>
-      
-      
+  </entry>
+  <entry>
+    <title>JavaScript</title>
+    <url>/2024/10/15/JavaScript/</url>
+    <content><![CDATA[<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>HTML 中的 Javascript 脚本代码必须位于 <strong><script></strong> 与 <strong></script></strong> 标签间</p>
+<p>Javascript 脚本代码可被放置在 HTML 页面的 <strong><body></strong> 和 <strong><head></strong> 中</p>
+<h2 id="JavaScript-输出"><a href="#JavaScript-输出" class="headerlink" title="JavaScript 输出"></a>JavaScript 输出</h2><p>JavaScript 没有任何打印或者输出的函数</p>
+<h3 id="使用-window-alert-弹出警告框来显示数据"><a href="#使用-window-alert-弹出警告框来显示数据" class="headerlink" title="使用 window.alert() 弹出警告框来显示数据"></a>使用 <strong>window.alert()</strong> 弹出警告框来显示数据</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 105906.png)</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 105856.png)</p>
+<h3 id="使用-innerHTML-写入到-HTML-元素"><a href="#使用-innerHTML-写入到-HTML-元素" class="headerlink" title="使用 innerHTML 写入到 HTML 元素"></a>使用 <strong>innerHTML</strong> 写入到 HTML 元素</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110449.png)</p>
+<p><strong>document.getElementById(“demo”)</strong> 用 id 属性(标识 HTML 元素)来查找 HTML 元素的 JS 代码 </p>
+<p>**innerHTML &#x3D; “段落已修改。”**用于修改元素的 HTML 内容(innerHTML)的JS 代码</p>
+<h3 id="使用-document-write-方法将内容写到-HTML-文档中"><a href="#使用-document-write-方法将内容写到-HTML-文档中" class="headerlink" title="使用 document.write() 方法将内容写到 HTML 文档中"></a>使用 <strong>document.write()</strong> 方法将内容写到 HTML 文档中</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110740.png)</p>
+<p>用 document.write() 可以向文档写入内容。</p>
+<p>如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110855.png)</p>
+<p>![屏幕截图 2024-10-05 110900](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110900.png)</p>
+<h3 id="使用-console-log-写入到浏览器的控制台"><a href="#使用-console-log-写入到浏览器的控制台" class="headerlink" title="使用 console.log() 写入到浏览器的控制台"></a>使用 <strong>console.log()</strong> 写入到浏览器的控制台</h3><p>使用 <strong>console.log()</strong> 方法在浏览器中( F12 来启用调试模式， 在调试窗口中点击 “Console” 菜单)显示 JavaScript 值</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 111043.png)</p>
+<h2 id="JavaScript-语法"><a href="#JavaScript-语法" class="headerlink" title="JavaScript 语法"></a>JavaScript 语法</h2><h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p><strong>数字（Number）字面量</strong> 可以是整数或者是小数，或者是科学计数(e)【123e5&#x3D;12300000】</p>
+<p><strong>字符串（String）字面量</strong> 可以使用单引号或双引号</p>
+<p><strong>表达式字面量</strong> 用于计算</p>
+<p><strong>数组（Array）字面量</strong> 定义一个数组 [40, 100, 1, 5, 25, 10]</p>
+<p><strong>对象（Object）字面量</strong> 定义一个对象 {firstName:”John”, lastName:”Doe”, age:50, eyeColor:”blue”}</p>
+<p><strong>函数（Function）字面量</strong> 定义一个函数  function myFunction(a, b) { return a * b;}</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量用于存储数据值，使用关键字 <strong>var</strong> 来定义变量， 使用等号来为变量赋值</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 112250.png)</p>
+<h3 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h3><p>用于向浏览器发出命令（详见下节）</p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>数字，字符串，数组，对象等</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h2 id="JavaScript-语句"><a href="#JavaScript-语句" class="headerlink" title="JavaScript 语句"></a>JavaScript 语句</h2><p>JavaScript 语句是发给浏览器的命令，告诉浏览器要做的事情</p>
+<h3 id="分号"><a href="#分号" class="headerlink" title="分号 ;"></a>分号 ;</h3><p>在每条可执行的语句结尾添加分号或在一行中编写多条语句</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 154455.png)</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>是 JavaScript 语句的序列。浏览器按照编写顺序依次执行每条语句。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementById(&quot;demo&quot;).innerHTML=&quot;你好 Dolly&quot;; document.getElementById(&quot;myDIV&quot;).innerHTML=&quot;你最近怎么样?&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>代码块的作用是一并地执行语句序列，左花括号开始，以右花括号结束</p>
+<p>![屏幕截图 2024-10-05 155144](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 155144.png)</p>
+<h3 id="语句标识符"><a href="#语句标识符" class="headerlink" title="语句标识符"></a>语句标识符</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 155544.png)</p>
+<h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><p>JavaScript 会忽略多余的空格</p>
+<h3 id="折行"><a href="#折行" class="headerlink" title="折行"></a>折行</h3><p>使用反斜杠对代码行进行换行</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 160240.png)</p>
+<h2 id="JavaScript-变量"><a href="#JavaScript-变量" class="headerlink" title="JavaScript 变量"></a>JavaScript 变量</h2><h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><p>用 var 关键词来声明变量，变量可以先使用再声明</p>
+<h4 id="多变量"><a href="#多变量" class="headerlink" title="多变量"></a>多变量</h4><p>在一条语句中声明很多变量：该语句以 var 开头，并使用逗号分隔变量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var lastname=&quot;Doe&quot;, age=30, job=&quot;carpenter&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>横跨多行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var lastname=&quot;Doe&quot;,</span><br><span class="line">age=30,</span><br><span class="line">job=&quot;carpenter&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>一条语句中声明的多个变量不可以同时赋同一个值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x,y,z=1;</span><br></pre></td></tr></table></figure>
+
+<p>x,y 为 undefined， z 为 1。</p>
+<h4 id="重新声明变量"><a href="#重新声明变量" class="headerlink" title="重新声明变量"></a>重新声明变量</h4><p>重新声明 JavaScript 变量，该变量的值不会丢失</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var carname=&quot;Volvo&quot;;</span><br><span class="line">var carname;</span><br></pre></td></tr></table></figure>
+
+<p>两条语句执行后，变量 carname 的值依然是 “Volvo”</p>
+<h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><p>JavaScript 变量可用于存放值（ x&#x3D;5），表达式（z&#x3D;x+y）和文本值 (name&#x3D;”Bill Gates”  用双引号或单引号包围这个值)，一般倡导以字母开头</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 161056.png)</p>
+<h2 id="JavaScript-数据类型"><a href="#JavaScript-数据类型" class="headerlink" title="JavaScript 数据类型"></a>JavaScript 数据类型</h2><p>**值类型(基本类型)**：字符串（String）、数字(Number)、布尔(Boolean)、空（Null）、未定义（Undefined）、Symbol</p>
+<p><strong>引用数据类型（对象类型）</strong>：对象(Object)、数组(Array)、函数(Function)，还有两个特殊的对象：正则（RegExp）和日期（Date）</p>
+<p>变量的数据类型可以使用 <strong>typeof</strong> 操作符来查看</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 162748.png)</p>
+<h3 id="JavaScript-数组"><a href="#JavaScript-数组" class="headerlink" title="JavaScript 数组"></a>JavaScript 数组</h3><p>JavaScript 不支持使用名字来索引数组，只允许使用数字索引</p>
+<p>如果你使用名字作为索引，当访问数组时，JavaScript 会把数组重新定义为标准对象。</p>
+<p>执行这样操作后，数组的方法及属性将不能再使用，否则会产生错误（person.length输出为0）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var cars=new Array();</span><br><span class="line">cars[0]=&quot;Saab&quot;;</span><br><span class="line">cars[1]=&quot;Volvo&quot;;</span><br><span class="line">cars[2]=&quot;BMW&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var cars=new Array(&quot;Saab&quot;,&quot;Volvo&quot;,&quot;BMW&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 163220.png)</p>
+<h2 id="JavaScript-对象"><a href="#JavaScript-对象" class="headerlink" title="JavaScript 对象"></a>JavaScript 对象</h2><p>对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义</p>
+<h3 id="对象属性两种访问方式"><a href="#对象属性两种访问方式" class="headerlink" title="对象属性两种访问方式"></a>对象属性两种访问方式</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 234215.png)</p>
+<h3 id="对象方法"><a href="#对象方法" class="headerlink" title="对象方法"></a>对象方法</h3><p>对象的方法定义了一个函数，并作为对象的属性存储。对象方法通过添加 () 调用 (作为一个函数)。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 234705.png)</p>
+<h3 id="typeof，Undefined-和-Null"><a href="#typeof，Undefined-和-Null" class="headerlink" title="typeof，Undefined 和 Null"></a>typeof，Undefined 和 Null</h3><p>typeof 操作符来检测变量的数据类型</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof &quot;John&quot;         // 返回 string</span><br><span class="line">typeof 3.14          // 返回 number</span><br><span class="line">typeof NaN           // 返回 number</span><br><span class="line">typeof false         // 返回 boolean</span><br><span class="line">typeof [1,2,3,4]       // 返回 object</span><br><span class="line">typeof &#123;name:&#x27;John&#x27;, age:34&#125; // 返回 object</span><br><span class="line">typeof new Date()       // 返回 object</span><br><span class="line">typeof function () &#123;&#125;     // 返回 function</span><br><span class="line">typeof myCar         // 返回 undefined (如果 myCar 没有声明)</span><br><span class="line">typeof null          // 返回 object</span><br></pre></td></tr></table></figure>
+
+<p>Undefined 这个值表示变量不含有值。任何变量都可以通过设置值为 <strong>undefined</strong> 来清空</p>
+<p>null 表示 “什么都没有”，但类型为<strong>对象</strong>，是一个<strong>只有一个值的特殊类型</strong>。表示一个空对象引用。可以设置为 null 来清空变量。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 191943.png)</p>
+<p>在常规的比较&#x3D;&#x3D;中，数据类型是被忽略的</p>
+<p>在严格的比较运算中，&#x3D;&#x3D;&#x3D; 为恒等计算符，同时检查表达式的值与类型</p>
+<h2 id="JavaScript-函数"><a href="#JavaScript-函数" class="headerlink" title="JavaScript 函数"></a>JavaScript 函数</h2><h3 id="调用带参数的函数"><a href="#调用带参数的函数" class="headerlink" title="调用带参数的函数"></a>调用带参数的函数</h3><p>变量和参数必须以一致的顺序出现（第一个变量就是第一个被传递的参数的给定的值）</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 090227.png)</p>
+<h3 id="带有返回值的函数"><a href="#带有返回值的函数" class="headerlink" title="带有返回值的函数"></a>带有返回值的函数</h3><p>使用 return 语句时，函数会停止执行，并返回指定的值</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 090512.png)</p>
+<h2 id="JavaScript-作用域"><a href="#JavaScript-作用域" class="headerlink" title="JavaScript 作用域"></a>JavaScript 作用域</h2><p><strong>作用域为可访问变量，对象，函数的集合</strong></p>
+<h3 id="JavaScript-局部作用域"><a href="#JavaScript-局部作用域" class="headerlink" title="JavaScript 局部作用域"></a>JavaScript 局部作用域</h3><p>局部变量：只能在函数内部访问，局部变量在函数开始执行时创建，函数执行完后局部变量会自动销毁，不同的函数可以使用相同名称的变量</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092938.png)</p>
+<h3 id="JavaScript-全局变量"><a href="#JavaScript-全局变量" class="headerlink" title="JavaScript 全局变量"></a>JavaScript 全局变量</h3><p>全局变量有 <strong>全局作用域</strong>: 网页中所有脚本和函数均可使用</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092248.png)</p>
+<p>如果变量在函数内没有声明（没有使用 var 关键字），该变量为全局变量</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092443.png)</p>
+<h2 id="JavaScript-字符串"><a href="#JavaScript-字符串" class="headerlink" title="JavaScript 字符串"></a>JavaScript 字符串</h2><p>JavaScript 字符串用于存储和处理文本</p>
+<p>字符串的索引从 0 开始，这意味着第一个字符索引值为 **[0]**，第二个为 **[1]**，以此类推</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 111334.png)</p>
+<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><p>反斜杠是一个<strong>转义字符</strong>。 转义字符将特殊字符转换为字符串字符</p>
+<p>例如：可以在字符串中使用引号，字符串中的引号不要与字符串的引号相同（但可以在字符串添加转义字符来使用引号）</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 111829.png)</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 112524.png)</p>
+<h3 id="字符串长度"><a href="#字符串长度" class="headerlink" title="字符串长度"></a>字符串长度</h3><p>使用内置属性 <strong>length</strong> 来计算字符串的长度</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 112130.png)</p>
+<h3 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h3><p>模板字符串中可以同时使用单引号和双引号</p>
+<p>模板字符串还支持多行文本，而无需使用特殊的转义字符：</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 115412.png)</p>
+<p>模板字面量还可以包含占位符——一种由美元符号和大括号分隔的嵌入式表达式：**${expression}**</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 115719.png)</p>
+<h2 id="JavaScript-运算符"><a href="#JavaScript-运算符" class="headerlink" title="JavaScript 运算符"></a>JavaScript 运算符</h2><h3 id="用于字符串的-运算符"><a href="#用于字符串的-运算符" class="headerlink" title="用于字符串的 + 运算符"></a>用于字符串的 + 运算符</h3><p>+ 运算符用于把文本值或字符串变量加起来（连接起来）</p>
+<p>如需把两个或多个字符串变量连接起来，请使用 <strong>+</strong> 运算符</p>
+<p>要想在两个字符串之间增加空格，需要把空格插入一个字符串之中或者把空格插入表达式中(txt3&#x3D;txt1+” “+txt2)</p>
+<p>**规则:**如果把数字与字符串相加，结果将成为字符串！</p>
+<h3 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h3><p><em>variablename</em>&#x3D;(<em>condition</em>)?<em>value1</em>:<em>value2</em> </p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 155430.png)</p>
+<p><strong>加法</strong>是两个<strong>数字</strong>相加。</p>
+<p><strong>连接</strong>是两个<strong>字符串</strong>连接。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x = 10 + 5;     // x 的结果为 15</span><br><span class="line">var x = 10 + &quot;5&quot;;    // x 的结果为 &quot;105&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript循环"><a href="#JavaScript循环" class="headerlink" title="JavaScript循环"></a>JavaScript循环</h2><h3 id="C-Users-ASUS-Pictures-Screenshots-屏幕截图-2024-10-06-162257-png"><a href="#C-Users-ASUS-Pictures-Screenshots-屏幕截图-2024-10-06-162257-png" class="headerlink" title="![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 162257.png)"></a>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 162257.png)</h3><p>在 switch 语句中，用恒等计算符(&#x3D;&#x3D;&#x3D;)进行比较</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x = 10;</span><br><span class="line">switch(x) &#123;</span><br><span class="line">  case 10: alert(&quot;Hello&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上例会出现弹窗</p>
+<h2 id="JavaScript-类型转换"><a href="#JavaScript-类型转换" class="headerlink" title="JavaScript 类型转换"></a>JavaScript 类型转换</h2><h3 id="constructor-属性"><a href="#constructor-属性" class="headerlink" title="constructor 属性"></a>constructor 属性</h3><p><strong>constructor</strong> 属性返回所有 JavaScript 变量的构造函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;John&quot;.constructor         // 返回函数 String() &#123; [native code] &#125;</span><br><span class="line">(3.14).constructor         // 返回函数 Number() &#123; [native code] &#125;</span><br><span class="line">false.constructor         // 返回函数 Boolean() &#123; [native code] &#125;</span><br><span class="line">[1,2,3,4].constructor       // 返回函数 Array()  &#123; [native code] &#125;</span><br><span class="line">&#123;name:&#x27;John&#x27;, age:34&#125;.constructor // 返回函数 Object() &#123; [native code] &#125;</span><br><span class="line">new Date().constructor       // 返回函数 Date()  &#123; [native code] &#125;</span><br><span class="line">function () &#123;&#125;.constructor     // 返回函数 Function()&#123; [native code] &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JavaScript-类型转换-1"><a href="#JavaScript-类型转换-1" class="headerlink" title="JavaScript 类型转换"></a>JavaScript 类型转换</h3><p>JavaScript 变量可以转换为新变量或其他数据类型</p>
+<h4 id="将数字转换为字符串"><a href="#将数字转换为字符串" class="headerlink" title="将数字转换为字符串"></a>将数字转换为字符串</h4><p>全局方法 <strong>String()</strong> 可以将数字，字母，变量，表达式转换为字符串</p>
+<p>String(x)  String(123) </p>
+<p>Number 方法 <strong>toString()</strong> 也是</p>
+<p>x.toString()   (123).toString()</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">toExponential()</td>
+<td align="left">把对象的值转换为指数计数法。</td>
+</tr>
+<tr>
+<td align="left">toFixed()</td>
+<td align="left">把数字转换为字符串，结果的小数点后有指定位数的数字。</td>
+</tr>
+<tr>
+<td align="left">toPrecision()</td>
+<td align="left">把数字格式化为指定的长度。</td>
+</tr>
+</tbody></table>
+<h4 id="将布尔值转换为字符串"><a href="#将布尔值转换为字符串" class="headerlink" title="将布尔值转换为字符串"></a>将布尔值转换为字符串</h4><p>全局方法 <strong>String()</strong> </p>
+<p>Boolean 方法 <strong>toString()</strong> </p>
+<h4 id="将日期转换为字符串"><a href="#将日期转换为字符串" class="headerlink" title="将日期转换为字符串"></a>将日期转换为字符串</h4><p>Date() 返回字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Date()  </span><br></pre></td></tr></table></figure>
+
+<p>全局方法 String() 可以将日期对象转换为字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String(new Date())  </span><br></pre></td></tr></table></figure>
+
+<p>Date 方法 <strong>toString()</strong> 也有相同的效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">obj = new Date()</span><br><span class="line">obj.toString() </span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">getDate()</td>
+<td align="left">从 Date 对象返回一个月中的某一天 (1 ~ 31)。</td>
+</tr>
+<tr>
+<td align="left">getDay()</td>
+<td align="left">从 Date 对象返回一周中的某一天 (0 ~ 6)。</td>
+</tr>
+<tr>
+<td align="left">getFullYear()</td>
+<td align="left">从 Date 对象以四位数字返回年份。</td>
+</tr>
+<tr>
+<td align="left">getHours()</td>
+<td align="left">返回 Date 对象的小时 (0 ~ 23)。</td>
+</tr>
+<tr>
+<td align="left">getMilliseconds()</td>
+<td align="left">返回 Date 对象的毫秒(0 ~ 999)。</td>
+</tr>
+<tr>
+<td align="left">getMinutes()</td>
+<td align="left">返回 Date 对象的分钟 (0 ~ 59)。</td>
+</tr>
+<tr>
+<td align="left">getMonth()</td>
+<td align="left">从 Date 对象返回月份 (0 ~ 11)。</td>
+</tr>
+<tr>
+<td align="left">getSeconds()</td>
+<td align="left">返回 Date 对象的秒数 (0 ~ 59)。</td>
+</tr>
+<tr>
+<td align="left">getTime()</td>
+<td align="left">返回 1970 年 1 月 1 日至今的毫秒数。</td>
+</tr>
+</tbody></table>
+<h4 id="将字符串转换为数字"><a href="#将字符串转换为数字" class="headerlink" title="将字符串转换为数字"></a>将字符串转换为数字</h4><p>全局方法 <strong>Number()</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Number(&quot;3.14&quot;)  // 返回 3.14</span><br><span class="line">Number(&quot; &quot;)    // 返回 0</span><br><span class="line">Number(&quot;&quot;)    // 返回 0</span><br><span class="line">Number(&quot;99 88&quot;)  // 返回 NaN</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">parseFloat()</td>
+<td align="left">解析一个字符串，并返回一个浮点数。</td>
+</tr>
+<tr>
+<td align="left">parseInt()</td>
+<td align="left">解析一个字符串，并返回一个整数。</td>
+</tr>
+</tbody></table>
+<h4 id="将布尔值转换为数字"><a href="#将布尔值转换为数字" class="headerlink" title="将布尔值转换为数字"></a>将布尔值转换为数字</h4><p>全局方法 <strong>Number()</strong> </p>
+<h4 id="将日期转换为数字"><a href="#将日期转换为数字" class="headerlink" title="将日期转换为数字"></a>将日期转换为数字</h4><p>全局方法 <strong>Number()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">d = new Date();</span><br><span class="line">Number(d)</span><br></pre></td></tr></table></figure>
+
+<p>日期方法 <strong>getTime()</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">d = new Date();</span><br><span class="line">d.getTime()  </span><br></pre></td></tr></table></figure>
+
+<h4 id="自动转换为字符串"><a href="#自动转换为字符串" class="headerlink" title="自动转换为字符串"></a>自动转换为字符串</h4><p>当你尝试输出一个对象或一个变量时 JavaScript 会自动调用变量的 toString() 方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = myVar;</span><br><span class="line"></span><br><span class="line">myVar = &#123;name:&quot;Fjohn&quot;&#125; // toString 转换为 &quot;[object Object]&quot;</span><br><span class="line">myVar = [1,2,3,4]    // toString 转换为 &quot;1,2,3,4&quot;</span><br><span class="line">myVar = new Date()   // toString 转换为 &quot;Fri Jul 18 2014 09:08:55 GMT+0200&quot;</span><br></pre></td></tr></table></figure>
+
+<p>数字和布尔值也经常相互转换：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myVar = 123       // toString 转换为 &quot;123&quot;</span><br><span class="line">myVar = true       // toString 转换为 &quot;true&quot;</span><br><span class="line">myVar = false      // toString 转换为 &quot;false&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript-正则表达式"><a href="#JavaScript-正则表达式" class="headerlink" title="JavaScript 正则表达式"></a>JavaScript 正则表达式</h2><p>使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式</p>
+<p>正则表达式可用于所有文本搜索和文本替换的操作</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/正则表达式主体/修饰符(可选)</span><br></pre></td></tr></table></figure>
+
+<p>var patt &#x3D; &#x2F;runoob&#x2F;i</p>
+<p><strong>&#x2F;runoob&#x2F;i</strong> 是一个正则表达式。<strong>runoob</strong> 是一个<strong>正则表达式主体</strong> (用于检索)。<strong>i</strong> 是一个<strong>修饰符</strong> (搜索不区分大小写)</p>
+<h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><p><strong>search()</strong> 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。</p>
+<p><strong>replace()</strong> 方法用于在字符串中用一些字符串替换另一些字符串，或替换一个与正则表达式匹配的子串。</p>
+<h3 id="RegExp-对象"><a href="#RegExp-对象" class="headerlink" title="RegExp 对象"></a>RegExp 对象</h3><h3 id="test-使用"><a href="#test-使用" class="headerlink" title="test()使用"></a>test()使用</h3><p>test() 方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true</p>
+<p>搜索字符串中的字符 “e”：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var patt = /e/;</span><br><span class="line">patt.test(&quot;The best things in life are free!&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>或：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/e/.test(&quot;The best things in life are free!&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="exec-使用"><a href="#exec-使用" class="headerlink" title="exec()使用"></a>exec()使用</h3><p>exec() 方法用于检索字符串中的正则表达式的匹配。该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var patt1=new RegExp(&quot;e&quot;);</span><br><span class="line">document.write(patt1.exec(&quot;The best things in life are free&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>输出为e</p>
+<h2 id="JavaScript-错误"><a href="#JavaScript-错误" class="headerlink" title="JavaScript 错误"></a>JavaScript 错误</h2><h3 id="throw语句创建自定义错误"><a href="#throw语句创建自定义错误" class="headerlink" title="throw语句创建自定义错误"></a>throw语句创建自定义错误</h3><h3 id="try-语句测试代码块的错误"><a href="#try-语句测试代码块的错误" class="headerlink" title="try 语句测试代码块的错误"></a><strong>try</strong> 语句测试代码块的错误</h3><h3 id="catch-语句处理错误"><a href="#catch-语句处理错误" class="headerlink" title="catch 语句处理错误"></a><strong>catch</strong> 语句处理错误</h3><h3 id="finally-语句"><a href="#finally-语句" class="headerlink" title="finally 语句"></a>finally 语句</h3><p>finally 语句不论之前的 try 和 catch 中是否产生异常都会执行该代码块</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 221211.png)</p>
+<h2 id="JavaScript-表单"><a href="#JavaScript-表单" class="headerlink" title="JavaScript 表单"></a>JavaScript 表单</h2><h3 id="JavaScript-表单验证"><a href="#JavaScript-表单验证" class="headerlink" title="JavaScript 表单验证"></a>JavaScript 表单验证</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 101906.png)</p>
+<h3 id="JavaScript-验证输入的数字"><a href="#JavaScript-验证输入的数字" class="headerlink" title="JavaScript 验证输入的数字"></a>JavaScript 验证输入的数字</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 102407.png)</p>
+<h2 id="JavaScript关键字"><a href="#JavaScript关键字" class="headerlink" title="JavaScript关键字"></a>JavaScript关键字</h2><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h4 id="方法中的-this"><a href="#方法中的-this" class="headerlink" title="方法中的 this"></a>方法中的 this</h4><p>this 指向调用它所在方法的对象</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 103918.png)</p>
+<h4 id="单独使用-this"><a href="#单独使用-this" class="headerlink" title="单独使用 this"></a>单独使用 this</h4><p>单独使用 this，则它指向全局(Global)对象</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104149.png)</p>
+<h4 id="函数中使用-this"><a href="#函数中使用-this" class="headerlink" title="函数中使用 this"></a>函数中使用 this</h4><p>在函数中，函数的所属者默认绑定到 this 上</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104247.png)</p>
+<p>严格模式下，<strong>this</strong> 为 <strong>undefined</strong>，因为严格模式下不允许默认绑定</p>
+<h4 id="事件中的-this"><a href="#事件中的-this" class="headerlink" title="事件中的 this"></a>事件中的 this</h4><p>this 指向了接收事件的 HTML 元素</p>
+<h4 id="对象方法中绑定"><a href="#对象方法中绑定" class="headerlink" title="对象方法中绑定"></a>对象方法中绑定</h4><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104558.png)</p>
+<p>this 是 person 对象，person 对象是函数的所有者</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104640.png)</p>
+<p><strong>this.firstName</strong> 表示 <strong>this</strong> (person) 对象的 <strong>firstName</strong> 属性</p>
+<h4 id="显式函数绑定"><a href="#显式函数绑定" class="headerlink" title="显式函数绑定"></a>显式函数绑定</h4><p>函数也是对象，对象则有方法，apply 和 call 就是函数对象的方法，他们允许切换函数执行的上下文环境（context），即 this 绑定的对象</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 105100.png)</p>
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p>let 声明的变量只在 let 命令所在的代码块 <strong>{}</strong> 内有效，在 <strong>{}</strong> 之外不能访问</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 114257.png)</p>
+<p>在相同的作用域或块级作用域中，不能使用 <strong>let</strong> 关键字来重置 <strong>let</strong> 关键字声明的变量</p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>const 用于声明一个或多个常量，声明时<strong>必须进行初始化</strong>，定义常量的值不能通过再赋值修改，也不能再次声明</p>
+<p>const 定义的变量并非常量，并非不可变，它定义了一个常量引用一个值。使用 const 定义的对象或者数组，其实是可变的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 创建常量对象</span><br><span class="line">const car = &#123;type:&quot;Fiat&quot;, model:&quot;500&quot;, color:&quot;white&quot;&#125;;</span><br><span class="line"></span><br><span class="line">// 修改属性:</span><br><span class="line">car.color = &quot;red&quot;;</span><br><span class="line"></span><br><span class="line">// 添加属性</span><br><span class="line">car.owner = &quot;Johnson&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 创建常量数组</span><br><span class="line">const cars = [&quot;Saab&quot;, &quot;Volvo&quot;, &quot;BMW&quot;];</span><br><span class="line"></span><br><span class="line">// 修改元素</span><br><span class="line">cars[0] = &quot;Toyota&quot;;</span><br><span class="line"></span><br><span class="line">// 添加元素</span><br><span class="line">cars.push(&quot;Audi&quot;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><p>指定要计算一个表达式但是不返回值</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 125443.png)</p>
+<p>href&#x3D;”#”与href&#x3D;”javascript:void(0)”的区别</p>
+<p><strong>#</strong> 包含了一个位置信息，默认的锚是**#top** 也就是网页的上端。而javascript:void(0), 仅仅表示一个死链接。在页面很长的时候会使用 <strong>#</strong> 来定位页面的具体位置，格式为：**# + id**</p>
+<h2 id="JavaScript-JSON"><a href="#JavaScript-JSON" class="headerlink" title="JavaScript JSON"></a>JavaScript JSON</h2><p>JSON 是用于存储和传输数据的格式， 通常用于服务端向网页传递数据 </p>
+<h3 id="JSON-数组"><a href="#JSON-数组" class="headerlink" title="JSON 数组"></a>JSON 数组</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;sites&quot;:[</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Runoob&quot;, &quot;url&quot;:&quot;www.runoob.com&quot;&#125;, </span><br><span class="line">    &#123;&quot;name&quot;:&quot;Google&quot;, &quot;url&quot;:&quot;www.google.com&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Taobao&quot;, &quot;url&quot;:&quot;www.taobao.com&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="JSON-字符串转换为-JavaScript-对象"><a href="#JSON-字符串转换为-JavaScript-对象" class="headerlink" title="JSON 字符串转换为 JavaScript 对象"></a>JSON 字符串转换为 JavaScript 对象</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var text = &#x27;&#123; &quot;sites&quot; : [&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Runoob&quot; , &quot;url&quot;:&quot;www.runoob.com&quot; &#125;,&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Google&quot; , &quot;url&quot;:&quot;www.google.com&quot; &#125;,&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Taobao&quot; , &quot;url&quot;:&quot;www.taobao.com&quot; &#125; ]&#125;&#x27;;</span><br><span class="line">    </span><br><span class="line">obj = JSON.parse(text);</span><br><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = obj.sites[1].name + &quot; &quot; + obj.sites[1].url;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://www.runoob.com/js/javascript-json-parse.html">JSON.parse()</a></td>
+<td align="left">用于将一个 JSON 字符串转换为 JavaScript 对象。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.runoob.com/js/javascript-json-stringify.html">JSON.stringify()</a></td>
+<td align="left">用于将 JavaScript 值转换为 JSON 字符串。</td>
+</tr>
+</tbody></table>
+]]></content>
       <categories>
-          
-          <category> 前端 </category>
-          
+        <category>前端</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>HTTP</title>
-      <link href="/2024/10/15/HTTP/"/>
-      <url>/2024/10/15/HTTP/</url>
-      
-        <content type="html"><![CDATA[<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><h2 id="HTTP概述"><a href="#HTTP概述" class="headerlink" title="HTTP概述"></a>HTTP概述</h2><p><strong>HTTP</strong> 是一种用作获取诸如 HTML 文档这类资源的协议（TTP 是一种应用层的协议，通过 TCP 或 TLS（一种加密过的 TCP 连接）来发送）。它是 Web 上进行任何数据交换的基础，也是一种客户端—服务器（client-server）协议</p><h2 id="HTTP请求包的结构"><a href="#HTTP请求包的结构" class="headerlink" title="HTTP请求包的结构"></a>HTTP请求包的结构</h2><h3 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h3><h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>（统一资源定位符）是因特网中的唯一资源的地址。它是浏览器用于检索已发布资源（例如 HTML 页面、CSS 文档、图像等）的关键机制之一</p><h5 id="URL基本内容"><a href="#URL基本内容" class="headerlink" title="URL基本内容"></a>URL基本内容</h5><img src="C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-19 131750.png" style="zoom:200%;" /><h6 id="协议（scheme）"><a href="#协议（scheme）" class="headerlink" title="协议（scheme）"></a>协议（scheme）</h6><p> HTTPS 、 HTTP、FTP</p><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 082841.png)</p><h6 id="权威（authority）"><a href="#权威（authority）" class="headerlink" title="权威（authority）"></a>权威（authority）</h6><p>权威包括域名（例如 <code>www.example.com</code>）和端口（<code>80</code>），由冒号分隔</p><p>注：邮件客户端（<code>mailto:foobar</code>）不使用权威（其包含方案）</p><h6 id="路径（Path）"><a href="#路径（Path）" class="headerlink" title="路径（Path）"></a>路径（Path）</h6><p><code>/path/to/myfile.html</code> 、<code>/index.html</code>是 Web 服务器上资源的路径</p><h6 id="参数（Parameters）"><a href="#参数（Parameters）" class="headerlink" title="参数（Parameters）"></a>参数（Parameters）</h6><p><code>?key1=value1&amp;key2=value2</code> 是提供给 Web 服务器的额外参数(参数是用 <code>&amp;</code> 符号分隔的键&#x2F;值对列表)</p><h6 id="锚点（Anchor）"><a href="#锚点（Anchor）" class="headerlink" title="锚点（Anchor）"></a>锚点（Anchor）</h6><p><code>#SomewhereInTheDocument</code> 是资源本身的另一部分的锚点</p><p>锚点表示资源中的一种“书签”，给浏览器显示位于该“加书签”位置的内容的方向</p><p><strong>#</strong> 后面的部分（也称为<strong>片段标识符</strong>）不会随请求被发送到服务器</p><h5 id="一些URL"><a href="#一些URL" class="headerlink" title="一些URL"></a>一些URL</h5><p>数据URL：以 <code>data:</code> 方案为前缀的 URL，允许内容创建者在文档中嵌入小文件</p><p>注：URL 编码使用 “%” 其后跟随两位的十六进制数来替换非 ASCII 字符。</p><p>URL 不能包含空格。URL 编码通常使用 + 来替换空格。</p><h3 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h3><h4 id="请求方式："><a href="#请求方式：" class="headerlink" title="请求方式："></a>请求方式：</h4><p><img src="C:\Users\ASUS\Pictures\Screenshots\wetwtogu2w4a4_25e0fbd76b664a3fa91ab108a3db05ab.png"></p><h4 id="GET和POST"><a href="#GET和POST" class="headerlink" title="GET和POST"></a>GET和POST</h4><h5 id="get-请求"><a href="#get-请求" class="headerlink" title="get 请求"></a>get 请求</h5><p>GET 请求<strong>主要用于从服务器获取数据</strong>，常用于获取静态资源（网页、图片、文件等）<img src="C:\Users\ASUS\Pictures\Screenshots\wetwtogu2w4a4_c21c9fc068484138a99364b55cdc8a27.png"></p><p>get请求的参数传递方式</p><p>在 HTTP 请求中，GET 请求可以通过 URL 参数或者请求体的方式传递参数。</p><p>URL 参数：GET 请求可以通过 URL 中指定的 key-value 形式传递参数。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/search?q=test&amp;page=2</span><br></pre></td></tr></table></figure><p>？后 key&#x3D; value</p><h5 id="post请求"><a href="#post请求" class="headerlink" title="post请求"></a>post请求</h5><p>POST 请求<strong>主要用于向服务器提交数据，通常用于创建、更新或删除资源</strong>、上传文件、发送 JSON 数据</p><p><img src="C:\Users\ASUS\Pictures\Screenshots\wetwtogu2w4a4_6bbf9571564341b99b0e3444afd8ce7a.png"></p><p>post请求的参数传递方式：URL 参数和请求体。</p><p>1.URL 参数：POST 请求可以通过 URL 中指定的 key-value 形式传递参数。例如，在访问如下 URL 时：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/search?q=test&amp;page=2</span><br></pre></td></tr></table></figure><p>2.请求体（仅适用于 POST、PUT、PATCH 请求）：当 POST、PUT 或 PATCH 请求的 URL 中没有指定参数时，参数会被放置在请求体中。请求体中的数据可以是表单数据、JSON 数据等。例如，使用 POST 请求将 JSON 数据发送到如下 URL 时：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/users</span><br></pre></td></tr></table></figure><p>请求体中的 JSON 数据如下：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> &quot;name&quot;: &quot;John Doe&quot;,</span><br><span class="line"> &quot;email&quot;: &quot;john.doe@example.com&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="get和post区别"><a href="#get和post区别" class="headerlink" title="get和post区别"></a>get和post区别</h5><p><img src="C:\Users\ASUS\Pictures\Screenshots\wetwtogu2w4a4_674121dd79b44430a181eb2042597bf2.png"></p><h5 id="get-和-post-请求的使用场景"><a href="#get-和-post-请求的使用场景" class="headerlink" title="get 和 post 请求的使用场景"></a>get 和 post 请求的使用场景</h5><h6 id="get"><a href="#get" class="headerlink" title="get"></a>get</h6><ul><li>获取数据：GET 请求适合用于从服务器获取数据，例如获取网页内容、查询数据库、获取资源文件等。由于 GET 请求的参数会显示在 URL 中，因此它适用于不需要保密的参数传递。</li><li>缓存友好：GET 请求的响应可以被缓存，这对于一些静态资源的获取非常有益，可以提高性能和减少服务器负载。</li><li>链接导航：GET 请求可以用于在浏览器中进行链接导航，通过在 URL 中传递参数来指定要导航到的页面或资源。</li></ul><h6 id="post"><a href="#post" class="headerlink" title="post"></a>post</h6><ul><li><p>提交数据：POST 请求适合用于向服务器提交数据，例如提交表单、上传文件等。由于 POST 请求的参数不会显示在 URL 中，因此它适用于传递敏感数据或大量参数。</p></li><li><p>创建资源：POST 请求可以用于在服务器上创建新的资源，例如创建新的用户、发布新的文章等。</p></li><li><p>执行非幂等操作：POST 请求是非幂等的，意味着多次发送相同的 POST 请求可能会产生不同的结果。这适用于一些需要执行不可重复操作的场景，例如订单支付、密码修改等。</p><p>加键值对时get在url中？a&#x3D;1   post在请求体中a&#x3D;11</p></li></ul><h3 id="请求头及其内容"><a href="#请求头及其内容" class="headerlink" title="请求头及其内容"></a>请求头及其内容</h3><img src="C:\Users\ASUS\Pictures\Screenshots\http_request_headers3.png" /><h4 id="常见的请求头及作用"><a href="#常见的请求头及作用" class="headerlink" title="常见的请求头及作用"></a>常见的请求头及作用</h4><p>Host，Referer，User-Agent，Cookie，Content-Type，X-Forwarded-For</p><p><em>注：POST 请求（包含 HTML 表单数据）需要主体</em></p><p><em>主体大致可分为两类：</em></p><p>*单一资源（Single-resource）主体，由一个单文件组成。该类型的主体由两个标头定义：Content-Type和Content-Length</p><p><em>多资源（Multiple-resource）主体，由多部分主体组成，每一部分包含不同的信息位。通常是和 HTML 表单连系在一起。</em></p><ol><li><p><strong>Host</strong>：指定请求的服务器的域名和端口号。</p></li><li><p><strong>User-Agent</strong>：包含发出请求的用户代理（浏览器）的信息。</p><p>一个典型的 <code>User-Agent</code> 字符串可能看起来像这样：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36</span><br></pre></td></tr></table></figure><p>这个字符串包含了以下信息：</p><ul><li><strong>浏览器</strong>：Mozilla&#x2F;5.0</li><li><strong>操作系统</strong>：Windows NT 10.0</li><li><strong>平台</strong>：Win64; x64</li><li><strong>浏览器核心</strong>：AppleWebKit&#x2F;537.36</li><li><strong>浏览器名称</strong>：Chrome</li><li><strong>浏览器版本</strong>：58.0.3029.110</li><li><strong>渲染引擎</strong>：Safari&#x2F;537.36</li></ul></li><li><p><strong>Accept</strong>：指定客户端能够处理的媒体类型。</p></li><li><p><strong>Accept-Language</strong>：指定客户端偏好的语言。</p></li><li><p><strong>Accept-Encoding</strong>：指定客户端能够处理的压缩算法。</p></li><li><p><strong>Authorization</strong>：用于身份验证的凭证。</p></li><li><p><strong>Cookie</strong>：Cookie 是一种服务器发送到用户浏览器并保存在本地的数据。它用于跟踪和识别用户会话，存储用户的偏好设置。</p><p>基本概念</p><p>会话Cookie：只在浏览器会话期间有效，当用户关闭浏览器时，这些Cookie就会被删除。</p><p>持久Cookie：具有过期时间，即使关闭浏览器也会保留，直到过期或被用户手动删除。</p><p>示例</p><p>假设服务器想要设置一个Cookie，其内容如下：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Set-Cookie: sessionId=abc123; Expires=Wed, 09 Jun 2024 10:18:14 GMT; Domain=example.com; Path=/; Secure; HttpOnly; SameSite=Lax</span><br></pre></td></tr></table></figure><p>在这个例子中：</p><p><code>sessionId=abc123</code> 是Cookie的名称-值对（存储在Cookie中的数据）</p><p><code>Expires=Wed, 09 Jun 2024 10:18:14 GMT</code> 定义了Cookie的过期时间。<code>ax-Age</code>属性指定一个相对于创建时的时间长度（以秒为单位）</p><p><code>Domain=example.com</code> 指定了Cookie的有效域名（哪些域名下的页面请求可以包含这个Cookie）如果未指定，默认为创建Cookie的服务器的域名</p><p><code>Path=/</code> 指定了Cookie的有效路径。</p><p><code>Secure</code> 属性表示Cookie仅通过HTTPS发送。</p><p><code>HttpOnly</code> 属性表示Cookie不能被客户端脚本（如JavaScript）访问。</p><p><code>SameSite=Lax</code> 属性表示在跨站请求时，Cookie不会随请求发送，除非请求是同站的。</p></li><li><p><strong>Content-Length</strong>：请求体的长度。</p></li><li><p><strong>Content-Type</strong>：指定资源的媒体类型（ MIME 类型），告诉接收方如何处理传输的数据</p><p>以下是一些常见的 <code>Content-Type</code> 值及其对应的数据格式：</p><ol><li><strong>文本类型</strong><ul><li><code>text/html</code>：HTML 文档。</li><li><code>text/plain</code>：纯文本。</li><li><code>text/css</code>：层叠样式表（CSS）。</li><li><code>text/javascript</code>：JavaScript 代码（已废弃，应使用 <code>application/javascript</code>）。</li></ul></li><li><strong>图像类型</strong><ul><li><code>image/gif</code>：GIF 图像。</li><li><code>image/jpeg</code>：JPEG 图像。</li><li><code>image/png</code>：PNG 图像。</li><li><code>image/svg+xml</code>：SVG 矢量图像。</li><li><code>image/webp</code>: WebP格式的图像。</li></ul></li><li><strong>音频和视频类型</strong><ul><li><code>audio/mpeg</code>：MPEG 音频。</li><li><code>video/mp4</code>：MP4 视频。</li><li><code>audio/ogg</code>：Ogg 音频。</li><li><code>video/ogg</code>：Ogg 视频。</li><li><code>video/webm</code>: WebM格式的视频。</li></ul></li><li><strong>应用程序类型</strong><ul><li><code>application/json</code>：JSON 数据。</li><li><code>application/xml</code>：XML 数据。</li><li><code>application/pdf</code>：PDF 文档。</li><li><code>application/zip</code>：ZIP 压缩文件。</li><li><code>application/javascript</code>：JavaScript 代码（现代浏览器推荐使用）。</li></ul></li><li><strong>多部分类型</strong><ul><li><code>multipart/form-data</code>：用于表单数据的传输，允许在单个请求中发送多个文件和字段。这通常用于文件上传和多值数据传输。</li><li><code>multipart/byteranges</code>：用于定义多个字节范围，通常用于视频流或大文件下载</li></ul></li><li><strong>其他类型</strong><ul><li><code>application/octet-stream</code>：用于二进制数据，如可执行文件或字节流。</li><li><code>application/x-www-form-urlencoded</code>：用于表单数据的传输，通常用于 GET 和 POST 请求。</li></ul></li><li><strong>字符编码</strong><ul><li>许多 <code>Content-Type</code> 值可以包含字符编码信息，如 <code>text/html; charset=utf-8</code>，这指定了使用 UTF-8 编码的 HTML 文档。</li></ul></li></ol></li><li><p><strong>Referer</strong>：指示请求来源的页面URL（用户是从哪个页面点击链接到达当前请求的页面的），这个头部字段通常用于分析流量来源、防止CSRF（跨站请求伪造）攻击以及跟踪用户行为</p><p>示例</p><p>假设用户从页面 <code>https://www.example.com/page1.html</code> 点击一个链接，跳转到 <code>https://www.example.com/page2.html</code>，那么在请求 <code>page2.html</code> 时，HTTP请求的 <code>Referer</code> 头部可能如下：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /page2.html HTTP/1.1</span><br><span class="line">Host: www.example.com</span><br><span class="line">Referer: https://www.example.com/page1.html</span><br></pre></td></tr></table></figure></li></ol><p>11.<strong>X-Forwarded-For</strong>:用于在HTTP请求经过代理服务器或负载均衡器时保留原始客户端的IP地址信息</p><p><code>X-Forwarded-For</code>头部字段的格式如下：</p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">X-Forwarded-For: &lt;client-IP&gt;, &lt;proxy1-IP&gt;, &lt;proxy2-IP&gt;, ...</span><br></pre></td></tr></table></figure><p>其中，列表中的第一个IP地址（<code>&lt;client-IP&gt;</code>）是客户端的真实IP地址，随后的IP地址表示请求依次经过的代理服务器的IP地址。</p><h2 id="HTTP响应包的结构"><a href="#HTTP响应包的结构" class="headerlink" title="HTTP响应包的结构"></a>HTTP响应包的结构</h2><p>响应行</p><p>HTTP&#x2F;1.1 404 Not Found</p><ol><li><em>协议版本</em>，通常为 <code>HTTP/1.1</code>。</li><li><em>状态码</em>（status code），表明请求是成功或失败。常见的状态码是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/200"><code>200</code></a>、<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/404"><code>404</code></a> 或 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/302"><code>302</code></a>。</li><li><em>状态文本</em>（status text）。一个简短的，纯粹的信息，通过状态码的文本描述，帮助人们理解该 HTTP 消息</li></ol><p>响应头</p><p><img src="C:\Users\ASUS\Pictures\Screenshots\http_response_headers3.png"></p><p>通用标头（General header），例如 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Via"><code>Via</code></a>，适用于整个消息。</p><p>响应标头（Response header），例如 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Vary"><code>Vary</code></a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Accept-Ranges"><code>Accept-Ranges</code></a>，提供有关服务器的其他信息，这些信息不适合状态行。</p><p>表示标头（Representation header），例如 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Type"><code>Content-Type</code></a> 描述了消息数据的原始格式和应用的任意编码（仅在消息有主体时才存在）</p><ol><li><strong>Content-Type</strong>：响应体的媒体类型。</li><li><strong>Content-Length</strong>：响应体的长度。</li><li><strong>Cache-Control</strong>：控制响应的缓存行为。</li><li><strong>Expires</strong>：指定资源到期的时间。</li><li><strong>Set-Cookie</strong>：设置客户端的Cookie。</li><li><strong>Location</strong>：用于重定向的URL。</li><li><strong>Server</strong>：包含服务器软件的信息。</li><li><strong>WWW-Authenticate</strong>：用于HTTP认证的挑战。</li><li><strong>Last-Modified</strong>：资源最后修改的时间。</li><li><strong>ETag</strong>：资源的特定版本的标识符。</li></ol><h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
-      
-      
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/10/10/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>HTML</title>
+    <url>/2024/10/15/HTML/</url>
+    <content><![CDATA[<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="前备知识"><a href="#前备知识" class="headerlink" title="前备知识"></a>前备知识</h2><img src="C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-24 234834.png" style="zoom: 80%;" />
+
+<p><strong><!DOCTYPE html></strong> 声明为 HTML5 文档</p>
+<p>**<html>**元素是 HTML 页面的根元素</p>
+<p><strong><head></strong> 元素包含了文档的元（meta）数据，如 <strong><meta charset="utf-8"></strong> 定义网页编码格式为 <strong>utf-8</strong>。</p>
+<p><strong><title></strong> 元素描述了文档的标题</p>
+<p><strong><body></strong> 元素包含了可见的页面内容</p>
+<p><strong><h1></strong> 元素定义一个大标题</p>
+<p><strong><p></strong> 元素定义一个段落</p>
+<p>HTML 是用来描述网页的一种超文本标记语言</p>
+<p>标记语言是一套<strong>标记标签</strong> (markup tag)</p>
+<p>HTML 使用标记标签来<strong>描述</strong>网页   &lt;标签&gt;内容&lt;&#x2F;标签&gt;</p>
+<p>HTML 文档包含了HTML <strong>标签</strong>及<strong>文本</strong>内容</p>
+<p>HTML文档也叫做 <strong>web 页面</strong></p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="&lt;!DOCTYPE&gt; 声明"></a>&lt;!DOCTYPE&gt; 声明</h3><!DOCTYPE><p>声明（不区分大小写）有助于浏览器中正确显示网页。</p>
+<h3 id="中文编码"><a href="#中文编码" class="headerlink" title="中文编码"></a>中文编码</h3><p>直接输出中文会出现中文乱码，要将头部将字符声明为 UTF-8 或 GBK。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 110435.png)</p>
+<h3 id="HTML空元素"><a href="#HTML空元素" class="headerlink" title="HTML空元素"></a>HTML空元素</h3><p>不含任何内容的元素，没有结束标签（最好加&#x2F;），用于插入一些特殊的功能或信息，如</br>表换行</p>
+<h2 id="HTML-基础"><a href="#HTML-基础" class="headerlink" title="HTML 基础"></a>HTML 基础</h2><h3 id="HTML-标题"><a href="#HTML-标题" class="headerlink" title="HTML 标题"></a>HTML 标题</h3><p>HTML 标题（Heading）是通过<h1> - <h6>（从大到小） 标签来定义的。</p>
+<img src="C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 124237.png"  />
+
+<p><strong>注释:</strong> 浏览器会自动地在标题的前后添加空行。</p>
+<h4 id="HTML-水平线"><a href="#HTML-水平线" class="headerlink" title="HTML 水平线"></a>HTML 水平线</h4><hr> 标签在 HTML 页面中创建水平线。
+
+<p>hr 元素可用于分隔内容。</p>
+<p>这是一个段落。</p> <hr> <p>这是一个段落。</p>
+
+<h4 id="HTML-注释"><a href="#HTML-注释" class="headerlink" title="HTML 注释"></a>HTML 注释</h4><p>可以将注释插入 HTML 代码中，这样可以提高其可读性，使代码更易被人理解。浏览器会忽略注释，也不会显示它们。</p>
+<!-- 这是一个注释 -->
+
+<h3 id="HTML-段落"><a href="#HTML-段落" class="headerlink" title="HTML 段落"></a>HTML 段落</h3><p>HTML 段落是通过标签 <p> 来定义的。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 124253.png)</p>
+<p><strong>注意：</strong>浏览器会自动地在段落的前后添加空行。（</p> 是块级元素）</p>
+<h4 id="HTML-折行"><a href="#HTML-折行" class="headerlink" title="HTML 折行"></a>HTML 折行</h4><p>如果您希望在不产生一个新段落的情况下进行换行（新行），请使用<br/> 元素是一个空的 HTML 元素。由于关闭标签没有任何意义，因此它没有结束标签。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 162144.png)</p>
+<p>注意：无法通过在 HTML 代码中添加额外的空格或换行来改变输出的效果。当显示页面时，浏览器会移除源代码中多余的空格和空行。所有连续的空格或空行都会被算作一个空格。</p>
+<h3 id="HTML-文本格式化"><a href="#HTML-文本格式化" class="headerlink" title="HTML 文本格式化"></a>HTML 文本格式化</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 172101.png)</p>
+<p>注：如果有2个  <code>&lt;br&gt;</code> 第一个为换行，第二个为空行</p>
+<p>预格式：用于在显示时保留原始的排版和空格<code>&lt;pre&gt;</code></p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 174319.png)</p>
+<p>将文字倒序</p>
+<p><bdo dir="rtl">该段落文字从右到左显示。</bdo></p>
+<p>地址</p>
+<p>Written by <a href="mailto:webmaster@example.com">Jon Doe</a>.<br></p>
+<h3 id="HTML-链接"><a href="#HTML-链接" class="headerlink" title="HTML 链接"></a>HTML 链接</h3><p>HTML 链接是通过标签 <a> 来定义的。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 124306.png)</p>
+<p>在 href 属性中指定链接的地址。</p>
+<h4 id="链接语法"><a href="#链接语法" class="headerlink" title="链接语法"></a>链接语法</h4><p><code>href</code>：指定链接目标的URL，这是链接的最重要属性。可以是另一个网页的URL、文件的URL或其他资源的URL。</p>
+<p><code>target</code>（可选）：指定链接如何在浏览器中打开。常见的值包括 <code>_blank</code>（在新标签或窗口中打开链接）和 <code>_self</code>（在当前标签或窗口中打开链接）。</p>
+<p><code>title</code>（可选）：提供链接的额外信息，通常在鼠标悬停在链接上时显示为工具提示。</p>
+<p><code>rel</code>（可选）：指定与链接目标的关系，如 nofollow、noopener 等。</p>
+<p><strong>文本链接：</strong>最常见的链接类型是文本链接，它使用 <a> 元素将一段文本转化为可点击的链接，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.example.com&quot;&gt;访问示例网站&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>没有下划线的链接：</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 094018.png)</p>
+<p><strong>图像链接：</strong>您还可以使用图像作为链接。在这种情况下，<a> 元素包围着 <img> 元素。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.example.com&quot;&gt;</span><br><span class="line">  &lt;img src=&quot;example.jpg&quot; alt=&quot;示例图片&quot;&gt;</span><br><span class="line">&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 140059.png)</p>
+<p><strong>锚点链接：</strong>除了链接到其他网页外，您还可以在同一页面内创建内部链接，这称为锚点链接。要创建锚点链接，需要在目标位置使用 <a> 元素定义一个标记，并使用#符号引用该标记。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;#section2&quot;&gt;跳转到第二部分&lt;/a&gt;</span><br><span class="line">&lt;!-- 在页面中的某个位置 --&gt;</span><br><span class="line">&lt;a name=&quot;section2&quot;&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>下载链接：</strong>如果您希望链接用于下载文件而不是导航到另一个网页，可以使用 download 属性。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;document.pdf&quot; download&gt;下载文档&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><h5 id="target"><a href="#target" class="headerlink" title="target"></a>target</h5><p>使用 target 属性，你可以定义被链接的文档在何处显示。</p>
+<p><em>在窗口上下文中，“top”指的是最顶层的窗口，而“self”是指当前的窗口或框架。使用<code>target=&quot;_top&quot;</code>会让链接在整个浏览器窗口中打开，而<code>target=&quot;_self&quot;</code>则在当前的窗口或框架中打开。</em></p>
+<h6 id="在本窗口-当前框架-打开"><a href="#在本窗口-当前框架-打开" class="headerlink" title="在本窗口(当前框架)打开"></a>在本窗口(当前框架)打开</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.runoob.com/&quot; target=&quot;_self&quot;&gt;访问菜鸟教程!&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 203930.png)</p>
+<h6 id="在本窗口-窗口主框架-打开"><a href="#在本窗口-窗口主框架-打开" class="headerlink" title="在本窗口(窗口主框架)打开"></a>在本窗口(窗口主框架)打开</h6><p>![屏幕截图 2024-09-25 204332](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 204332.png)</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-25 203953.png)</p>
+<h6 id="在新窗口打开"><a href="#在新窗口打开" class="headerlink" title="在新窗口打开"></a>在新窗口打开</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.runoob.com/&quot; target=&quot;_blank&quot;&gt;访问菜鸟教程!&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="邮箱链接（mailto链接）"><a href="#邮箱链接（mailto链接）" class="headerlink" title="邮箱链接（mailto链接）"></a>邮箱链接（mailto链接）</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;mailto:someone@example.com?subject=邮件主题&amp;body=邮件内容&quot;&gt;发送邮件&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>mailto:someone@example.com</code> 是收件人的邮箱地址。</p>
+<p><code>subject=邮件主题</code> 是邮件的主题。</p>
+<p><code>body=邮件内容</code> 是邮件的正文内容。</p>
+<h5 id="id"><a href="#id" class="headerlink" title="id"></a>id</h5><p>id 属性可用于创建一个 HTML 文档书签。</p>
+<p><strong>提示:</strong> 书签不会以任何特殊方式显示，即在 HTML 页面中是不显示的，所以对于读者来说是隐藏的。</p>
+<p>实例</p>
+<h6 id="在本页面中创建一个链接到”有用的提示部分"><a href="#在本页面中创建一个链接到”有用的提示部分" class="headerlink" title="在本页面中创建一个链接到”有用的提示部分"></a>在本页面中创建一个链接到”有用的提示部分</h6><p>在HTML文档中插入ID</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;#tips&quot;&gt;访问有用的提示部分&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a id=&quot;tips&quot;&gt;有用的提示部分&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="在另一个页面创建一个链接到”有用的提示部分"><a href="#在另一个页面创建一个链接到”有用的提示部分" class="headerlink" title="在另一个页面创建一个链接到”有用的提示部分"></a>在另一个页面创建一个链接到”有用的提示部分</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.runoob.com/html/html-links.html#tips&quot;&gt;访问有用的提示部分&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTML-图像"><a href="#HTML-图像" class="headerlink" title="HTML 图像"></a>HTML 图像</h3><img src="pulpit.jpg" alt="Pulpit rock" width="304" height="228">
+
+<h4 id="图像标签（-）和源属性（Src）"><a href="#图像标签（-）和源属性（Src）" class="headerlink" title="图像标签（ ）和源属性（Src）"></a>图像标签（ <img>）和源属性（Src）</h4><p>在 HTML 中，图像由<img> 标签定义，<img> 是空标签，它只包含属性，没有闭合标签。</p>
+<p>要在页面上显示图像，你需要使用源属性（src） “source”，其的值是图像的 URL 地址（URL 指存储图像的位置。如果名为 “pulpit.jpg” 的图像位于 <a href="http://www.runoob.com/">www.runoob.com</a> 的 images 目录中，那么其 URL 为 <a href="https://www.runoob.com/images/pulpit.jpg">http://www.runoob.com/images/pulpit.jpg</a>。）</p>
+<h4 id="Alt属性"><a href="#Alt属性" class="headerlink" title="Alt属性"></a>Alt属性</h4><p>alt 属性用来为图像定义一串预备的可替换的文本。替换文本属性的值是用户定义的</p>
+<h4 id="图像的高度与宽度"><a href="#图像的高度与宽度" class="headerlink" title="图像的高度与宽度"></a>图像的高度与宽度</h4><p>height（高度） 与 width（宽度）属性用于设置图像的高度与宽度</p>
+<h4 id="创建图像映射"><a href="#创建图像映射" class="headerlink" title="创建图像映射"></a>创建图像映射</h4><p>带有可供点击区域的图像地图。其中的每个区域都是一个超级链接。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 141153.png)</p>
+<p>解释：</p>
+<p>1.map</p>
+<p>每个 <code>area</code> 元素可以有以下属性：</p>
+<p>**<code>shape</code>**：定义区域的形状，可以是 <code>rect</code>（矩形）、<code>circle</code>（圆形）、<code>poly</code>（多边形）或 <code>default</code>（默认区域）。</p>
+<p>**<code>coords</code>**：定义区域的坐标，取决于区域的形状。</p>
+<p>**<code>href</code>**：定义当用户点击这个区域时将导航到的 URL。</p>
+<p>**<code>alt</code>**：提供区域的替代文本，有助于无障碍访问。</p>
+<p>**<code>target</code>**：指定链接打开的目标窗口或框架。</p>
+<p>2.<code>coords</code> 属性用于定义一个区域（通常是图像地图中的热点区域）的坐标。图像地图允许你将一个图像分割成多个可点击的区域，每个区域都链接到不同的 URL 或触发不同的动作。</p>
+<p><code>coords</code> 属性的值是一个由数字组成的字符串，数字之间用逗号分隔。这些数字代表热点区域的坐标。对于不同的 <code>shape</code> 值，<code>coords</code> 属性的格式会有所不同：</p>
+<p>**<code>rect</code>**：左上角的 x 和 y 坐标，右下角的 x 和 y 坐标。</p>
+<p>**<code>circle</code>**：圆心的 x 和 y 坐标，然后是半径。</p>
+<p>**<code>poly</code>**：多边形每个顶点的 x 和 y 坐标，顶点坐标依次排列。</p>
+<h3 id="HTML头部"><a href="#HTML头部" class="headerlink" title="HTML头部"></a>HTML头部</h3><p>在 <head>元素中你可以插入脚本（scripts）, 样式文件（CSS），及各种meta信息。可以添加在头部区域的元素标签为: <title>, <style>, <meta>, <link>, <script>, <noscript> 和 <base></p>
+<h4 id="元素-title"><a href="#元素-title" class="headerlink" title="****元素(title)"></a>**<title>**元素(title)</h4><p>标签定义了不同文档的标题,在 HTML/XHTML 文档中是必需的,</p>
+<p>定义了浏览器工具栏的标题</p>
+<p>显示在收藏夹中的标题</p>
+<p>显示在搜索引擎结果页面的标题</p>
+<h4 id="元素-base"><a href="#元素-base" class="headerlink" title="元素(base)"></a><base>元素(base)</h4><p>描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接:</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-26 201757.png)</p>
+<h4 id="元素-link"><a href="#元素-link" class="headerlink" title=" 元素(link)"></a><link> 元素(link)</h4><p>标签定义了文档与外部资源之间的关系，通常用于链接到样式表</p>
+<head> <link rel="stylesheet" type="text/css" href="mystyle.css"> </head>
+
+<h4 id="元素-style"><a href="#元素-style" class="headerlink" title=" 元素(style)"></a><style> 元素(style)</h4><p>定义了HTML文档的样式文件引用地址，在<style> 元素中也可以直接添加样式来渲染 HTML 文档:</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-26 204010.png)</p>
+<h4 id="元素-meta"><a href="#元素-meta" class="headerlink" title=" 元素(meta)"></a><meta> 元素(meta)</h4><p>META 元素（一般放在<head>）用于指定网页的描述，关键词，文件的最后修改时间，作者，和其他元数据（元数据也不显示在页面上，但会被浏览器解析）元数据可以使用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他Web服务</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-26 203154.png)</p>
+<h4 id="元素-script"><a href="#元素-script" class="headerlink" title=" 元素(script)"></a><script> 元素(script)</h4><p>用于加载脚本文件，如： JavaScript</p>
+<h3 id="HTML-CSS"><a href="#HTML-CSS" class="headerlink" title="HTML CSS"></a>HTML CSS</h3><p>CSS 可以通过以下方式添加到HTML中:</p>
+<p>内联样式- 在HTML元素中使用"style" <strong>属性</strong></p>
+<p>内部样式表 -在HTML文档头部 <head> 区域使用<style> <strong>元素</strong> 来包含CSS</p>
+<p>外部引用 - 使用外部 CSS <strong>文件</strong></p>
+<h4 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h4><p>background-color（背景色属性）定义一个元素的背景颜色</p>
+<p>font-family（字体），color（颜色），和font-size（字体大小）属性定义字体的样式</p>
+<p> text-align（文字对齐）属性指定文本的水平与垂直对齐方式</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 085514.png)</p>
+<h4 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h4><p>当单个文件需要特别样式时，就可以使用内部样式表</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 091919.png)</p>
+<h4 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h4><p>当样式需要被应用到很多页面的时候，使用外部样式表，可以通过更改一个文件来改变整个站点的外观。</p>
+<p>![屏幕截图 2024-09-27 093933](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 093933.png)</p>
+<h3 id="HTML表格"><a href="#HTML表格" class="headerlink" title="HTML表格"></a>HTML表格</h3><p>由 <strong><table></strong> 标签来定义。是一种用于展示结构化数据的标记语言元素。</p>
+<p><strong>tr</strong>：tr 是 table row 的缩写，表示表格的一行。</p>
+<p><strong>td</strong>：td 是 table data 的缩写，表示表格的数据单元格（每行被分割为若干单元格）</p>
+<p><strong>th</strong>：th 是 table header的缩写，表示表格的表头单元格。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 200050.png)</p>
+<p>如果不定义边框属性，表格将不显示边框<table border="0"></p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 195242.png)</p>
+<tfoot > 可用于在表格的底部定义摘要、统计信息等内容。 <caption > 可用于为整个表格定义标题。
+
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 200343.png)跨行或跨列的表格单元格</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 200939.png)</p>
+<p>cellspacing="10"==单元格间距="10"</p>
+<p>cellpadding="10"==单元格边距=“10”</p>
+<h3 id="HTML-列表"><a href="#HTML-列表" class="headerlink" title="HTML 列表"></a>HTML 列表</h3><h4 id="HTML无序列表"><a href="#HTML无序列表" class="headerlink" title="HTML无序列表"></a>HTML无序列表</h4><p>无序列表是一个项目的列表，此列项目使用粗体圆点（典型的小黑圆圈）进行标记。</p>
+<p>无序列表使用 <ul> 标签</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 231235.png)</p>
+<h4 id="HTML-有序列表"><a href="#HTML-有序列表" class="headerlink" title="HTML 有序列表"></a>HTML 有序列表</h4><p>列表项目使用数字进行标记。 有序列表始于 <ol> 标签。每个列表项始于 <li> 标签。</p>
+<p>列表项使用数字来标记。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 231513.png)</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 232351.png)</p>
+<h4 id="HTML-自定义列表"><a href="#HTML-自定义列表" class="headerlink" title="HTML 自定义列表"></a>HTML 自定义列表</h4><p>自定义列表不仅仅是一列项目，而是项目及其注释的组合。</p>
+<p>自定义列表以 <dl> 标签开始。每个自定义列表项以 <dt> 开始。每个自定义列表项的定义以 <dd> 开始。</p>
+<p>![屏幕截图 2024-09-27 232500](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-27 232500.png)</p>
+<h3 id="HTML-布局"><a href="#HTML-布局" class="headerlink" title="HTML 布局"></a>HTML 布局</h3><h4 id="使用-元素"><a href="#使用-元素" class="headerlink" title="使用 元素"></a>使用<div> 元素</h4><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-28 131716.png)</p>
+<h4 id="使用表格"><a href="#使用表格" class="headerlink" title="使用表格"></a>使用表格</h4><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-28 131912.png)</p>
+<h3 id="HTML表单"><a href="#HTML表单" class="headerlink" title="HTML表单"></a>HTML表单</h3><p>HTML 表单用于收集用户的输入信息，如：文本域（textarea）、下拉列表（select）、单选框（radio-buttons）、复选框（checkbox） 等等。表示文档中的一个区域，此区域包含交互控件，将用户收集到的信息发送到 Web 服务器。通常包含各种输入字段、复选框、单选按钮、下拉列表等元素。</p>
+<p><code>&lt;form&gt;</code> 元素用于创建表单</p>
+<p><code>action</code> 属性定义了表单数据提交的目标 URL</p>
+<p><code>method</code> 属性定义了提交数据的 HTTP 方法（这里使用的是 "post"）。</p>
+<p><code>&lt;label&gt;</code> 元素用于为表单元素添加标签，提高可访问性。</p>
+<p><code>&lt;input&gt;</code> 元素是最常用的表单元素之一，它可以创建文本输入框、密码框、单选按钮、复选框等。</p>
+<p><code>type</code> 属性定义了输入框的类型，<code>id</code> 属性用于关联 <code>&lt;label&gt;</code> 元素，<code>name</code> 属性用于标识表单字段。</p>
+<p><code>&lt;select&gt;</code> 元素用于创建下拉列表，而 <code>&lt;option&gt;</code> 元素用于定义下拉列表中的选项。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-28 150407.png)</p>
+<h4 id="输入类型"><a href="#输入类型" class="headerlink" title="输入类型"></a>输入类型</h4><ol>
+<li><p><strong>文本输入</strong> (<code>&lt;input type=&quot;text&quot;&gt;</code>): 允许用户输入文本。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter your username&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>附：文本域（拉右下角可移动）：用户可在文本域中写入文本。可写入字符的字数不受限制。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 005459.png)</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 010529.png)</p>
+</li>
+<li><p><strong>密码输入</strong> (<code>&lt;input type=&quot;password&quot;&gt;</code>): 用于输入密码，输入内容会显示为点或星号。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter your password&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>电子邮件输入</strong> (<code>&lt;input type=&quot;email&quot;&gt;</code>): 用于输入电子邮件地址，会自动验证电子邮件格式。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter your email&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>数字输入</strong> (<code>&lt;input type=&quot;number&quot;&gt;</code>): 用于输入数字，可以包括小数点和负数。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Your age&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>搜索框</strong> (<code>&lt;input type=&quot;search&quot;&gt;</code>): 用于搜索，通常会显示为一个搜索框。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;search&quot;</span> <span class="attr">name</span>=<span class="string">&quot;search&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search...&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>单选按钮</strong> (<code>&lt;input type=&quot;radio&quot;&gt;</code>): 允许用户在一组选项中选择一个。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 004113.png)</p>
+</li>
+<li><p><strong>复选框</strong> (<code>&lt;input type=&quot;checkbox&quot;&gt;</code>): 允许用户选择多个选项。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 004337.png)</p>
+</li>
+<li><p><strong>下拉列表</strong>下拉列表框是一个可选列表。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 004551.png)</p>
+<p>如果预选a，则<option value="a" selected>a</option></p>
+</li>
+<li><p><strong>提交按钮</strong> (<code>&lt;input type=&quot;submit&quot;&gt;</code>): 提交表单数据。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>重置按钮</strong> (<code>&lt;input type=&quot;reset&quot;&gt;</code>): 重置表单输入字段为初始值。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Reset&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>隐藏输入</strong> (<code>&lt;input type=&quot;hidden&quot;&gt;</code>): 用于隐藏数据，用户不可见。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hiddenField&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hiddenValue&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>文件上传</strong> (<code>&lt;input type=&quot;file&quot;&gt;</code>): 允许用户上传文件。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fileUpload&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>按钮</strong> (<code>&lt;input type=&quot;button&quot;&gt;</code>): 创建一个可点击的按钮，但不会提交表单。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Click Me&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>颜色选择器</strong> (<code>&lt;input type=&quot;color&quot;&gt;</code>): 允许用户选择颜色。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;color&quot;</span> <span class="attr">name</span>=<span class="string">&quot;favcolor&quot;</span> <span class="attr">value</span>=<span class="string">&quot;#ff0000&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>日期选择器</strong> (<code>&lt;input type=&quot;date&quot;&gt;</code>): 允许用户选择日期。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;birthday&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>时间选择器</strong> (<code>&lt;input type=&quot;time&quot;&gt;</code>): 允许用户选择时间。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;time&quot;</span> <span class="attr">name</span>=<span class="string">&quot;time&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>日期和时间选择器</strong> (<code>&lt;input type=&quot;datetime-local&quot;&gt;</code>): 允许用户选择日期和时间。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;datetime-local&quot;</span> <span class="attr">name</span>=<span class="string">&quot;eventtime&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>月选择器</strong> (<code>&lt;input type=&quot;month&quot;&gt;</code>): 允许用户选择月份和年份。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;month&quot;</span> <span class="attr">name</span>=<span class="string">&quot;birthdate&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>周选择器</strong> (<code>&lt;input type=&quot;week&quot;&gt;</code>): 允许用户选择一周。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;week&quot;</span> <span class="attr">name</span>=<span class="string">&quot;week&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>这些输入元素可以包含在 <code>&lt;form&gt;</code> 元素中，并且可以通过 <code>&lt;form&gt;</code> 元素的 <code>action</code> 属性指定提交数据的 URL，通过 <code>method</code> 属性指定提交数据的方式（通常是 <code>GET</code> 或 <code>POST</code>）。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/submit-form&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 输入元素放在这里 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter your username&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当用户填写用户名并点击提交按钮时，表单数据将通过 POST 方法发送到 <code>/submit-form</code> URL。</p>
+<h3 id="HTML框架"><a href="#HTML框架" class="headerlink" title="HTML框架"></a>HTML框架</h3><p>通过使用框架，可以在同一个浏览器窗口中显示不止一个页面。</p>
+<h4 id="iframe语法"><a href="#iframe语法" class="headerlink" title="iframe语法"></a><strong>iframe语法</strong></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;iframe src=&quot;URL&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="iframe作用"><a href="#iframe作用" class="headerlink" title="iframe作用"></a>iframe作用</h4><h5 id="设置高度与宽度"><a href="#设置高度与宽度" class="headerlink" title="设置高度与宽度"></a>设置高度与宽度</h5><h5 id="移除边框"><a href="#移除边框" class="headerlink" title="移除边框"></a>移除边框</h5><p>frameborder 属性定义iframe表示是否显示边框。设置属性值为 "0" 移除iframe的边框</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 081823.png)</p>
+<h5 id="显示目标链接页面"><a href="#显示目标链接页面" class="headerlink" title="显示目标链接页面"></a>显示目标链接页面</h5><p>iframe 可以显示一个目标链接的页面</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 081839.png)</p>
+<h3 id="HTML-脚本（JavaScript）"><a href="#HTML-脚本（JavaScript）" class="headerlink" title="HTML 脚本（JavaScript）"></a>HTML 脚本（JavaScript）</h3><h3 id="HTML-速查列表"><a href="#HTML-速查列表" class="headerlink" title="HTML 速查列表"></a>HTML 速查列表</h3><p>[][HTML 速查列表 | 菜鸟教程 (runoob.com)]<a href="https://www.runoob.com/html/html-quicklist.html">https://www.runoob.com/html/html-quicklist.html</a></p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 134336.png)</p>
+<p>![屏幕截图 2024-09-29 134354](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 134354.png)</p>
+<p>![屏幕截图 2024-09-29 134404](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-29 134404.png)</p>
+]]></content>
       <categories>
-          
-          <category> 计算机网络 </category>
-          
+        <category>前端</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2024/10/10/hello-world/"/>
-      <url>/2024/10/10/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-  
-  
+  </entry>
 </search>
