@@ -1,335 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2024/10/10/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>JavaScript</title>
-    <url>/2024/10/15/JavaScript/</url>
-    <content><![CDATA[<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>HTML 中的 Javascript 脚本代码必须位于 <strong><script></strong> 与 <strong></script></strong> 标签间</p>
-<p>Javascript 脚本代码可被放置在 HTML 页面的 <strong><body></strong> 和 <strong><head></strong> 中</p>
-<h2 id="JavaScript-输出"><a href="#JavaScript-输出" class="headerlink" title="JavaScript 输出"></a>JavaScript 输出</h2><p>JavaScript 没有任何打印或者输出的函数</p>
-<h3 id="使用-window-alert-弹出警告框来显示数据"><a href="#使用-window-alert-弹出警告框来显示数据" class="headerlink" title="使用 window.alert() 弹出警告框来显示数据"></a>使用 <strong>window.alert()</strong> 弹出警告框来显示数据</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 105906.png)</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 105856.png)</p>
-<h3 id="使用-innerHTML-写入到-HTML-元素"><a href="#使用-innerHTML-写入到-HTML-元素" class="headerlink" title="使用 innerHTML 写入到 HTML 元素"></a>使用 <strong>innerHTML</strong> 写入到 HTML 元素</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110449.png)</p>
-<p><strong>document.getElementById(“demo”)</strong> 用 id 属性(标识 HTML 元素)来查找 HTML 元素的 JS 代码 </p>
-<p>**innerHTML &#x3D; “段落已修改。”**用于修改元素的 HTML 内容(innerHTML)的JS 代码</p>
-<h3 id="使用-document-write-方法将内容写到-HTML-文档中"><a href="#使用-document-write-方法将内容写到-HTML-文档中" class="headerlink" title="使用 document.write() 方法将内容写到 HTML 文档中"></a>使用 <strong>document.write()</strong> 方法将内容写到 HTML 文档中</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110740.png)</p>
-<p>用 document.write() 可以向文档写入内容。</p>
-<p>如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖。</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110855.png)</p>
-<p>![屏幕截图 2024-10-05 110900](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110900.png)</p>
-<h3 id="使用-console-log-写入到浏览器的控制台"><a href="#使用-console-log-写入到浏览器的控制台" class="headerlink" title="使用 console.log() 写入到浏览器的控制台"></a>使用 <strong>console.log()</strong> 写入到浏览器的控制台</h3><p>使用 <strong>console.log()</strong> 方法在浏览器中( F12 来启用调试模式， 在调试窗口中点击 “Console” 菜单)显示 JavaScript 值</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 111043.png)</p>
-<h2 id="JavaScript-语法"><a href="#JavaScript-语法" class="headerlink" title="JavaScript 语法"></a>JavaScript 语法</h2><h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p><strong>数字（Number）字面量</strong> 可以是整数或者是小数，或者是科学计数(e)【123e5&#x3D;12300000】</p>
-<p><strong>字符串（String）字面量</strong> 可以使用单引号或双引号</p>
-<p><strong>表达式字面量</strong> 用于计算</p>
-<p><strong>数组（Array）字面量</strong> 定义一个数组 [40, 100, 1, 5, 25, 10]</p>
-<p><strong>对象（Object）字面量</strong> 定义一个对象 {firstName:”John”, lastName:”Doe”, age:50, eyeColor:”blue”}</p>
-<p><strong>函数（Function）字面量</strong> 定义一个函数  function myFunction(a, b) { return a * b;}</p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量用于存储数据值，使用关键字 <strong>var</strong> 来定义变量， 使用等号来为变量赋值</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 112250.png)</p>
-<h3 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h3><p>用于向浏览器发出命令（详见下节）</p>
-<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>数字，字符串，数组，对象等</p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h2 id="JavaScript-语句"><a href="#JavaScript-语句" class="headerlink" title="JavaScript 语句"></a>JavaScript 语句</h2><p>JavaScript 语句是发给浏览器的命令，告诉浏览器要做的事情</p>
-<h3 id="分号"><a href="#分号" class="headerlink" title="分号 ;"></a>分号 ;</h3><p>在每条可执行的语句结尾添加分号或在一行中编写多条语句</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 154455.png)</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>是 JavaScript 语句的序列。浏览器按照编写顺序依次执行每条语句。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementById(&quot;demo&quot;).innerHTML=&quot;你好 Dolly&quot;; document.getElementById(&quot;myDIV&quot;).innerHTML=&quot;你最近怎么样?&quot;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>代码块的作用是一并地执行语句序列，左花括号开始，以右花括号结束</p>
-<p>![屏幕截图 2024-10-05 155144](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 155144.png)</p>
-<h3 id="语句标识符"><a href="#语句标识符" class="headerlink" title="语句标识符"></a>语句标识符</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 155544.png)</p>
-<h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><p>JavaScript 会忽略多余的空格</p>
-<h3 id="折行"><a href="#折行" class="headerlink" title="折行"></a>折行</h3><p>使用反斜杠对代码行进行换行</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 160240.png)</p>
-<h2 id="JavaScript-变量"><a href="#JavaScript-变量" class="headerlink" title="JavaScript 变量"></a>JavaScript 变量</h2><h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><p>用 var 关键词来声明变量，变量可以先使用再声明</p>
-<h4 id="多变量"><a href="#多变量" class="headerlink" title="多变量"></a>多变量</h4><p>在一条语句中声明很多变量：该语句以 var 开头，并使用逗号分隔变量</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var lastname=&quot;Doe&quot;, age=30, job=&quot;carpenter&quot;;</span><br></pre></td></tr></table></figure>
-
-<p>横跨多行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var lastname=&quot;Doe&quot;,</span><br><span class="line">age=30,</span><br><span class="line">job=&quot;carpenter&quot;;</span><br></pre></td></tr></table></figure>
-
-<p>一条语句中声明的多个变量不可以同时赋同一个值</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x,y,z=1;</span><br></pre></td></tr></table></figure>
-
-<p>x,y 为 undefined， z 为 1。</p>
-<h4 id="重新声明变量"><a href="#重新声明变量" class="headerlink" title="重新声明变量"></a>重新声明变量</h4><p>重新声明 JavaScript 变量，该变量的值不会丢失</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var carname=&quot;Volvo&quot;;</span><br><span class="line">var carname;</span><br></pre></td></tr></table></figure>
-
-<p>两条语句执行后，变量 carname 的值依然是 “Volvo”</p>
-<h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><p>JavaScript 变量可用于存放值（ x&#x3D;5），表达式（z&#x3D;x+y）和文本值 (name&#x3D;”Bill Gates”  用双引号或单引号包围这个值)，一般倡导以字母开头</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 161056.png)</p>
-<h2 id="JavaScript-数据类型"><a href="#JavaScript-数据类型" class="headerlink" title="JavaScript 数据类型"></a>JavaScript 数据类型</h2><p>**值类型(基本类型)**：字符串（String）、数字(Number)、布尔(Boolean)、空（Null）、未定义（Undefined）、Symbol</p>
-<p><strong>引用数据类型（对象类型）</strong>：对象(Object)、数组(Array)、函数(Function)，还有两个特殊的对象：正则（RegExp）和日期（Date）</p>
-<p>变量的数据类型可以使用 <strong>typeof</strong> 操作符来查看</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 162748.png)</p>
-<h3 id="JavaScript-数组"><a href="#JavaScript-数组" class="headerlink" title="JavaScript 数组"></a>JavaScript 数组</h3><p>JavaScript 不支持使用名字来索引数组，只允许使用数字索引</p>
-<p>如果你使用名字作为索引，当访问数组时，JavaScript 会把数组重新定义为标准对象。</p>
-<p>执行这样操作后，数组的方法及属性将不能再使用，否则会产生错误（person.length输出为0）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var cars=new Array();</span><br><span class="line">cars[0]=&quot;Saab&quot;;</span><br><span class="line">cars[1]=&quot;Volvo&quot;;</span><br><span class="line">cars[2]=&quot;BMW&quot;;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var cars=new Array(&quot;Saab&quot;,&quot;Volvo&quot;,&quot;BMW&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 163220.png)</p>
-<h2 id="JavaScript-对象"><a href="#JavaScript-对象" class="headerlink" title="JavaScript 对象"></a>JavaScript 对象</h2><p>对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义</p>
-<h3 id="对象属性两种访问方式"><a href="#对象属性两种访问方式" class="headerlink" title="对象属性两种访问方式"></a>对象属性两种访问方式</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 234215.png)</p>
-<h3 id="对象方法"><a href="#对象方法" class="headerlink" title="对象方法"></a>对象方法</h3><p>对象的方法定义了一个函数，并作为对象的属性存储。对象方法通过添加 () 调用 (作为一个函数)。</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 234705.png)</p>
-<h3 id="typeof，Undefined-和-Null"><a href="#typeof，Undefined-和-Null" class="headerlink" title="typeof，Undefined 和 Null"></a>typeof，Undefined 和 Null</h3><p>typeof 操作符来检测变量的数据类型</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof &quot;John&quot;         // 返回 string</span><br><span class="line">typeof 3.14          // 返回 number</span><br><span class="line">typeof NaN           // 返回 number</span><br><span class="line">typeof false         // 返回 boolean</span><br><span class="line">typeof [1,2,3,4]       // 返回 object</span><br><span class="line">typeof &#123;name:&#x27;John&#x27;, age:34&#125; // 返回 object</span><br><span class="line">typeof new Date()       // 返回 object</span><br><span class="line">typeof function () &#123;&#125;     // 返回 function</span><br><span class="line">typeof myCar         // 返回 undefined (如果 myCar 没有声明)</span><br><span class="line">typeof null          // 返回 object</span><br></pre></td></tr></table></figure>
-
-<p>Undefined 这个值表示变量不含有值。任何变量都可以通过设置值为 <strong>undefined</strong> 来清空</p>
-<p>null 表示 “什么都没有”，但类型为<strong>对象</strong>，是一个<strong>只有一个值的特殊类型</strong>。表示一个空对象引用。可以设置为 null 来清空变量。</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 191943.png)</p>
-<p>在常规的比较&#x3D;&#x3D;中，数据类型是被忽略的</p>
-<p>在严格的比较运算中，&#x3D;&#x3D;&#x3D; 为恒等计算符，同时检查表达式的值与类型</p>
-<h2 id="JavaScript-函数"><a href="#JavaScript-函数" class="headerlink" title="JavaScript 函数"></a>JavaScript 函数</h2><h3 id="调用带参数的函数"><a href="#调用带参数的函数" class="headerlink" title="调用带参数的函数"></a>调用带参数的函数</h3><p>变量和参数必须以一致的顺序出现（第一个变量就是第一个被传递的参数的给定的值）</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 090227.png)</p>
-<h3 id="带有返回值的函数"><a href="#带有返回值的函数" class="headerlink" title="带有返回值的函数"></a>带有返回值的函数</h3><p>使用 return 语句时，函数会停止执行，并返回指定的值</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 090512.png)</p>
-<h2 id="JavaScript-作用域"><a href="#JavaScript-作用域" class="headerlink" title="JavaScript 作用域"></a>JavaScript 作用域</h2><p><strong>作用域为可访问变量，对象，函数的集合</strong></p>
-<h3 id="JavaScript-局部作用域"><a href="#JavaScript-局部作用域" class="headerlink" title="JavaScript 局部作用域"></a>JavaScript 局部作用域</h3><p>局部变量：只能在函数内部访问，局部变量在函数开始执行时创建，函数执行完后局部变量会自动销毁，不同的函数可以使用相同名称的变量</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092938.png)</p>
-<h3 id="JavaScript-全局变量"><a href="#JavaScript-全局变量" class="headerlink" title="JavaScript 全局变量"></a>JavaScript 全局变量</h3><p>全局变量有 <strong>全局作用域</strong>: 网页中所有脚本和函数均可使用</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092248.png)</p>
-<p>如果变量在函数内没有声明（没有使用 var 关键字），该变量为全局变量</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092443.png)</p>
-<h2 id="JavaScript-字符串"><a href="#JavaScript-字符串" class="headerlink" title="JavaScript 字符串"></a>JavaScript 字符串</h2><p>JavaScript 字符串用于存储和处理文本</p>
-<p>字符串的索引从 0 开始，这意味着第一个字符索引值为 **[0]**，第二个为 **[1]**，以此类推</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 111334.png)</p>
-<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><p>反斜杠是一个<strong>转义字符</strong>。 转义字符将特殊字符转换为字符串字符</p>
-<p>例如：可以在字符串中使用引号，字符串中的引号不要与字符串的引号相同（但可以在字符串添加转义字符来使用引号）</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 111829.png)</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 112524.png)</p>
-<h3 id="字符串长度"><a href="#字符串长度" class="headerlink" title="字符串长度"></a>字符串长度</h3><p>使用内置属性 <strong>length</strong> 来计算字符串的长度</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 112130.png)</p>
-<h3 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h3><p>模板字符串中可以同时使用单引号和双引号</p>
-<p>模板字符串还支持多行文本，而无需使用特殊的转义字符：</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 115412.png)</p>
-<p>模板字面量还可以包含占位符——一种由美元符号和大括号分隔的嵌入式表达式：**${expression}**</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 115719.png)</p>
-<h2 id="JavaScript-运算符"><a href="#JavaScript-运算符" class="headerlink" title="JavaScript 运算符"></a>JavaScript 运算符</h2><h3 id="用于字符串的-运算符"><a href="#用于字符串的-运算符" class="headerlink" title="用于字符串的 + 运算符"></a>用于字符串的 + 运算符</h3><p>+ 运算符用于把文本值或字符串变量加起来（连接起来）</p>
-<p>如需把两个或多个字符串变量连接起来，请使用 <strong>+</strong> 运算符</p>
-<p>要想在两个字符串之间增加空格，需要把空格插入一个字符串之中或者把空格插入表达式中(txt3&#x3D;txt1+” “+txt2)</p>
-<p>**规则:**如果把数字与字符串相加，结果将成为字符串！</p>
-<h3 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h3><p><em>variablename</em>&#x3D;(<em>condition</em>)?<em>value1</em>:<em>value2</em> </p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 155430.png)</p>
-<p><strong>加法</strong>是两个<strong>数字</strong>相加。</p>
-<p><strong>连接</strong>是两个<strong>字符串</strong>连接。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x = 10 + 5;     // x 的结果为 15</span><br><span class="line">var x = 10 + &quot;5&quot;;    // x 的结果为 &quot;105&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="JavaScript循环"><a href="#JavaScript循环" class="headerlink" title="JavaScript循环"></a>JavaScript循环</h2><h3 id="C-Users-ASUS-Pictures-Screenshots-屏幕截图-2024-10-06-162257-png"><a href="#C-Users-ASUS-Pictures-Screenshots-屏幕截图-2024-10-06-162257-png" class="headerlink" title="![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 162257.png)"></a>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 162257.png)</h3><p>在 switch 语句中，用恒等计算符(&#x3D;&#x3D;&#x3D;)进行比较</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x = 10;</span><br><span class="line">switch(x) &#123;</span><br><span class="line">  case 10: alert(&quot;Hello&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上例会出现弹窗</p>
-<h2 id="JavaScript-类型转换"><a href="#JavaScript-类型转换" class="headerlink" title="JavaScript 类型转换"></a>JavaScript 类型转换</h2><h3 id="constructor-属性"><a href="#constructor-属性" class="headerlink" title="constructor 属性"></a>constructor 属性</h3><p><strong>constructor</strong> 属性返回所有 JavaScript 变量的构造函数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;John&quot;.constructor         // 返回函数 String() &#123; [native code] &#125;</span><br><span class="line">(3.14).constructor         // 返回函数 Number() &#123; [native code] &#125;</span><br><span class="line">false.constructor         // 返回函数 Boolean() &#123; [native code] &#125;</span><br><span class="line">[1,2,3,4].constructor       // 返回函数 Array()  &#123; [native code] &#125;</span><br><span class="line">&#123;name:&#x27;John&#x27;, age:34&#125;.constructor // 返回函数 Object() &#123; [native code] &#125;</span><br><span class="line">new Date().constructor       // 返回函数 Date()  &#123; [native code] &#125;</span><br><span class="line">function () &#123;&#125;.constructor     // 返回函数 Function()&#123; [native code] &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="JavaScript-类型转换-1"><a href="#JavaScript-类型转换-1" class="headerlink" title="JavaScript 类型转换"></a>JavaScript 类型转换</h3><p>JavaScript 变量可以转换为新变量或其他数据类型</p>
-<h4 id="将数字转换为字符串"><a href="#将数字转换为字符串" class="headerlink" title="将数字转换为字符串"></a>将数字转换为字符串</h4><p>全局方法 <strong>String()</strong> 可以将数字，字母，变量，表达式转换为字符串</p>
-<p>String(x)  String(123) </p>
-<p>Number 方法 <strong>toString()</strong> 也是</p>
-<p>x.toString()   (123).toString()</p>
-<table>
-<thead>
-<tr>
-<th align="left">方法</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">toExponential()</td>
-<td align="left">把对象的值转换为指数计数法。</td>
-</tr>
-<tr>
-<td align="left">toFixed()</td>
-<td align="left">把数字转换为字符串，结果的小数点后有指定位数的数字。</td>
-</tr>
-<tr>
-<td align="left">toPrecision()</td>
-<td align="left">把数字格式化为指定的长度。</td>
-</tr>
-</tbody></table>
-<h4 id="将布尔值转换为字符串"><a href="#将布尔值转换为字符串" class="headerlink" title="将布尔值转换为字符串"></a>将布尔值转换为字符串</h4><p>全局方法 <strong>String()</strong> </p>
-<p>Boolean 方法 <strong>toString()</strong> </p>
-<h4 id="将日期转换为字符串"><a href="#将日期转换为字符串" class="headerlink" title="将日期转换为字符串"></a>将日期转换为字符串</h4><p>Date() 返回字符串。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Date()  </span><br></pre></td></tr></table></figure>
-
-<p>全局方法 String() 可以将日期对象转换为字符串。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String(new Date())  </span><br></pre></td></tr></table></figure>
-
-<p>Date 方法 <strong>toString()</strong> 也有相同的效果。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">obj = new Date()</span><br><span class="line">obj.toString() </span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="left">方法</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">getDate()</td>
-<td align="left">从 Date 对象返回一个月中的某一天 (1 ~ 31)。</td>
-</tr>
-<tr>
-<td align="left">getDay()</td>
-<td align="left">从 Date 对象返回一周中的某一天 (0 ~ 6)。</td>
-</tr>
-<tr>
-<td align="left">getFullYear()</td>
-<td align="left">从 Date 对象以四位数字返回年份。</td>
-</tr>
-<tr>
-<td align="left">getHours()</td>
-<td align="left">返回 Date 对象的小时 (0 ~ 23)。</td>
-</tr>
-<tr>
-<td align="left">getMilliseconds()</td>
-<td align="left">返回 Date 对象的毫秒(0 ~ 999)。</td>
-</tr>
-<tr>
-<td align="left">getMinutes()</td>
-<td align="left">返回 Date 对象的分钟 (0 ~ 59)。</td>
-</tr>
-<tr>
-<td align="left">getMonth()</td>
-<td align="left">从 Date 对象返回月份 (0 ~ 11)。</td>
-</tr>
-<tr>
-<td align="left">getSeconds()</td>
-<td align="left">返回 Date 对象的秒数 (0 ~ 59)。</td>
-</tr>
-<tr>
-<td align="left">getTime()</td>
-<td align="left">返回 1970 年 1 月 1 日至今的毫秒数。</td>
-</tr>
-</tbody></table>
-<h4 id="将字符串转换为数字"><a href="#将字符串转换为数字" class="headerlink" title="将字符串转换为数字"></a>将字符串转换为数字</h4><p>全局方法 <strong>Number()</strong> </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Number(&quot;3.14&quot;)  // 返回 3.14</span><br><span class="line">Number(&quot; &quot;)    // 返回 0</span><br><span class="line">Number(&quot;&quot;)    // 返回 0</span><br><span class="line">Number(&quot;99 88&quot;)  // 返回 NaN</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="left">方法</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">parseFloat()</td>
-<td align="left">解析一个字符串，并返回一个浮点数。</td>
-</tr>
-<tr>
-<td align="left">parseInt()</td>
-<td align="left">解析一个字符串，并返回一个整数。</td>
-</tr>
-</tbody></table>
-<h4 id="将布尔值转换为数字"><a href="#将布尔值转换为数字" class="headerlink" title="将布尔值转换为数字"></a>将布尔值转换为数字</h4><p>全局方法 <strong>Number()</strong> </p>
-<h4 id="将日期转换为数字"><a href="#将日期转换为数字" class="headerlink" title="将日期转换为数字"></a>将日期转换为数字</h4><p>全局方法 <strong>Number()</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">d = new Date();</span><br><span class="line">Number(d)</span><br></pre></td></tr></table></figure>
-
-<p>日期方法 <strong>getTime()</strong> </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">d = new Date();</span><br><span class="line">d.getTime()  </span><br></pre></td></tr></table></figure>
-
-<h4 id="自动转换为字符串"><a href="#自动转换为字符串" class="headerlink" title="自动转换为字符串"></a>自动转换为字符串</h4><p>当你尝试输出一个对象或一个变量时 JavaScript 会自动调用变量的 toString() 方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = myVar;</span><br><span class="line"></span><br><span class="line">myVar = &#123;name:&quot;Fjohn&quot;&#125; // toString 转换为 &quot;[object Object]&quot;</span><br><span class="line">myVar = [1,2,3,4]    // toString 转换为 &quot;1,2,3,4&quot;</span><br><span class="line">myVar = new Date()   // toString 转换为 &quot;Fri Jul 18 2014 09:08:55 GMT+0200&quot;</span><br></pre></td></tr></table></figure>
-
-<p>数字和布尔值也经常相互转换：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myVar = 123       // toString 转换为 &quot;123&quot;</span><br><span class="line">myVar = true       // toString 转换为 &quot;true&quot;</span><br><span class="line">myVar = false      // toString 转换为 &quot;false&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="JavaScript-正则表达式"><a href="#JavaScript-正则表达式" class="headerlink" title="JavaScript 正则表达式"></a>JavaScript 正则表达式</h2><p>使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式</p>
-<p>正则表达式可用于所有文本搜索和文本替换的操作</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/正则表达式主体/修饰符(可选)</span><br></pre></td></tr></table></figure>
-
-<p>var patt &#x3D; &#x2F;runoob&#x2F;i</p>
-<p><strong>&#x2F;runoob&#x2F;i</strong> 是一个正则表达式。<strong>runoob</strong> 是一个<strong>正则表达式主体</strong> (用于检索)。<strong>i</strong> 是一个<strong>修饰符</strong> (搜索不区分大小写)</p>
-<h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><p><strong>search()</strong> 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。</p>
-<p><strong>replace()</strong> 方法用于在字符串中用一些字符串替换另一些字符串，或替换一个与正则表达式匹配的子串。</p>
-<h3 id="RegExp-对象"><a href="#RegExp-对象" class="headerlink" title="RegExp 对象"></a>RegExp 对象</h3><h3 id="test-使用"><a href="#test-使用" class="headerlink" title="test()使用"></a>test()使用</h3><p>test() 方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true</p>
-<p>搜索字符串中的字符 “e”：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var patt = /e/;</span><br><span class="line">patt.test(&quot;The best things in life are free!&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>或：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/e/.test(&quot;The best things in life are free!&quot;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="exec-使用"><a href="#exec-使用" class="headerlink" title="exec()使用"></a>exec()使用</h3><p>exec() 方法用于检索字符串中的正则表达式的匹配。该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var patt1=new RegExp(&quot;e&quot;);</span><br><span class="line">document.write(patt1.exec(&quot;The best things in life are free&quot;));</span><br></pre></td></tr></table></figure>
-
-<p>输出为e</p>
-<h2 id="JavaScript-错误"><a href="#JavaScript-错误" class="headerlink" title="JavaScript 错误"></a>JavaScript 错误</h2><h3 id="throw语句创建自定义错误"><a href="#throw语句创建自定义错误" class="headerlink" title="throw语句创建自定义错误"></a>throw语句创建自定义错误</h3><h3 id="try-语句测试代码块的错误"><a href="#try-语句测试代码块的错误" class="headerlink" title="try 语句测试代码块的错误"></a><strong>try</strong> 语句测试代码块的错误</h3><h3 id="catch-语句处理错误"><a href="#catch-语句处理错误" class="headerlink" title="catch 语句处理错误"></a><strong>catch</strong> 语句处理错误</h3><h3 id="finally-语句"><a href="#finally-语句" class="headerlink" title="finally 语句"></a>finally 语句</h3><p>finally 语句不论之前的 try 和 catch 中是否产生异常都会执行该代码块</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 221211.png)</p>
-<h2 id="JavaScript-表单"><a href="#JavaScript-表单" class="headerlink" title="JavaScript 表单"></a>JavaScript 表单</h2><h3 id="JavaScript-表单验证"><a href="#JavaScript-表单验证" class="headerlink" title="JavaScript 表单验证"></a>JavaScript 表单验证</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 101906.png)</p>
-<h3 id="JavaScript-验证输入的数字"><a href="#JavaScript-验证输入的数字" class="headerlink" title="JavaScript 验证输入的数字"></a>JavaScript 验证输入的数字</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 102407.png)</p>
-<h2 id="JavaScript关键字"><a href="#JavaScript关键字" class="headerlink" title="JavaScript关键字"></a>JavaScript关键字</h2><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h4 id="方法中的-this"><a href="#方法中的-this" class="headerlink" title="方法中的 this"></a>方法中的 this</h4><p>this 指向调用它所在方法的对象</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 103918.png)</p>
-<h4 id="单独使用-this"><a href="#单独使用-this" class="headerlink" title="单独使用 this"></a>单独使用 this</h4><p>单独使用 this，则它指向全局(Global)对象</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104149.png)</p>
-<h4 id="函数中使用-this"><a href="#函数中使用-this" class="headerlink" title="函数中使用 this"></a>函数中使用 this</h4><p>在函数中，函数的所属者默认绑定到 this 上</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104247.png)</p>
-<p>严格模式下，<strong>this</strong> 为 <strong>undefined</strong>，因为严格模式下不允许默认绑定</p>
-<h4 id="事件中的-this"><a href="#事件中的-this" class="headerlink" title="事件中的 this"></a>事件中的 this</h4><p>this 指向了接收事件的 HTML 元素</p>
-<h4 id="对象方法中绑定"><a href="#对象方法中绑定" class="headerlink" title="对象方法中绑定"></a>对象方法中绑定</h4><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104558.png)</p>
-<p>this 是 person 对象，person 对象是函数的所有者</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104640.png)</p>
-<p><strong>this.firstName</strong> 表示 <strong>this</strong> (person) 对象的 <strong>firstName</strong> 属性</p>
-<h4 id="显式函数绑定"><a href="#显式函数绑定" class="headerlink" title="显式函数绑定"></a>显式函数绑定</h4><p>函数也是对象，对象则有方法，apply 和 call 就是函数对象的方法，他们允许切换函数执行的上下文环境（context），即 this 绑定的对象</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 105100.png)</p>
-<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p>let 声明的变量只在 let 命令所在的代码块 <strong>{}</strong> 内有效，在 <strong>{}</strong> 之外不能访问</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 114257.png)</p>
-<p>在相同的作用域或块级作用域中，不能使用 <strong>let</strong> 关键字来重置 <strong>let</strong> 关键字声明的变量</p>
-<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>const 用于声明一个或多个常量，声明时<strong>必须进行初始化</strong>，定义常量的值不能通过再赋值修改，也不能再次声明</p>
-<p>const 定义的变量并非常量，并非不可变，它定义了一个常量引用一个值。使用 const 定义的对象或者数组，其实是可变的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 创建常量对象</span><br><span class="line">const car = &#123;type:&quot;Fiat&quot;, model:&quot;500&quot;, color:&quot;white&quot;&#125;;</span><br><span class="line"></span><br><span class="line">// 修改属性:</span><br><span class="line">car.color = &quot;red&quot;;</span><br><span class="line"></span><br><span class="line">// 添加属性</span><br><span class="line">car.owner = &quot;Johnson&quot;;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 创建常量数组</span><br><span class="line">const cars = [&quot;Saab&quot;, &quot;Volvo&quot;, &quot;BMW&quot;];</span><br><span class="line"></span><br><span class="line">// 修改元素</span><br><span class="line">cars[0] = &quot;Toyota&quot;;</span><br><span class="line"></span><br><span class="line">// 添加元素</span><br><span class="line">cars.push(&quot;Audi&quot;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><p>指定要计算一个表达式但是不返回值</p>
-<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 125443.png)</p>
-<p>href&#x3D;”#”与href&#x3D;”javascript:void(0)”的区别</p>
-<p><strong>#</strong> 包含了一个位置信息，默认的锚是**#top** 也就是网页的上端。而javascript:void(0), 仅仅表示一个死链接。在页面很长的时候会使用 <strong>#</strong> 来定位页面的具体位置，格式为：**# + id**</p>
-<h2 id="JavaScript-JSON"><a href="#JavaScript-JSON" class="headerlink" title="JavaScript JSON"></a>JavaScript JSON</h2><p>JSON 是用于存储和传输数据的格式， 通常用于服务端向网页传递数据 </p>
-<h3 id="JSON-数组"><a href="#JSON-数组" class="headerlink" title="JSON 数组"></a>JSON 数组</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;sites&quot;:[</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Runoob&quot;, &quot;url&quot;:&quot;www.runoob.com&quot;&#125;, </span><br><span class="line">    &#123;&quot;name&quot;:&quot;Google&quot;, &quot;url&quot;:&quot;www.google.com&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Taobao&quot;, &quot;url&quot;:&quot;www.taobao.com&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h3 id="JSON-字符串转换为-JavaScript-对象"><a href="#JSON-字符串转换为-JavaScript-对象" class="headerlink" title="JSON 字符串转换为 JavaScript 对象"></a>JSON 字符串转换为 JavaScript 对象</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var text = &#x27;&#123; &quot;sites&quot; : [&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Runoob&quot; , &quot;url&quot;:&quot;www.runoob.com&quot; &#125;,&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Google&quot; , &quot;url&quot;:&quot;www.google.com&quot; &#125;,&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Taobao&quot; , &quot;url&quot;:&quot;www.taobao.com&quot; &#125; ]&#125;&#x27;;</span><br><span class="line">    </span><br><span class="line">obj = JSON.parse(text);</span><br><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = obj.sites[1].name + &quot; &quot; + obj.sites[1].url;</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="left">函数</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><a href="https://www.runoob.com/js/javascript-json-parse.html">JSON.parse()</a></td>
-<td align="left">用于将一个 JSON 字符串转换为 JavaScript 对象。</td>
-</tr>
-<tr>
-<td align="left"><a href="https://www.runoob.com/js/javascript-json-stringify.html">JSON.stringify()</a></td>
-<td align="left">用于将 JavaScript 值转换为 JSON 字符串。</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-  </entry>
-  <entry>
     <title>HTML</title>
     <url>/2024/10/15/HTML/</url>
     <content><![CDATA[<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="前备知识"><a href="#前备知识" class="headerlink" title="前备知识"></a>前备知识</h2><img src="C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-09-24 234834.png" style="zoom: 80%;" />
@@ -780,6 +451,335 @@
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
       <categories>
         <category>计算机网络</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/10/10/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>JavaScript</title>
+    <url>/2024/10/15/JavaScript/</url>
+    <content><![CDATA[<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>HTML 中的 Javascript 脚本代码必须位于 <strong><script></strong> 与 <strong></script></strong> 标签间</p>
+<p>Javascript 脚本代码可被放置在 HTML 页面的 <strong><body></strong> 和 <strong><head></strong> 中</p>
+<h2 id="JavaScript-输出"><a href="#JavaScript-输出" class="headerlink" title="JavaScript 输出"></a>JavaScript 输出</h2><p>JavaScript 没有任何打印或者输出的函数</p>
+<h3 id="使用-window-alert-弹出警告框来显示数据"><a href="#使用-window-alert-弹出警告框来显示数据" class="headerlink" title="使用 window.alert() 弹出警告框来显示数据"></a>使用 <strong>window.alert()</strong> 弹出警告框来显示数据</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 105906.png)</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 105856.png)</p>
+<h3 id="使用-innerHTML-写入到-HTML-元素"><a href="#使用-innerHTML-写入到-HTML-元素" class="headerlink" title="使用 innerHTML 写入到 HTML 元素"></a>使用 <strong>innerHTML</strong> 写入到 HTML 元素</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110449.png)</p>
+<p><strong>document.getElementById(“demo”)</strong> 用 id 属性(标识 HTML 元素)来查找 HTML 元素的 JS 代码 </p>
+<p>**innerHTML &#x3D; “段落已修改。”**用于修改元素的 HTML 内容(innerHTML)的JS 代码</p>
+<h3 id="使用-document-write-方法将内容写到-HTML-文档中"><a href="#使用-document-write-方法将内容写到-HTML-文档中" class="headerlink" title="使用 document.write() 方法将内容写到 HTML 文档中"></a>使用 <strong>document.write()</strong> 方法将内容写到 HTML 文档中</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110740.png)</p>
+<p>用 document.write() 可以向文档写入内容。</p>
+<p>如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110855.png)</p>
+<p>![屏幕截图 2024-10-05 110900](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 110900.png)</p>
+<h3 id="使用-console-log-写入到浏览器的控制台"><a href="#使用-console-log-写入到浏览器的控制台" class="headerlink" title="使用 console.log() 写入到浏览器的控制台"></a>使用 <strong>console.log()</strong> 写入到浏览器的控制台</h3><p>使用 <strong>console.log()</strong> 方法在浏览器中( F12 来启用调试模式， 在调试窗口中点击 “Console” 菜单)显示 JavaScript 值</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 111043.png)</p>
+<h2 id="JavaScript-语法"><a href="#JavaScript-语法" class="headerlink" title="JavaScript 语法"></a>JavaScript 语法</h2><h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p><strong>数字（Number）字面量</strong> 可以是整数或者是小数，或者是科学计数(e)【123e5&#x3D;12300000】</p>
+<p><strong>字符串（String）字面量</strong> 可以使用单引号或双引号</p>
+<p><strong>表达式字面量</strong> 用于计算</p>
+<p><strong>数组（Array）字面量</strong> 定义一个数组 [40, 100, 1, 5, 25, 10]</p>
+<p><strong>对象（Object）字面量</strong> 定义一个对象 {firstName:”John”, lastName:”Doe”, age:50, eyeColor:”blue”}</p>
+<p><strong>函数（Function）字面量</strong> 定义一个函数  function myFunction(a, b) { return a * b;}</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量用于存储数据值，使用关键字 <strong>var</strong> 来定义变量， 使用等号来为变量赋值</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 112250.png)</p>
+<h3 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h3><p>用于向浏览器发出命令（详见下节）</p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>数字，字符串，数组，对象等</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h2 id="JavaScript-语句"><a href="#JavaScript-语句" class="headerlink" title="JavaScript 语句"></a>JavaScript 语句</h2><p>JavaScript 语句是发给浏览器的命令，告诉浏览器要做的事情</p>
+<h3 id="分号"><a href="#分号" class="headerlink" title="分号 ;"></a>分号 ;</h3><p>在每条可执行的语句结尾添加分号或在一行中编写多条语句</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 154455.png)</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>是 JavaScript 语句的序列。浏览器按照编写顺序依次执行每条语句。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementById(&quot;demo&quot;).innerHTML=&quot;你好 Dolly&quot;; document.getElementById(&quot;myDIV&quot;).innerHTML=&quot;你最近怎么样?&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>代码块的作用是一并地执行语句序列，左花括号开始，以右花括号结束</p>
+<p>![屏幕截图 2024-10-05 155144](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 155144.png)</p>
+<h3 id="语句标识符"><a href="#语句标识符" class="headerlink" title="语句标识符"></a>语句标识符</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 155544.png)</p>
+<h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><p>JavaScript 会忽略多余的空格</p>
+<h3 id="折行"><a href="#折行" class="headerlink" title="折行"></a>折行</h3><p>使用反斜杠对代码行进行换行</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 160240.png)</p>
+<h2 id="JavaScript-变量"><a href="#JavaScript-变量" class="headerlink" title="JavaScript 变量"></a>JavaScript 变量</h2><h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><p>用 var 关键词来声明变量，变量可以先使用再声明</p>
+<h4 id="多变量"><a href="#多变量" class="headerlink" title="多变量"></a>多变量</h4><p>在一条语句中声明很多变量：该语句以 var 开头，并使用逗号分隔变量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var lastname=&quot;Doe&quot;, age=30, job=&quot;carpenter&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>横跨多行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var lastname=&quot;Doe&quot;,</span><br><span class="line">age=30,</span><br><span class="line">job=&quot;carpenter&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>一条语句中声明的多个变量不可以同时赋同一个值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x,y,z=1;</span><br></pre></td></tr></table></figure>
+
+<p>x,y 为 undefined， z 为 1。</p>
+<h4 id="重新声明变量"><a href="#重新声明变量" class="headerlink" title="重新声明变量"></a>重新声明变量</h4><p>重新声明 JavaScript 变量，该变量的值不会丢失</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var carname=&quot;Volvo&quot;;</span><br><span class="line">var carname;</span><br></pre></td></tr></table></figure>
+
+<p>两条语句执行后，变量 carname 的值依然是 “Volvo”</p>
+<h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><p>JavaScript 变量可用于存放值（ x&#x3D;5），表达式（z&#x3D;x+y）和文本值 (name&#x3D;”Bill Gates”  用双引号或单引号包围这个值)，一般倡导以字母开头</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 161056.png)</p>
+<h2 id="JavaScript-数据类型"><a href="#JavaScript-数据类型" class="headerlink" title="JavaScript 数据类型"></a>JavaScript 数据类型</h2><p>**值类型(基本类型)**：字符串（String）、数字(Number)、布尔(Boolean)、空（Null）、未定义（Undefined）、Symbol</p>
+<p><strong>引用数据类型（对象类型）</strong>：对象(Object)、数组(Array)、函数(Function)，还有两个特殊的对象：正则（RegExp）和日期（Date）</p>
+<p>变量的数据类型可以使用 <strong>typeof</strong> 操作符来查看</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 162748.png)</p>
+<h3 id="JavaScript-数组"><a href="#JavaScript-数组" class="headerlink" title="JavaScript 数组"></a>JavaScript 数组</h3><p>JavaScript 不支持使用名字来索引数组，只允许使用数字索引</p>
+<p>如果你使用名字作为索引，当访问数组时，JavaScript 会把数组重新定义为标准对象。</p>
+<p>执行这样操作后，数组的方法及属性将不能再使用，否则会产生错误（person.length输出为0）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var cars=new Array();</span><br><span class="line">cars[0]=&quot;Saab&quot;;</span><br><span class="line">cars[1]=&quot;Volvo&quot;;</span><br><span class="line">cars[2]=&quot;BMW&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var cars=new Array(&quot;Saab&quot;,&quot;Volvo&quot;,&quot;BMW&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 163220.png)</p>
+<h2 id="JavaScript-对象"><a href="#JavaScript-对象" class="headerlink" title="JavaScript 对象"></a>JavaScript 对象</h2><p>对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义</p>
+<h3 id="对象属性两种访问方式"><a href="#对象属性两种访问方式" class="headerlink" title="对象属性两种访问方式"></a>对象属性两种访问方式</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 234215.png)</p>
+<h3 id="对象方法"><a href="#对象方法" class="headerlink" title="对象方法"></a>对象方法</h3><p>对象的方法定义了一个函数，并作为对象的属性存储。对象方法通过添加 () 调用 (作为一个函数)。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-05 234705.png)</p>
+<h3 id="typeof，Undefined-和-Null"><a href="#typeof，Undefined-和-Null" class="headerlink" title="typeof，Undefined 和 Null"></a>typeof，Undefined 和 Null</h3><p>typeof 操作符来检测变量的数据类型</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typeof &quot;John&quot;         // 返回 string</span><br><span class="line">typeof 3.14          // 返回 number</span><br><span class="line">typeof NaN           // 返回 number</span><br><span class="line">typeof false         // 返回 boolean</span><br><span class="line">typeof [1,2,3,4]       // 返回 object</span><br><span class="line">typeof &#123;name:&#x27;John&#x27;, age:34&#125; // 返回 object</span><br><span class="line">typeof new Date()       // 返回 object</span><br><span class="line">typeof function () &#123;&#125;     // 返回 function</span><br><span class="line">typeof myCar         // 返回 undefined (如果 myCar 没有声明)</span><br><span class="line">typeof null          // 返回 object</span><br></pre></td></tr></table></figure>
+
+<p>Undefined 这个值表示变量不含有值。任何变量都可以通过设置值为 <strong>undefined</strong> 来清空</p>
+<p>null 表示 “什么都没有”，但类型为<strong>对象</strong>，是一个<strong>只有一个值的特殊类型</strong>。表示一个空对象引用。可以设置为 null 来清空变量。</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 191943.png)</p>
+<p>在常规的比较&#x3D;&#x3D;中，数据类型是被忽略的</p>
+<p>在严格的比较运算中，&#x3D;&#x3D;&#x3D; 为恒等计算符，同时检查表达式的值与类型</p>
+<h2 id="JavaScript-函数"><a href="#JavaScript-函数" class="headerlink" title="JavaScript 函数"></a>JavaScript 函数</h2><h3 id="调用带参数的函数"><a href="#调用带参数的函数" class="headerlink" title="调用带参数的函数"></a>调用带参数的函数</h3><p>变量和参数必须以一致的顺序出现（第一个变量就是第一个被传递的参数的给定的值）</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 090227.png)</p>
+<h3 id="带有返回值的函数"><a href="#带有返回值的函数" class="headerlink" title="带有返回值的函数"></a>带有返回值的函数</h3><p>使用 return 语句时，函数会停止执行，并返回指定的值</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 090512.png)</p>
+<h2 id="JavaScript-作用域"><a href="#JavaScript-作用域" class="headerlink" title="JavaScript 作用域"></a>JavaScript 作用域</h2><p><strong>作用域为可访问变量，对象，函数的集合</strong></p>
+<h3 id="JavaScript-局部作用域"><a href="#JavaScript-局部作用域" class="headerlink" title="JavaScript 局部作用域"></a>JavaScript 局部作用域</h3><p>局部变量：只能在函数内部访问，局部变量在函数开始执行时创建，函数执行完后局部变量会自动销毁，不同的函数可以使用相同名称的变量</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092938.png)</p>
+<h3 id="JavaScript-全局变量"><a href="#JavaScript-全局变量" class="headerlink" title="JavaScript 全局变量"></a>JavaScript 全局变量</h3><p>全局变量有 <strong>全局作用域</strong>: 网页中所有脚本和函数均可使用</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092248.png)</p>
+<p>如果变量在函数内没有声明（没有使用 var 关键字），该变量为全局变量</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 092443.png)</p>
+<h2 id="JavaScript-字符串"><a href="#JavaScript-字符串" class="headerlink" title="JavaScript 字符串"></a>JavaScript 字符串</h2><p>JavaScript 字符串用于存储和处理文本</p>
+<p>字符串的索引从 0 开始，这意味着第一个字符索引值为 **[0]**，第二个为 **[1]**，以此类推</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 111334.png)</p>
+<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><p>反斜杠是一个<strong>转义字符</strong>。 转义字符将特殊字符转换为字符串字符</p>
+<p>例如：可以在字符串中使用引号，字符串中的引号不要与字符串的引号相同（但可以在字符串添加转义字符来使用引号）</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 111829.png)</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 112524.png)</p>
+<h3 id="字符串长度"><a href="#字符串长度" class="headerlink" title="字符串长度"></a>字符串长度</h3><p>使用内置属性 <strong>length</strong> 来计算字符串的长度</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 112130.png)</p>
+<h3 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h3><p>模板字符串中可以同时使用单引号和双引号</p>
+<p>模板字符串还支持多行文本，而无需使用特殊的转义字符：</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 115412.png)</p>
+<p>模板字面量还可以包含占位符——一种由美元符号和大括号分隔的嵌入式表达式：**${expression}**</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 115719.png)</p>
+<h2 id="JavaScript-运算符"><a href="#JavaScript-运算符" class="headerlink" title="JavaScript 运算符"></a>JavaScript 运算符</h2><h3 id="用于字符串的-运算符"><a href="#用于字符串的-运算符" class="headerlink" title="用于字符串的 + 运算符"></a>用于字符串的 + 运算符</h3><p>+ 运算符用于把文本值或字符串变量加起来（连接起来）</p>
+<p>如需把两个或多个字符串变量连接起来，请使用 <strong>+</strong> 运算符</p>
+<p>要想在两个字符串之间增加空格，需要把空格插入一个字符串之中或者把空格插入表达式中(txt3&#x3D;txt1+” “+txt2)</p>
+<p>**规则:**如果把数字与字符串相加，结果将成为字符串！</p>
+<h3 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h3><p><em>variablename</em>&#x3D;(<em>condition</em>)?<em>value1</em>:<em>value2</em> </p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 155430.png)</p>
+<p><strong>加法</strong>是两个<strong>数字</strong>相加。</p>
+<p><strong>连接</strong>是两个<strong>字符串</strong>连接。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x = 10 + 5;     // x 的结果为 15</span><br><span class="line">var x = 10 + &quot;5&quot;;    // x 的结果为 &quot;105&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript循环"><a href="#JavaScript循环" class="headerlink" title="JavaScript循环"></a>JavaScript循环</h2><h3 id="C-Users-ASUS-Pictures-Screenshots-屏幕截图-2024-10-06-162257-png"><a href="#C-Users-ASUS-Pictures-Screenshots-屏幕截图-2024-10-06-162257-png" class="headerlink" title="![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 162257.png)"></a>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 162257.png)</h3><p>在 switch 语句中，用恒等计算符(&#x3D;&#x3D;&#x3D;)进行比较</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var x = 10;</span><br><span class="line">switch(x) &#123;</span><br><span class="line">  case 10: alert(&quot;Hello&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上例会出现弹窗</p>
+<h2 id="JavaScript-类型转换"><a href="#JavaScript-类型转换" class="headerlink" title="JavaScript 类型转换"></a>JavaScript 类型转换</h2><h3 id="constructor-属性"><a href="#constructor-属性" class="headerlink" title="constructor 属性"></a>constructor 属性</h3><p><strong>constructor</strong> 属性返回所有 JavaScript 变量的构造函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;John&quot;.constructor         // 返回函数 String() &#123; [native code] &#125;</span><br><span class="line">(3.14).constructor         // 返回函数 Number() &#123; [native code] &#125;</span><br><span class="line">false.constructor         // 返回函数 Boolean() &#123; [native code] &#125;</span><br><span class="line">[1,2,3,4].constructor       // 返回函数 Array()  &#123; [native code] &#125;</span><br><span class="line">&#123;name:&#x27;John&#x27;, age:34&#125;.constructor // 返回函数 Object() &#123; [native code] &#125;</span><br><span class="line">new Date().constructor       // 返回函数 Date()  &#123; [native code] &#125;</span><br><span class="line">function () &#123;&#125;.constructor     // 返回函数 Function()&#123; [native code] &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JavaScript-类型转换-1"><a href="#JavaScript-类型转换-1" class="headerlink" title="JavaScript 类型转换"></a>JavaScript 类型转换</h3><p>JavaScript 变量可以转换为新变量或其他数据类型</p>
+<h4 id="将数字转换为字符串"><a href="#将数字转换为字符串" class="headerlink" title="将数字转换为字符串"></a>将数字转换为字符串</h4><p>全局方法 <strong>String()</strong> 可以将数字，字母，变量，表达式转换为字符串</p>
+<p>String(x)  String(123) </p>
+<p>Number 方法 <strong>toString()</strong> 也是</p>
+<p>x.toString()   (123).toString()</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">toExponential()</td>
+<td align="left">把对象的值转换为指数计数法。</td>
+</tr>
+<tr>
+<td align="left">toFixed()</td>
+<td align="left">把数字转换为字符串，结果的小数点后有指定位数的数字。</td>
+</tr>
+<tr>
+<td align="left">toPrecision()</td>
+<td align="left">把数字格式化为指定的长度。</td>
+</tr>
+</tbody></table>
+<h4 id="将布尔值转换为字符串"><a href="#将布尔值转换为字符串" class="headerlink" title="将布尔值转换为字符串"></a>将布尔值转换为字符串</h4><p>全局方法 <strong>String()</strong> </p>
+<p>Boolean 方法 <strong>toString()</strong> </p>
+<h4 id="将日期转换为字符串"><a href="#将日期转换为字符串" class="headerlink" title="将日期转换为字符串"></a>将日期转换为字符串</h4><p>Date() 返回字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Date()  </span><br></pre></td></tr></table></figure>
+
+<p>全局方法 String() 可以将日期对象转换为字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String(new Date())  </span><br></pre></td></tr></table></figure>
+
+<p>Date 方法 <strong>toString()</strong> 也有相同的效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">obj = new Date()</span><br><span class="line">obj.toString() </span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">getDate()</td>
+<td align="left">从 Date 对象返回一个月中的某一天 (1 ~ 31)。</td>
+</tr>
+<tr>
+<td align="left">getDay()</td>
+<td align="left">从 Date 对象返回一周中的某一天 (0 ~ 6)。</td>
+</tr>
+<tr>
+<td align="left">getFullYear()</td>
+<td align="left">从 Date 对象以四位数字返回年份。</td>
+</tr>
+<tr>
+<td align="left">getHours()</td>
+<td align="left">返回 Date 对象的小时 (0 ~ 23)。</td>
+</tr>
+<tr>
+<td align="left">getMilliseconds()</td>
+<td align="left">返回 Date 对象的毫秒(0 ~ 999)。</td>
+</tr>
+<tr>
+<td align="left">getMinutes()</td>
+<td align="left">返回 Date 对象的分钟 (0 ~ 59)。</td>
+</tr>
+<tr>
+<td align="left">getMonth()</td>
+<td align="left">从 Date 对象返回月份 (0 ~ 11)。</td>
+</tr>
+<tr>
+<td align="left">getSeconds()</td>
+<td align="left">返回 Date 对象的秒数 (0 ~ 59)。</td>
+</tr>
+<tr>
+<td align="left">getTime()</td>
+<td align="left">返回 1970 年 1 月 1 日至今的毫秒数。</td>
+</tr>
+</tbody></table>
+<h4 id="将字符串转换为数字"><a href="#将字符串转换为数字" class="headerlink" title="将字符串转换为数字"></a>将字符串转换为数字</h4><p>全局方法 <strong>Number()</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Number(&quot;3.14&quot;)  // 返回 3.14</span><br><span class="line">Number(&quot; &quot;)    // 返回 0</span><br><span class="line">Number(&quot;&quot;)    // 返回 0</span><br><span class="line">Number(&quot;99 88&quot;)  // 返回 NaN</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">parseFloat()</td>
+<td align="left">解析一个字符串，并返回一个浮点数。</td>
+</tr>
+<tr>
+<td align="left">parseInt()</td>
+<td align="left">解析一个字符串，并返回一个整数。</td>
+</tr>
+</tbody></table>
+<h4 id="将布尔值转换为数字"><a href="#将布尔值转换为数字" class="headerlink" title="将布尔值转换为数字"></a>将布尔值转换为数字</h4><p>全局方法 <strong>Number()</strong> </p>
+<h4 id="将日期转换为数字"><a href="#将日期转换为数字" class="headerlink" title="将日期转换为数字"></a>将日期转换为数字</h4><p>全局方法 <strong>Number()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">d = new Date();</span><br><span class="line">Number(d)</span><br></pre></td></tr></table></figure>
+
+<p>日期方法 <strong>getTime()</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">d = new Date();</span><br><span class="line">d.getTime()  </span><br></pre></td></tr></table></figure>
+
+<h4 id="自动转换为字符串"><a href="#自动转换为字符串" class="headerlink" title="自动转换为字符串"></a>自动转换为字符串</h4><p>当你尝试输出一个对象或一个变量时 JavaScript 会自动调用变量的 toString() 方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = myVar;</span><br><span class="line"></span><br><span class="line">myVar = &#123;name:&quot;Fjohn&quot;&#125; // toString 转换为 &quot;[object Object]&quot;</span><br><span class="line">myVar = [1,2,3,4]    // toString 转换为 &quot;1,2,3,4&quot;</span><br><span class="line">myVar = new Date()   // toString 转换为 &quot;Fri Jul 18 2014 09:08:55 GMT+0200&quot;</span><br></pre></td></tr></table></figure>
+
+<p>数字和布尔值也经常相互转换：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">myVar = 123       // toString 转换为 &quot;123&quot;</span><br><span class="line">myVar = true       // toString 转换为 &quot;true&quot;</span><br><span class="line">myVar = false      // toString 转换为 &quot;false&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript-正则表达式"><a href="#JavaScript-正则表达式" class="headerlink" title="JavaScript 正则表达式"></a>JavaScript 正则表达式</h2><p>使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式</p>
+<p>正则表达式可用于所有文本搜索和文本替换的操作</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/正则表达式主体/修饰符(可选)</span><br></pre></td></tr></table></figure>
+
+<p>var patt &#x3D; &#x2F;runoob&#x2F;i</p>
+<p><strong>&#x2F;runoob&#x2F;i</strong> 是一个正则表达式。<strong>runoob</strong> 是一个<strong>正则表达式主体</strong> (用于检索)。<strong>i</strong> 是一个<strong>修饰符</strong> (搜索不区分大小写)</p>
+<h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><p><strong>search()</strong> 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。</p>
+<p><strong>replace()</strong> 方法用于在字符串中用一些字符串替换另一些字符串，或替换一个与正则表达式匹配的子串。</p>
+<h3 id="RegExp-对象"><a href="#RegExp-对象" class="headerlink" title="RegExp 对象"></a>RegExp 对象</h3><h3 id="test-使用"><a href="#test-使用" class="headerlink" title="test()使用"></a>test()使用</h3><p>test() 方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true</p>
+<p>搜索字符串中的字符 “e”：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var patt = /e/;</span><br><span class="line">patt.test(&quot;The best things in life are free!&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>或：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/e/.test(&quot;The best things in life are free!&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="exec-使用"><a href="#exec-使用" class="headerlink" title="exec()使用"></a>exec()使用</h3><p>exec() 方法用于检索字符串中的正则表达式的匹配。该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var patt1=new RegExp(&quot;e&quot;);</span><br><span class="line">document.write(patt1.exec(&quot;The best things in life are free&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>输出为e</p>
+<h2 id="JavaScript-错误"><a href="#JavaScript-错误" class="headerlink" title="JavaScript 错误"></a>JavaScript 错误</h2><h3 id="throw语句创建自定义错误"><a href="#throw语句创建自定义错误" class="headerlink" title="throw语句创建自定义错误"></a>throw语句创建自定义错误</h3><h3 id="try-语句测试代码块的错误"><a href="#try-语句测试代码块的错误" class="headerlink" title="try 语句测试代码块的错误"></a><strong>try</strong> 语句测试代码块的错误</h3><h3 id="catch-语句处理错误"><a href="#catch-语句处理错误" class="headerlink" title="catch 语句处理错误"></a><strong>catch</strong> 语句处理错误</h3><h3 id="finally-语句"><a href="#finally-语句" class="headerlink" title="finally 语句"></a>finally 语句</h3><p>finally 语句不论之前的 try 和 catch 中是否产生异常都会执行该代码块</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-06 221211.png)</p>
+<h2 id="JavaScript-表单"><a href="#JavaScript-表单" class="headerlink" title="JavaScript 表单"></a>JavaScript 表单</h2><h3 id="JavaScript-表单验证"><a href="#JavaScript-表单验证" class="headerlink" title="JavaScript 表单验证"></a>JavaScript 表单验证</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 101906.png)</p>
+<h3 id="JavaScript-验证输入的数字"><a href="#JavaScript-验证输入的数字" class="headerlink" title="JavaScript 验证输入的数字"></a>JavaScript 验证输入的数字</h3><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 102407.png)</p>
+<h2 id="JavaScript关键字"><a href="#JavaScript关键字" class="headerlink" title="JavaScript关键字"></a>JavaScript关键字</h2><h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><h4 id="方法中的-this"><a href="#方法中的-this" class="headerlink" title="方法中的 this"></a>方法中的 this</h4><p>this 指向调用它所在方法的对象</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 103918.png)</p>
+<h4 id="单独使用-this"><a href="#单独使用-this" class="headerlink" title="单独使用 this"></a>单独使用 this</h4><p>单独使用 this，则它指向全局(Global)对象</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104149.png)</p>
+<h4 id="函数中使用-this"><a href="#函数中使用-this" class="headerlink" title="函数中使用 this"></a>函数中使用 this</h4><p>在函数中，函数的所属者默认绑定到 this 上</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104247.png)</p>
+<p>严格模式下，<strong>this</strong> 为 <strong>undefined</strong>，因为严格模式下不允许默认绑定</p>
+<h4 id="事件中的-this"><a href="#事件中的-this" class="headerlink" title="事件中的 this"></a>事件中的 this</h4><p>this 指向了接收事件的 HTML 元素</p>
+<h4 id="对象方法中绑定"><a href="#对象方法中绑定" class="headerlink" title="对象方法中绑定"></a>对象方法中绑定</h4><p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104558.png)</p>
+<p>this 是 person 对象，person 对象是函数的所有者</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 104640.png)</p>
+<p><strong>this.firstName</strong> 表示 <strong>this</strong> (person) 对象的 <strong>firstName</strong> 属性</p>
+<h4 id="显式函数绑定"><a href="#显式函数绑定" class="headerlink" title="显式函数绑定"></a>显式函数绑定</h4><p>函数也是对象，对象则有方法，apply 和 call 就是函数对象的方法，他们允许切换函数执行的上下文环境（context），即 this 绑定的对象</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 105100.png)</p>
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p>let 声明的变量只在 let 命令所在的代码块 <strong>{}</strong> 内有效，在 <strong>{}</strong> 之外不能访问</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 114257.png)</p>
+<p>在相同的作用域或块级作用域中，不能使用 <strong>let</strong> 关键字来重置 <strong>let</strong> 关键字声明的变量</p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>const 用于声明一个或多个常量，声明时<strong>必须进行初始化</strong>，定义常量的值不能通过再赋值修改，也不能再次声明</p>
+<p>const 定义的变量并非常量，并非不可变，它定义了一个常量引用一个值。使用 const 定义的对象或者数组，其实是可变的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 创建常量对象</span><br><span class="line">const car = &#123;type:&quot;Fiat&quot;, model:&quot;500&quot;, color:&quot;white&quot;&#125;;</span><br><span class="line"></span><br><span class="line">// 修改属性:</span><br><span class="line">car.color = &quot;red&quot;;</span><br><span class="line"></span><br><span class="line">// 添加属性</span><br><span class="line">car.owner = &quot;Johnson&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 创建常量数组</span><br><span class="line">const cars = [&quot;Saab&quot;, &quot;Volvo&quot;, &quot;BMW&quot;];</span><br><span class="line"></span><br><span class="line">// 修改元素</span><br><span class="line">cars[0] = &quot;Toyota&quot;;</span><br><span class="line"></span><br><span class="line">// 添加元素</span><br><span class="line">cars.push(&quot;Audi&quot;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><p>指定要计算一个表达式但是不返回值</p>
+<p>![](C:\Users\ASUS\Pictures\Screenshots\屏幕截图 2024-10-07 125443.png)</p>
+<p>href&#x3D;”#”与href&#x3D;”javascript:void(0)”的区别</p>
+<p><strong>#</strong> 包含了一个位置信息，默认的锚是**#top** 也就是网页的上端。而javascript:void(0), 仅仅表示一个死链接。在页面很长的时候会使用 <strong>#</strong> 来定位页面的具体位置，格式为：**# + id**</p>
+<h2 id="JavaScript-JSON"><a href="#JavaScript-JSON" class="headerlink" title="JavaScript JSON"></a>JavaScript JSON</h2><p>JSON 是用于存储和传输数据的格式， 通常用于服务端向网页传递数据 </p>
+<h3 id="JSON-数组"><a href="#JSON-数组" class="headerlink" title="JSON 数组"></a>JSON 数组</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;sites&quot;:[</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Runoob&quot;, &quot;url&quot;:&quot;www.runoob.com&quot;&#125;, </span><br><span class="line">    &#123;&quot;name&quot;:&quot;Google&quot;, &quot;url&quot;:&quot;www.google.com&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;:&quot;Taobao&quot;, &quot;url&quot;:&quot;www.taobao.com&quot;&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="JSON-字符串转换为-JavaScript-对象"><a href="#JSON-字符串转换为-JavaScript-对象" class="headerlink" title="JSON 字符串转换为 JavaScript 对象"></a>JSON 字符串转换为 JavaScript 对象</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var text = &#x27;&#123; &quot;sites&quot; : [&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Runoob&quot; , &quot;url&quot;:&quot;www.runoob.com&quot; &#125;,&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Google&quot; , &quot;url&quot;:&quot;www.google.com&quot; &#125;,&#x27; +</span><br><span class="line">    &#x27;&#123; &quot;name&quot;:&quot;Taobao&quot; , &quot;url&quot;:&quot;www.taobao.com&quot; &#125; ]&#125;&#x27;;</span><br><span class="line">    </span><br><span class="line">obj = JSON.parse(text);</span><br><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = obj.sites[1].name + &quot; &quot; + obj.sites[1].url;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://www.runoob.com/js/javascript-json-parse.html">JSON.parse()</a></td>
+<td align="left">用于将一个 JSON 字符串转换为 JavaScript 对象。</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.runoob.com/js/javascript-json-stringify.html">JSON.stringify()</a></td>
+<td align="left">用于将 JavaScript 值转换为 JSON 字符串。</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>前端</category>
       </categories>
   </entry>
 </search>
