@@ -790,15 +790,14 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>标签</title>
-    <url>/tags/index.html</url>
+    <title>日志</title>
+    <url>/timeline/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>留言板</title>
-    <url>/messageboard/index.html</url>
-    <content><![CDATA[<p>这是留言板</p>
-]]></content>
+    <title>标签</title>
+    <url>/tags/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>友链</title>
@@ -806,13 +805,14 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>日志</title>
-    <url>/timeline/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>timeline</title>
     <url>/timeline/index-1.html</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>留言板</title>
+    <url>/messageboard/index.html</url>
+    <content><![CDATA[<p>这是留言板</p>
+]]></content>
   </entry>
 </search>
