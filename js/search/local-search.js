@@ -359,13 +359,4 @@ window.addEventListener('load', () => {
   })
 })
 
-document.addEventListener("DOMContentLoaded", function () {
-  var searchBtn = document.querySelector("#search-button");
-  var searchPopup = document.querySelector("#local-search");
 
-  if (searchBtn && searchPopup) {
-    searchBtn.addEventListener("click", function () {
-      searchPopup.style.display = "block";
-    });
-  }
-});
