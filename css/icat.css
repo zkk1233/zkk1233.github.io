@@ -1,4 +1,12 @@
-
+#nav-right{
+  flex:1 1 auto;
+  justify-content: flex-end;
+  margin-left: auto;
+  display: flex;
+  flex-wrap:nowrap;
+}
+  
+/* 导航栏居中 */
   
 #aside-content .card-archives ul.card-archive-list, #aside-content .card-categories ul.card-category-list {
     display: -webkit-box;
