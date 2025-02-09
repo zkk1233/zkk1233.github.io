@@ -141,7 +141,12 @@
     align-items: center; /* 垂直居中 */
     flex-wrap: nowrap; /* 防止换行 */
   }
-  
+
+  #nav .menus_items .menus_item {
+  display: inline-block;
+  white-space: nowrap; /* 防止内容换行 */
+}
+
   #nav .menus_items .menus_item:hover .menus_item_child {
     display: block;
     transform: translateX(-50%);
