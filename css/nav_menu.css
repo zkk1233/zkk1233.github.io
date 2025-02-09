@@ -129,27 +129,18 @@
     border-radius: 5px;
   }
   
-  #nav {
-    display: flex;               /* 使用flex布局 */
-    justify-content: center;     /* 水平居中 */
-    align-items: center;         /* 垂直居中 */
-    white-space: nowrap;         /* 防止文本换行 */
-    overflow-x: auto;            /* 如果宽度超出可视区域时，可以横向滚动 */
-  }
-
+  /* 一级菜单居中 */
   #nav .menus_items {
-    display: flex;               /* 使用flex布局，让菜单项横向排列 */
-    margin: 0;
-  }
-
-  #nav .menus_items .menus_item {
-    padding: 0 5px;
+    position: absolute;
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    margin: auto;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
+    height: 60px;
   }
-
-
   
   #nav .menus_items .menus_item:hover .menus_item_child {
     display: block;
@@ -207,7 +198,7 @@
   #nav .menus_items .menus_item {
     padding: 0 5px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: auto;
     align-items: center;
   }
@@ -559,3 +550,4 @@
     --anzhiyu-shadow-light2black: 0 5px 12px -5px rgba(102, 68, 68, 0);
     --anzhiyu-card-border: #42444a;
   }
+
