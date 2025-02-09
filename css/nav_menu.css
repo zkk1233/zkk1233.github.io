@@ -132,7 +132,7 @@
   /* 一级菜单居中 */
   #nav .menus_items {
     position: absolute;
-    width: fit-content;
+    width: 100%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
