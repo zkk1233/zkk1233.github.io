@@ -1,35 +1,8 @@
-/* 让 nav 作为 Flex 容器 */
-#nav {
-  display: flex; 
-  justify-content: center; /* 主轴水平居中 */
-  align-items: center; /* 交叉轴（垂直）居中 */
-  width: 100%; /* 让导航栏宽度充满页面 */
-  padding: 10px 20px; /* 添加一些内边距 */
-  background-color: #333; /* 方便调试，设置一个背景色 */
-}
-
-/* 让 nav 内部的子元素布局合理 */
-#blog-info {
-  flex: 1; /* 左侧部分 */
+#nav-right{
+  flex:1 1 auto;
+  justify-content: flex-end;
+  margin-left: auto;
   display: flex;
-  align-items: center;
+  flex-wrap:nowrap;
 }
 
-#menus {
-  flex: 2; /* 让菜单栏占据中间空间 */
-  display: flex;
-  justify-content: center;
-}
-
-#nav-right {
-  flex: 1; /* 右侧部分 */
-  display: flex;
-  justify-content: flex-end; /* 让搜索按钮靠右 */
-  align-items: center;
-}
-
-/* 搜索按钮和菜单按钮之间保持间距 */
-#search-button,
-#toggle-menu {
-  margin-left: 10px;
-}
