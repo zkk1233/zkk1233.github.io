@@ -1,13 +1,14 @@
-/* 让 nav 居中 */
+/* 让 nav 作为 Flex 容器 */
 #nav {
-  display: flex;
-  justify-content: center; /* 让整个 nav 内容居中 */
-  align-items: center; /* 垂直居中 */
-  width: 100%;
-  padding: 10px 20px;
+  display: flex; 
+  justify-content: center; /* 主轴水平居中 */
+  align-items: center; /* 交叉轴（垂直）居中 */
+  width: 100%; /* 让导航栏宽度充满页面 */
+  padding: 10px 20px; /* 添加一些内边距 */
+  background-color: #333; /* 方便调试，设置一个背景色 */
 }
 
-/* 让 nav 内部结构合理分布 */
+/* 让 nav 内部的子元素布局合理 */
 #blog-info {
   flex: 1; /* 左侧部分 */
   display: flex;
@@ -27,7 +28,7 @@
   align-items: center;
 }
 
-/* 确保搜索按钮和菜单按钮在右侧对齐 */
+/* 搜索按钮和菜单按钮之间保持间距 */
 #search-button,
 #toggle-menu {
   margin-left: 10px;
