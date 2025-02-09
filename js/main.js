@@ -439,7 +439,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         flag = ''
         if (currentTop === 0) {
-          $header.classList.remove('nav-fixed', 'nav-visible')
+          $header.classList.remove('nav-fixed')
+          $header.classList.add('nav-visible')
         }
         $rightside.classList.remove('rightside-show')
       }
