@@ -129,7 +129,7 @@
     border-radius: 5px;
   }
   
-/* 一级菜单居中 */
+  /* 一级菜单居中 */
   #nav .menus_items {
     position: absolute;
     width: fit-content;
@@ -142,7 +142,6 @@
     height: 60px;
   }
   
-
   #nav .menus_items .menus_item:hover .menus_item_child {
     display: block;
     transform: translateX(-50%);
@@ -463,8 +462,7 @@
     display: none;
   }
 
-
-  /* 颜色 */
+/* 颜色 */
 :root {
     --anzhiyu-theme-op: #4259ef23;
     --anzhiyu-white: #fff;
