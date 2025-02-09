@@ -131,25 +131,44 @@
   
   /* 一级菜单居中 */
   #nav {
-    position: relative;
     width: 100%;
+    background-color: #cce5ff; /* 浅蓝色背景 */
+    display: flex;
+    justify-content: center; /* 居中内容 */
+    align-items: center; /* 垂直居中 */
+    padding: 10px 0;
   }
   
   #nav .menus_items {
     display: flex;
-    justify-content: center; /* 居中对齐 */
-    align-items: center; /* 垂直居中 */
-    flex-wrap: nowrap; /* 防止换行 */
-    list-style: none; /* 移除默认的列表样式（如果是 <ul> <li> 结构） */
+    justify-content: center; /* 让菜单项居中排列 */
+    align-items: center;
+    gap: 15px; /* 控制菜单项之间的间距 */
+    list-style: none;
     padding: 0;
     margin: 0;
   }
   
   #nav .menus_items .menus_item {
-    display: inline-block; /* 确保菜单项是行内块级 */
-    white-space: nowrap; /* 防止内容换行 */
-    padding: 10px 15px; /* 适当的内边距 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* 防止文字换行 */
+    padding: 10px 15px;
   }
+  
+  #nav .menus_items .menus_item a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+  }
+  
+  /* 如果图标是 <i> 标签 */
+  #nav .menus_items .menus_item i {
+    font-size: 20px;
+    vertical-align: middle;
+  }
+  
   
 
   #nav .menus_items .menus_item:hover .menus_item_child {
