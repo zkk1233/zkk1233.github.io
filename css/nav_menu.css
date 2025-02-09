@@ -129,18 +129,25 @@
     border-radius: 5px;
   }
   
-  /* 一级菜单居中 */
-  #nav .menus_items {
-    position: absolute;
-    width: fit-content;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
+  #nav {
+    display: flex;               /* 使用flex布局 */
+    justify-content: center;     /* 水平居中 */
+    align-items: center;         /* 垂直居中 */
+    white-space: nowrap;         /* 防止文本换行 */
+    overflow-x: auto;            /* 如果宽度超出可视区域时，可以横向滚动 */
   }
+
+  #nav .menus_items {
+    display: flex;               /* 使用flex布局，让菜单项横向排列 */
+    margin: 0;
+  }
+
+  #nav .menus_items .menus_item {
+    display: inline-block;       /* 确保菜单项在同一行显示 */
+    margin: 0 10px;              /* 增加间距 */
+  }
+
+
   
   #nav .menus_items .menus_item:hover .menus_item_child {
     display: block;
