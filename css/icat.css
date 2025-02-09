@@ -1,8 +1,29 @@
-#nav-right{
-  flex:1 1 auto;
-  justify-content: flex-end;
-  margin-left: auto;
-  display: flex;
-  flex-wrap:nowrap;
+#nav {
+  display: flex;                  /* 激活 Flexbox 布局 */
+  justify-content: center;        /* 让菜单栏在水平方向居中 */
+  align-items: center;            /* 如果需要也可以垂直居中（可选） */
+  width: 100%;
+}
+
+#menus {
+  display: flex;                  /* 激活 Flexbox 布局，让菜单项水平排列 */
+  justify-content: center;        /* 水平居中菜单项 */
+}
+
+#menus ul {
+  list-style: none;               /* 移除列表项的默认样式 */
+  padding: 0;
+  margin: 0;
+  display: flex;                  /* 列表项水平排列 */
+}
+
+#menus li {
+  margin: 0 15px;                 /* 添加左右间距，调整菜单项之间的距离 */
+}
+
+#menus a {
+  text-decoration: none;          /* 移除链接的下划线 */
+  color: #000;                    /* 设置字体颜色 */
+  font-size: 16px;                /* 设置字体大小 */
 }
 
