@@ -136,16 +136,21 @@
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    flex-direction: row; /* 让子元素水平排列 */
-    justify-content: center; /* 居中对齐 */
-    align-items: center; /* 垂直居中 */
-    flex-wrap: nowrap; /* 防止换行 */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* 如果超出屏幕，则允许滚动 */
   }
-
+  #nav {
+    position: relative;
+    width: 100%;
+  }
   #nav .menus_items .menus_item {
-  display: inline-block;
-  white-space: nowrap; /* 防止内容换行 */
-}
+    display: inline-block;
+    white-space: nowrap;
+    padding: 10px;
+  }
 
   #nav .menus_items .menus_item:hover .menus_item_child {
     display: block;
