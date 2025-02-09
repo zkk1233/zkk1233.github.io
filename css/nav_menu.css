@@ -143,8 +143,10 @@
   }
 
   #nav .menus_items .menus_item {
-    display: inline-block;       /* 确保菜单项在同一行显示 */
-    margin: 0 10px;              /* 增加间距 */
+    padding: 0 5px;
+    display: flex;
+    margin: auto;
+    align-items: center;
   }
 
 
