@@ -130,27 +130,27 @@
   }
   
   /* 一级菜单居中 */
-  #nav .menus_items {
-    position: absolute;
-    width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-    overflow-x: auto; /* 如果超出屏幕，则允许滚动 */
-  }
   #nav {
     position: relative;
     width: 100%;
   }
-  #nav .menus_items .menus_item {
-    display: inline-block;
-    white-space: nowrap;
-    padding: 10px;
+  
+  #nav .menus_items {
+    display: flex;
+    justify-content: center; /* 居中对齐 */
+    align-items: center; /* 垂直居中 */
+    flex-wrap: nowrap; /* 防止换行 */
+    list-style: none; /* 移除默认的列表样式（如果是 <ul> <li> 结构） */
+    padding: 0;
+    margin: 0;
   }
+  
+  #nav .menus_items .menus_item {
+    display: inline-block; /* 确保菜单项是行内块级 */
+    white-space: nowrap; /* 防止内容换行 */
+    padding: 10px 15px; /* 适当的内边距 */
+  }
+  
 
   #nav .menus_items .menus_item:hover .menus_item_child {
     display: block;
