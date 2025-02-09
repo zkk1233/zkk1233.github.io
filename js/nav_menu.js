@@ -16,4 +16,5 @@ function percent() {
   if (btn) btn.innerHTML = result; // 更新进度
 }
 
-document.getElementById("page-name").innerText = document.title.split(" | 无言的奇妙小窝-[object Object]")[0];
+// 更新页面标题（去掉固定后缀）
+document.getElementById("page-name").innerText = document.title.split(" | ")[0];
