@@ -90,6 +90,11 @@
 /* 页脚透明 */
 
 
-
+#aside-content > .card-widget.card-info {
+  background-image: url(https://s11.ax1x.com/2023/05/02/p9GWEin.jpg);
+  background-repeat: no-repeat;
+  background-attachment: inherit;
+  background-size: 100%;
+}
 
 
