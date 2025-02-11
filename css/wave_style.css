@@ -96,3 +96,54 @@
     fill: #070b14
 }
 
+/*主页背景色*/
+#web_bg {
+	background: rgba(246, 239, 246);
+}
+[data-theme=dark]
+#web_bg {
+	background: rgb(4, 4, 4);
+}
+/*阅读模式背景色*/
+#content-inner {
+	background-color: #F6EFF6;
+}
+
+[data-theme=dark] #content-inner {
+	background-color: #020305
+}
+
+/****修改波浪特效fill属性处颜色值（#后六位，7、8位透明度不用改），rgba(246, 239, 246) 与 #F6EFF6 效果是一样的*****/
+.waves-area .parallax>use:first-child {
+    -webkit-animation-delay: -2s;
+    animation-delay: -2s;
+    -webkit-animation-duration: 7s;
+    animation-duration: 7s;
+    fill: #F6EFF6b3
+}
+
+.waves-area .parallax>use:nth-child(2) {
+    -webkit-animation-delay: -3s;
+    animation-delay: -3s;
+    -webkit-animation-duration: 10s;
+    animation-duration: 10s;
+    fill: #F6EFF680
+}
+
+.waves-area .parallax>use:nth-child(3) {
+    -webkit-animation-delay: -4s;
+    animation-delay: -4s;
+    -webkit-animation-duration: 13s;
+    animation-duration: 13s;
+    fill: #F6EFF64d
+}
+
+.waves-area .parallax>use:nth-child(4) {
+    -webkit-animation-delay: -5s;
+    animation-delay: -5s;
+    -webkit-animation-duration: 20s;
+    animation-duration: 20s;
+    fill: #F6EFF6
+}
+
+
