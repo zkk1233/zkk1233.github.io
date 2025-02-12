@@ -164,20 +164,6 @@
   </url>
   
   <url>
-    <loc>https://zkk1233.github.io/categories/%E7%BC%96%E7%A8%8B/</loc>
-    <lastmod>2025-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zkk1233.github.io/categories/%E6%BC%8F%E6%B4%9E/</loc>
-    <lastmod>2025-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zkk1233.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2025-02-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -185,7 +171,7 @@
   </url>
   
   <url>
-    <loc>https://zkk1233.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>https://zkk1233.github.io/categories/%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2025-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -199,7 +185,14 @@
   </url>
   
   <url>
-    <loc>https://zkk1233.github.io/categories/%E5%90%8E%E7%AB%AF/</loc>
+    <loc>https://zkk1233.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2025-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zkk1233.github.io/categories/%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2025-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -207,6 +200,13 @@
   
   <url>
     <loc>https://zkk1233.github.io/categories/kali%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
+    <lastmod>2025-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zkk1233.github.io/categories/%E5%90%8E%E7%AB%AF/</loc>
     <lastmod>2025-02-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
