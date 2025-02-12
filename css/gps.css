@@ -1,9 +1,27 @@
-/* 欢迎信息 */
 #welcome-info {
-    background: linear-gradient(45deg, #b9f4f3, #e3fbf9);
-    border-radius: 18px;
-    padding: 8px;
-  }
-  [data-theme="dark"] #welcome-info {
-    background: #212121;
-  }
+  overflow: hidden;
+  --icat-card-welcome: #49b1f5;
+}
+#welcome-info .welcome-time {
+  width: 100%;
+  margin: 12px 0 0;
+  display: inline-flex;
+}
+#welcome-info .welcome-message {
+  width: 100%;
+  margin-bottom: 8px;
+  display: inline-flex;
+}
+#welcome-info .welcome-region {
+  background: var(--icat-background);
+  border: var(--style-border);
+  color: var(--icat-fontcolor);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  margin: 6px 0;
+}
+
+/* 欢迎信息栏样式 */
+
