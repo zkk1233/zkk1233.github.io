@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zkk1233.github.io/2024/10/15/JavaScript/</loc>
+    <lastmod>2025-02-18</lastmod>
+  </url>
+  <url>
     <loc>https://zkk1233.github.io/2025/02/17/PHP%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2025-02-17</lastmod>
   </url>
@@ -39,10 +43,6 @@
   <url>
     <loc>https://zkk1233.github.io/2025/02/05/XSS%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2025-02-07</lastmod>
-  </url>
-  <url>
-    <loc>https://zkk1233.github.io/2024/10/15/JavaScript/</loc>
-    <lastmod>2025-02-05</lastmod>
   </url>
   <url>
     <loc>https://zkk1233.github.io/2025/02/05/BurpSuit%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
