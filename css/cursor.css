@@ -2,7 +2,7 @@
     position: fixed;
     width: 16px;
     height: 16px;
-    background: #000; /*修改鼠标跟随的颜色*/
+    background: #efa031; /*修改鼠标跟随的颜色*/
     border-radius: 8px;
     opacity: 0.25;
     z-index: 10086;
